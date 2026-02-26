@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Waitlist | Centhropy</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Funnel+Display:wght@300;500;700;900&family=JetBrains+Mono:wght@400;700&display=swap"
+        rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'funnel': ['"Funnel Display"', 'sans-serif'],
+                        'mono': ['"JetBrains Mono"', 'monospace'],
+                    },
+                    colors: {
+                        tactical: {
+                            black: '#000000',
+                            gray: '#888888',
+                            light: '#f4f4f4'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #ffffff;
+            color: #000000;
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .input-focus-effect:focus {
+            outline: none;
+            border-bottom-color: #000000;
+        }
+
+        .sharp-edges {
+            border-radius: 0px !important;
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 1s ease forwards;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes shimmer {
+            0% {
+                background-position: 200% 0;
+            }
+
+            100% {
+                background-position: -200% 0;
+            }
+        }
+
+        .shimmer-text {
+            background: linear-gradient(90deg, #9ca3af 20%, #111 50%, #9ca3af 80%);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shimmer 5s linear infinite;
+            display: block;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body class="font-funnel bg-white text-black selection:bg-black selection:text-white p-6">
+
+
+
+    <!-- Logo at the top -->
+    <div class="absolute top-12 left-1/2 -translate-x-1/2 z-20">
+        <a href="mockup_centrhopy_web.html"
+            class="text-2xl font-black tracking-tighter hover:text-black/70 transition-colors text-black block">Centhropy</a>
+    </div>
+
+    <!-- Info Icon top right - Sharp Edges & Hover Card -->
+    <div class="absolute top-12 right-8 md:right-12 z-20 group">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"
+            class="text-gray-300 group-hover:text-black transition-colors cursor-pointer">
+            <path d="M3 3h18v18H3z"></path>
+            <line x1="12" y1="16" x2="12" y2="11"></line>
+            <line x1="12" y1="8" x2="12.01" y2="8"></line>
+        </svg>
+
+        <!-- Tactical Info Card -->
+        <div
+            class="absolute top-10 right-0 w-64 bg-white border border-black p-5 opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 pointer-events-none transition-all duration-300 z-30">
+            <div class="mb-3 flex justify-between items-center border-b border-black/10 pb-2">
+                <span
+                    class="text-[9px] font-mono font-bold tracking-[0.2em] uppercase text-black">Protocol_Justification</span>
+                <span class="text-[9px] font-mono text-black/30">[01]</span>
+            </div>
+            <p class="text-[10px] font-mono leading-relaxed text-gray-600 uppercase tracking-wider text-justify">
+                Nuestra lista de espera actúa como filtro de integridad y control de calidad para asegurar una respuesta
+                operativa de alta precisión y personalizada para cada entidad admitida.
+            </p>
+            <div class="mt-4 pt-2 border-t border-black/5">
+                <span class="text-[8px] font-mono italic text-black/40">Exclusividad funcional autogestionada.</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="w-full max-w-lg fade-in-up pt-12">
+
+        <form class="space-y-8" autocomplete="off">
+            <!-- Full Name -->
+            <div class="group relative">
+                <label
+                    class="text-[11px] font-mono uppercase tracking-[0.2em] text-gray-400 group-focus-within:text-black transition-colors block mb-1">
+                    Nombre y Apellido
+                </label>
+                <input type="text" placeholder="Ej. Alex Mercer"
+                    class="w-full bg-transparent border-b border-black/20 py-3 text-lg font-medium sharp-edges input-focus-effect placeholder:text-black/30 placeholder:font-light transition-all text-black">
+            </div>
+
+            <!-- Organization -->
+            <div class="group relative">
+                <label
+                    class="text-[11px] font-mono uppercase tracking-[0.2em] text-gray-400 group-focus-within:text-black transition-colors block mb-1">
+                    Nombre de la Organización
+                </label>
+                <input type="text" placeholder="Centhropy Inc."
+                    class="w-full bg-transparent border-b border-black/20 py-3 text-lg font-medium sharp-edges input-focus-effect placeholder:text-black/30 placeholder:font-light transition-all text-black">
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Sector -->
+                <div class="group relative">
+                    <label
+                        class="text-[11px] font-mono uppercase tracking-[0.2em] text-gray-400 group-focus-within:text-black transition-colors block mb-1">
+                        Sector Específico
+                    </label>
+                    <input type="text" placeholder="Fintech / AI"
+                        class="w-full bg-transparent border-b border-black/20 py-3 text-lg font-medium sharp-edges input-focus-effect placeholder:text-black/30 placeholder:font-light transition-all text-black">
+                </div>
+
+                <!-- Email -->
+                <div class="group relative">
+                    <label
+                        class="text-[11px] font-mono uppercase tracking-[0.2em] text-gray-400 group-focus-within:text-black transition-colors block mb-1">
+                        Correo de Contacto
+                    </label>
+                    <input type="email" placeholder="contact@domain.com"
+                        class="w-full bg-transparent border-b border-black/20 py-3 text-lg font-medium sharp-edges input-focus-effect placeholder:text-black/30 placeholder:font-light transition-all text-black">
+                </div>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="pt-6">
+                <button type="submit"
+                    class="w-full bg-black text-white py-5 font-black uppercase tracking-[0.3em] text-sm hover:bg-gray-900 transition-all active:scale-[0.98] sharp-edges group flex items-center justify-center gap-3">
+                    <span>Ingresar</span>
+                    <svg class="w-4 h-4 transform group-hover:translate-x-1 transition-transform" fill="none"
+                        stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                    </svg>
+                </button>
+                <p
+                    class="shimmer-text text-[10px] mt-8 text-center font-mono uppercase tracking-widest leading-relaxed">
+                    Será evaluado y contactado por nuestro departamento de<br>integración estratégica.
+                </p>
+            </div>
+        </form>
+
+    </div>
+
+    <!-- Bottom Footer Section - Centered in column -->
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 w-full max-w-lg px-6 flex flex-col md:flex-row justify-between items-center gap-4 text-[8px] font-mono text-black/30 tracking-[0.2em] uppercase fade-in border-t border-black/5 pt-8"
+        style="animation-delay: 0.8s;">
+        <span>Authenticity_Guaranteed</span>
+        <a href="mockup_centrhopy_web.html"
+            class="hover:text-black transition-colors border-b border-black/10 pb-0.5">VOLVER AL HOME</a>
+        <span>Secure_Layer_v.04</span>
+    </div>
+
+</body>
+
+</html>

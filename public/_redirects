@@ -1,0 +1,6 @@
+# SPA Fallback for React Router
+
+/login https://app.centhropy.com 301!
+https://centhropyln.netlify.app/* https://centhropy.com/:splat 301!
+
+/*    /index.html   200
