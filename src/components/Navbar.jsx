@@ -13,9 +13,12 @@ const Navbar = ({ subtitle = "Unified Data Engine" }) => {
     return (
         <header className={`fixed top-0 left-0 right-0 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${menuOpen
             ? 'h-screen bg-black'
-            : 'h-[72px] md:h-[84px] backdrop-blur-[12px] bg-white/82'
+            : 'h-[72px] md:h-[84px] backdrop-blur-[12px] bg-white/80'
             }`}
             style={{ zIndex: 10000 }}>
+
+            {/* INTERNAL NAVBAR BACKGROUND (GLASS ON OPEN) */}
+            <div className={`absolute top-0 left-0 right-0 h-[72px] md:h-[84px] transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] z-40 ${menuOpen ? 'bg-black/80 backdrop-blur-2xl border-b border-white/10 opacity-100' : 'opacity-0 pointer-events-none'}`} />
 
             {/* TOP BAR — always visible, never moves */}
             <div className="flex justify-between items-center w-full max-w-[1800px] mx-auto px-5 md:px-10 h-[72px] md:h-[84px] shrink-0 relative z-50">

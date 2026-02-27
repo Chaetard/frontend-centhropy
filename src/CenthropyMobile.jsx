@@ -236,10 +236,8 @@ const CenthropyMobile = () => {
 
     // State for sticky reveal of system nodes
     const [openedNodes, setOpenedNodes] = useState(new Array(systemModules.length).fill(false));
-    const [openedSolutions, setOpenedSolutions] = useState(new Array(solutions.length).fill(false));
 
     const moduleRefs = useRef(systemModules.map(() => React.createRef()));
-    const solutionRefs = useRef(solutions.map(() => React.createRef()));
 
     // Removed old reveal logic for sectionRef and activeIndex
     // const sectionRef = useRef(null);
@@ -511,72 +509,54 @@ const CenthropyMobile = () => {
                             Servicios y tecnología diseñada para potenciar el control empresarial, la expansión de mercado y el crecimiento de organizaciones en el sector del eCommerce y el Retail.
                         </p>
                     </div>
-                    <div className="flex flex-col gap-4">
-                        {solutions.map((s, idx) => {
-                            const isOpened = openedSolutions[idx];
-                            const handleOpen = () => {
-                                if (!isOpened) {
-                                    setOpenedSolutions(prev => {
-                                        const next = [...prev];
-                                        next[idx] = true;
-                                        return next;
-                                    });
-                                }
-                            };
-
-                            return (
-                                <div
-                                    key={idx}
-                                    onClick={handleOpen}
-                                    className={`flex flex-col transition-all duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] overflow-hidden border ${isOpened ? 'bg-black text-white border-black p-8' : 'bg-white text-black border-white py-8 px-0'}`}
-                                >
-                                    {/* Título - Ahora siempre arriba para que el despliegue sea hacia abajo */}
-                                    <div className="flex items-center justify-between">
-                                        <h3 className={`text-2xl font-black uppercase tracking-tight transition-transform duration-700`}>
+                    <div className="relative group">
+                        {/* Indicador de Desplazamiento Lateral */}
+                        <div className="flex items-center gap-2 mb-6 opacity-30">
+                            <span className="text-[10px] font-bold uppercase tracking-[0.2em]">DESLIZA Y EXPLORA MÁS SOLUCIONES</span>
+                            <div className="h-[1px] w-12 bg-black" />
+                        </div>
+                        <div className="flex overflow-x-auto snap-x snap-mandatory gap-0 no-scrollbar -mx-6 pb-6">
+                            {solutions.map((s, idx) => (
+                                <div key={idx} className="w-screen flex-shrink-0 snap-center px-6">
+                                    <div className="bg-black border border-white/5 p-8 flex flex-col gap-8 min-h-[500px] h-full">
+                                        <h3 className="text-3xl font-black uppercase tracking-tighter text-white leading-none">
                                             {s.title}
                                         </h3>
-                                        <div className={`transition-all duration-700 ${isOpened ? 'opacity-0 scale-0' : 'opacity-20'}`}>
-                                            <ChevronRight size={24} />
+
+                                        <div className="w-full aspect-video overflow-hidden bg-white/10 shrink-0">
+                                            <img
+                                                src={s.img}
+                                                alt={s.title}
+                                                className="w-full h-full object-cover grayscale brightness-90 active:grayscale-0 transition-all duration-700"
+                                            />
                                         </div>
-                                    </div>
 
-                                    {/* Imagen con Reveal Elegante - Despliega debajo del título */}
-                                    <div className={`grid transition-all duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] ${isOpened ? 'grid-rows-[1fr] opacity-100 mt-8' : 'grid-rows-[0fr] opacity-0 mt-0'}`}>
-                                        <div className="overflow-hidden">
-                                            <div className="w-full aspect-video overflow-hidden">
-                                                <img
-                                                    src={s.img}
-                                                    alt={s.title}
-                                                    className={`w-full h-full object-cover grayscale brightness-75 transition-transform duration-1000 ${isOpened ? 'scale-100' : 'scale-110'}`}
-                                                />
-                                            </div>
-                                        </div>
-                                    </div>
+                                        <div className="flex flex-col gap-6 flex-grow justify-between">
+                                            <p className="text-[16px] font-light leading-relaxed text-white/70">
+                                                {s.desc}
+                                            </p>
 
-                                    {/* Contenido Emergente (Desc + Botón) - Despliega debajo de la imagen */}
-                                    <div className={`grid transition-[grid-template-rows,margin] duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] ${isOpened ? 'grid-rows-[1fr] mt-8' : 'grid-rows-[0fr] mt-0'}`}>
-                                        <div className="overflow-hidden">
-                                            <div className="flex flex-col gap-8 pb-4">
-                                                {/* Descripción */}
-                                                <p className={`text-[15px] font-light leading-relaxed opacity-70 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${isOpened ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}>
-                                                    {s.desc}
-                                                </p>
-
-                                                {/* Botón */}
-                                                <div className={`transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${isOpened ? 'translate-y-0 delay-[400ms]' : 'translate-y-24 delay-0'}`}>
-                                                    <Link
-                                                        to="/waitlist"
-                                                        className="w-full flex items-center justify-center border-white border-[0.5px] p-5 active:bg-white active:text-black"
-                                                    >
-                                                        <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-white">Conectar</span>
-                                                    </Link>
-                                                </div>
+                                            <div className="mt-4 flex justify-end">
+                                                <Link
+                                                    to="/waitlist"
+                                                    className="inline-flex items-center gap-2 group p-2 -mr-2 active:opacity-50 transition-opacity"
+                                                >
+                                                    <span className="text-[11px] font-bold uppercase tracking-[0.4em] text-white">Conectar</span>
+                                                    <ChevronRight size={18} className="text-white group-active:translate-x-1 transition-transform" />
+                                                </Link>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            );
-                        })}
+                            ))}
+                        </div>
+
+                        {/* Dots de Navegación (Visuales) */}
+                        <div className="flex justify-center gap-2.5 mt-4 pb-12">
+                            {solutions.map((_, i) => (
+                                <div key={i} className="w-1.5 h-1.5 rounded-full bg-black/10" />
+                            ))}
+                        </div>
                     </div>
                 </div>
 
