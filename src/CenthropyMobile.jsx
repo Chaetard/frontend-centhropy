@@ -135,7 +135,7 @@ const SphereCanvasMobile = React.memo(({ probeDataRef, hudRef }) => {
 const CenthropyMobile = () => {
     const hudRef = useRef(null);
     const probeDataRef = useRef({ phi: Math.PI * 0.5, theta: Math.PI * 0.5 });
-    const [openModule, setOpenModule] = useState(null);
+    const [openModule, setOpenModule] = useState(0);
     const [probeMetrics, setProbeMetrics] = useState({
         lat: '0.00° N', lon: '0.00° E',
         roi: '28.6%', margin: '41.0%',
@@ -212,50 +212,67 @@ const CenthropyMobile = () => {
     }, []);
 
     const modules = [
-        { w: 'Control', desc: 'Gestión enfocada en elevar el control general de las organizaciones, mediante la centralización de flujos de datos, análisis avanzados y toma de decisiones.' },
-        { w: 'Optimización', desc: 'Refinamiento continuo de esfuerzos, recursos y estrategias de negocio, por medio de la generación constante de insights accionables de alto impacto.' },
-        { w: 'Escalabilidad', desc: 'Aumento en la capacidad organizacional de multiplicar resultados exponencialmente, aplicando tácticas de negocio avanzadas en tiempo real.' },
-        { w: 'Crecimiento', desc: 'Estrategias de expansión impulsadas por inteligencia de datos, que detectan oportunidades de mercado, optimizan el rendimiento e incrementan las ventas.' },
-        { w: 'Rentabilidad', desc: 'El enfoque "Data-Driven-Growth" aumenta la capacidad en las organizaciones de alcanzar y superar sus propios objetivos de rentabilización.' }
+        { w: 'Control', desc: 'Tecnología desarrollada para elevar el control empresarial, mediante la centralización y unificación de tres elementos: Datos, Análisis y Decisiones.' },
+        { w: 'Optimización', desc: 'Impulsar el refinamiento continuo de procesos, recursos y estrategias de negocio, por medio de la generación constante de insights accionables y de alto impacto.' },
+        { w: 'Escalabilidad', desc: 'Otorgar a las organizaciones, la capacidad de multiplicar sus propios resultados exponencialmente, mediante la implementación de estrategias generadas en Unify.' },
+        { w: 'Crecimiento', desc: 'Generar estrategias de negocio accionables, mediante la detección constante y en tiempo real, de oportunidades para incrementar ventas y ganancias.' },
+        { w: 'Rentabilidad', desc: 'Crear la tecnología Unify bajo el enfoque “Data Driven Growth”, permite garantizar que las organizaciones aumenten su capacidad de alcanzar y superar sus objetivos de rentabilización.' }
     ];
 
     const systemModules = [
-        { id: 'SYS.01', t1: 'Unify', t2: 'Protocol', short: 'UP', img: '/Unifyprotocol.jpg', desc: 'Protocolo de ontología diseñado para descifrar el pulso de vida de las organizaciones con un grado de precisión militar.' },
-        { id: 'SYS.02', t1: 'Unify Data', t2: 'Center', short: 'DC', img: '/Unifydc.jpg', desc: 'Centro de unificación y análisis avanzado de datos, desarrollado para impulsar decisiones de negocio enfocadas en el crecimiento y el control de las organizaciones. UDC cuenta con una interfaz simplificada e intuitiva, potenciada por nuestro Unify Agent (Analista de Datos en Lenguaje Natural de Última Generación).' },
-        { id: 'SYS.03', t1: 'Unify', t2: 'Agent', short: 'UA', img: '/Unifyagent3.0.jpg', desc: 'Agente de inteligencia avanzada de datos, es un copiloto ideal para la toma de decisiones ágiles centradas en el crecimiento, la optimización y el control.' },
-        { id: 'SYS.04', t1: 'Unify', t2: 'Team', short: 'UT', img: '/Unifyteam.jpg', desc: 'Equipo de élite especializado en Data-Driven-Growth y enfocado en garantizar la confiabilidad de todo el ecosistema Unify.' }
+        { id: 'SYS.01', t1: 'Unify', t2: 'Protocol', short: 'UP', img: '/Unifyprotocol.jpg', desc: 'Protocolo de ontología de datos, diseñado para descifrar, con grado de precisión militar, el comportamiento real y potencial de las organizaciones, permitiendo garantizar resultados de alto impacto.' },
+        { id: 'SYS.02', t1: 'Unify Data', t2: 'Center', short: 'DC', img: '/Unifydc.jpg', desc: 'Centro de unificación y análisis avanzado de datos, desarrollado como plataforma para potenciar la toma de decisión en las organizaciones. UDC es una interfaz intuitiva, impulsada por nuestro Unify Agent (Analista Inteligente de Datos de Última Generación).' },
+        { id: 'SYS.03', t1: 'Unify', t2: 'Agent', short: 'UA', img: '/Unifyagent3.0.jpg', desc: 'Analista de datos de última generación, creado para ser el copiloto ideal en la dirección corporativa, impulsando la agilidad y efectividad en la toma decisiones centradas en el crecimiento.' },
+        { id: 'SYS.04', t1: 'Unify', t2: 'Team', short: 'UT', img: '/Unifyteam.jpg', desc: 'Equipo humano de élite, especializado y enfocado en garantizar la confiabilidad, eficacia y sostenibilidad del ecosistema Unify.' }
     ];
 
     // Solutions Accordion State
     const [activeSolution, setActiveSolution] = useState(0);
     const solutions = [
-        { id: '01', title: 'Unify Data Center', img: '/Unifydc.jpg', desc: 'Centro de unificación y análisis avanzado de datos, desarrollado para impulsar decisiones de negocio enfocadas en el crecimiento y el control de las organizaciones. UDC cuenta con una interfaz simplificada e intuitiva, potenciada por nuestro Unify Agent (Analista de Datos en Lenguaje Natural de Última Generación).' },
-        { id: '02', title: 'TI Outsourcing', img: '/Unifyprotocol.jpg', desc: 'Gestión integral de infraestructura de datos, desde la ingesta, limpieza y transformación, hasta la digitalización, almacenamiento, sistemas de búsqueda semántica y RAG.' },
-        { id: '03', title: 'Retail Intelligence', img: '/Unifyagent3.0.jpg', desc: 'Gestión 360° eCommerce: desarrollo, operación estratégica, investigaciones de mercados y toma de decisiones accionables enfocadas en maximizar la conversión, el crecimiento y la rentabilidad.' }
+        { id: '01', title: 'Unify Data Center', img: '/Unifydc.jpg', desc: 'Interfaz simple e intuitiva, desarrollada para centralizar y unificar datos, análisis y decisiones, con el objetivo de optimizar el control y el crecimiento empresarial. UDC posee integración nativa con nuestro agente de datos inteligente Unify Agent.' },
+        { id: '02', title: 'TI Outsourcing', img: '/Unifyprotocol.jpg', desc: 'Gestión integral de infraestructura de datos. Desde la ingesta, limpieza y transformación, hasta la digitalización almacenamiento, sistemas de búsqueda semántica y RAG.' },
+        { id: '03', title: 'Retail Intelligence', img: '/Unifyagent3.0.jpg', desc: 'Gestión de Crecimiento 360°: Desarrollo y gestión de eCommerce, dirección de estratégica y operativa, investigación de mercado y toda la potencia del ecosistema Unify, enfocada en maximizar la conversión, impulsar el crecimiento y elevar la rentabilidad.' }
     ];
 
-    // Reveal Logic State
-    const [reveals, setReveals] = useState([0, 0, 0, 0]);
+    // State for sticky reveal of system nodes
+    const [openedNodes, setOpenedNodes] = useState(new Array(systemModules.length).fill(false));
+    const [openedSolutions, setOpenedSolutions] = useState(new Array(solutions.length).fill(false));
+
     const moduleRefs = useRef(systemModules.map(() => React.createRef()));
+    const solutionRefs = useRef(solutions.map(() => React.createRef()));
+
+    // Removed old reveal logic for sectionRef and activeIndex
+    // const sectionRef = useRef(null);
+    // const [activeIndex, setActiveIndex] = useState(0);
 
     useEffect(() => {
-        const handleScroll = () => {
-            const h = window.innerHeight;
-            const focusLine = h * 0.45;
-            const newReveals = moduleRefs.current.map(ref => {
-                if (!ref.current) return 0;
-                const rect = ref.current.getBoundingClientRect();
-                const center = rect.top + rect.height / 2;
-                const distFromFocus = Math.abs(center - focusLine);
-                const range = h * 0.35;
-                let factor = 1 - (distFromFocus / range);
-                return Math.max(0, Math.min(1, factor));
-            });
-            setReveals(newReveals);
+        const observerOptions = {
+            // Umbral más exigente para asegurar que la tarjeta esté bien encuadrada
+            threshold: 0.4,
+            // Matamos el 55% inferior del viewport: la tarjeta debe subir hasta
+            // la zona media-superior para activarse y que el usuario vea el despliegue.
+            rootMargin: '0px 0px -55% 0px'
         };
-        window.addEventListener('scroll', handleScroll);
-        handleScroll();
-        return () => window.removeEventListener('scroll', handleScroll);
+
+        const observers = moduleRefs.current.map((ref, idx) => {
+            const observer = new IntersectionObserver(([entry]) => {
+                if (entry.isIntersecting) {
+                    setOpenedNodes(prev => {
+                        const next = [...prev];
+                        next[idx] = true;
+                        return next;
+                    });
+                    observer.unobserve(entry.target);
+                }
+            }, observerOptions);
+
+            if (ref.current) observer.observe(ref.current);
+            return observer;
+        });
+
+        return () => {
+            observers.forEach(o => o.disconnect());
+        };
     }, []);
 
     // Live probe metrics
@@ -325,7 +342,7 @@ const CenthropyMobile = () => {
 
             {/* HUD / INSIGHTS PANEL */}
             <div className="fixed bottom-6 left-6 right-6 z-10 pointer-events-auto">
-                <div className="w-full border-t border-black/15 pt-5 flex flex-col gap-5">
+                <div className="w-full border-t border-black/15 pt-5 flex flex-col gap-3">
                     <div className="flex justify-between items-end w-full">
                         <div className="flex flex-col">
                             <span className="text-xl font-black uppercase tracking-tighter leading-none min-h-[1.2em]">
@@ -343,48 +360,43 @@ const CenthropyMobile = () => {
                         </div>
                     </div>
 
-                    <div className="w-full flex flex-col gap-2">
-                        <div className="flex flex-col font-funnel text-xs text-black">
-                            <div className="flex justify-between border-b border-black/10 py-2">
-                                <span className="text-black/40 uppercase tracking-widest font-bold text-[10px]">Lat. Core</span>
-                                <span className="font-bold tabular-nums text-[12px]">{probeMetrics.lat}</span>
-                            </div>
-                            <div className="flex justify-between border-b border-black/10 py-2">
-                                <span className="text-black/40 uppercase tracking-widest font-bold text-[10px]">Lon. Core</span>
-                                <span className="font-bold tabular-nums text-[12px]">{probeMetrics.lon}</span>
-                            </div>
-                            <div className="flex justify-between py-2">
-                                <span className="text-black/40 uppercase tracking-widest font-bold text-[10px]">ROI Logic</span>
-                                <span className="font-bold tabular-nums text-[12px]">{probeMetrics.roi}</span>
-                            </div>
+                    <div className="flex flex-col font-funnel text-xs text-black">
+                        <div className="flex justify-between border-b border-black/10 py-2">
+                            <span className="text-black/40 uppercase tracking-widest font-bold text-[10px]">Lat. Core</span>
+                            <span className="font-bold tabular-nums text-[12px]">{probeMetrics.lat}</span>
                         </div>
-                        <div className="flex flex-col gap-1.5 pt-3">
-                            <div className="w-full h-[1.5px] bg-black/10 relative overflow-hidden">
-                                <div
-                                    className="absolute inset-y-0 left-0 bg-black transition-all duration-300"
-                                    style={{ width: probeMetrics.progress }}
-                                />
-                            </div>
-                            <div className="flex justify-between text-[9px] font-funnel uppercase font-bold text-black/30">
-                                <span className="tabular-nums tracking-widest">{probeMetrics.timer}</span>
-                                <span className="tracking-widest text-[8px]">Active Stream</span>
-                            </div>
+                        <div className="flex justify-between py-2">
+                            <span className="text-black/40 uppercase tracking-widest font-bold text-[10px]">Lon. Core</span>
+                            <span className="font-bold tabular-nums text-[12px]">{probeMetrics.lon}</span>
+                        </div>
+                    </div>
+                    <div className="flex flex-col gap-1.5 pt-0">
+                        <div className="w-full h-[1.5px] bg-black/10 relative overflow-hidden">
+                            <div
+                                className="absolute inset-y-0 left-0 bg-black transition-all duration-300"
+                                style={{ width: probeMetrics.progress }}
+                            />
+                        </div>
+                        <div className="flex justify-between text-[9px] font-funnel uppercase font-bold text-black/30">
+                            <span className="tabular-nums tracking-widest">{probeMetrics.timer}</span>
+                            <span className="tracking-widest text-[8px]">Active Stream</span>
                         </div>
                     </div>
                 </div>
             </div>
 
             {/* MAIN CONTENT AREA */}
-            <main className="relative z-20 bg-white pt-16 pb-24 px-6 flex flex-col gap-16">
-                <div className="flex flex-col gap-5 text-center items-center w-full mb-12">
+            <main className="relative z-20 bg-white pt-16 pb-24 px-6 flex flex-col gap-10">
+                <div className="flex flex-col gap-6 text-center items-center w-full">
                     <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-black/30">Centhropy // Unify Ecosystem</span>
-                    <h2 className="text-[32px] font-medium tracking-tight leading-[1.0] text-black flex flex-col gap-0 w-full">
+                    <h2 className="text-[7.4vw] min-[400px]:text-[28px] font-medium tracking-tight leading-[1.2] text-black flex flex-col gap-0 w-full">
                         {[
-                            "Ecosistema que optimiza",
-                            "decisiones en tiempo real en",
-                            "organizaciones de alto valor,",
-                            "potenciadas con inteligencia",
-                            "de datos avanzada."
+                            "Ecosistema creado para",
+                            "potenciar y optimizar,",
+                            "en tiempo real, la",
+                            "toma de decisiones",
+                            "en organizaciones de",
+                            "alto valor."
                         ].map((line, i) => (
                             <span
                                 key={i}
@@ -399,7 +411,7 @@ const CenthropyMobile = () => {
                     </h2>
                 </div>
 
-                <div className="flex justify-center -mt-8 mb-8">
+                <div className="flex justify-center">
                     <svg width="60" height="30" viewBox="0 0 60 30" fill="none" xmlns="http://www.w3.org/2000/svg" className="opacity-80">
                         <path d="M10 5L30 25L50 5" stroke="black" strokeWidth="1.5" strokeOpacity="0.1" strokeLinecap="square" strokeLinejoin="miter" />
                         <path d="M10 5L30 25L50 5" stroke="black" strokeWidth="1.5" strokeLinecap="square" strokeLinejoin="miter" className="energy-path" />
@@ -411,51 +423,80 @@ const CenthropyMobile = () => {
                         <div
                             key={i}
                             onClick={() => setOpenModule(openModule === i ? null : i)}
-                            className={`border border-black/5 p-6 transition-all duration-500 ease-out ${openModule === i ? 'bg-black text-white' : 'bg-white text-black'}`}
+                            className={`border border-black/[0.03] p-6 transition-colors duration-500 ease-out ${openModule === i ? 'bg-black' : 'bg-white'}`}
                         >
                             <div className="flex justify-between items-center">
-                                <span className="text-xl font-black uppercase tracking-tight">{m.w}</span>
+                                <span className={`text-xl font-black uppercase tracking-tight ${openModule === i ? 'text-white' : 'text-black'}`}>{m.w}</span>
                                 <ChevronRight
-                                    className={`transition-transform duration-500 ${openModule === i ? 'rotate-90' : 'rotate-0 text-black/20'}`}
+                                    className={`transition-transform duration-500 ${openModule === i ? 'rotate-90 text-white' : 'rotate-0 text-black/20'}`}
                                     size={20}
                                 />
                             </div>
-                            <div className={`grid transition-all duration-500 ${openModule === i ? 'grid-rows-[1fr] mt-4 opacity-100' : 'grid-rows-[0fr] opacity-0'}`}>
-                                <p className="overflow-hidden text-sm font-light leading-relaxed opacity-70">{m.desc}</p>
+                            <div className={`grid transition-[grid-template-rows] duration-500 ease-out ${openModule === i ? 'grid-rows-[1fr] mt-4' : 'grid-rows-[0fr]'}`}>
+                                <p className={`overflow-hidden text-sm font-light leading-relaxed text-white/70`}>
+                                    {m.desc}
+                                </p>
                             </div>
                         </div>
                     ))}
                 </div>
 
-                <div className="flex flex-col border-t border-black/10 pt-16 -mx-6 px-6 bg-white">
-                    <div className="flex flex-col mb-12 px-6">
-                        <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-black/30">Core Ecosystem // Nodes</span>
+                <div className="flex flex-col border-t border-white/20 pt-16 -mx-6 px-6 bg-white">
+                    <div className="flex flex-col mb-16">
+                        <h2 className="text-4xl font-black uppercase tracking-tighter text-black">NÚCLEO DE ECOSISTEMA</h2>
                     </div>
                     <div className="flex flex-col gap-12">
                         {systemModules.map((comp, idx) => {
-                            const isOpen = reveals[idx] > 0.4;
+                            const isOpened = openedNodes[idx];
                             return (
                                 <div
                                     key={idx}
                                     ref={moduleRefs.current[idx]}
-                                    className="relative w-full aspect-[3/2] overflow-hidden bg-white border border-black/5"
+                                    className="relative w-full bg-[#f5f5f5] border border-black/[0.05] p-8 flex flex-col overflow-hidden"
                                 >
-                                    <div className="absolute inset-0 z-10 flex flex-col justify-end p-8 gap-6 bg-white">
-                                        <div className="flex justify-between items-start border-b border-black/5 pb-4">
-                                            <span className="text-[12px] font-bold text-black font-funnel">{comp.id}</span>
-                                            <span className="text-[10px] font-bold uppercase tracking-widest text-black/40">{comp.short}</span>
-                                        </div>
-                                        <h4 className="text-[40px] font-black tracking-tighter uppercase leading-[0.85] text-black">
-                                            {comp.t1} <br />
-                                            <span className="text-black">{comp.t2}</span>
-                                        </h4>
-                                        <p className="text-sm font-light leading-relaxed text-black/70">{comp.desc}</p>
+                                    {/* ID y Marcador - Ahora dentro de la tarjeta gris */}
+                                    <div className={`flex justify-between items-center border-b border-black/10 pb-4 mb-8 transition-opacity duration-1000 ${isOpened ? 'opacity-100' : 'opacity-30'}`}>
+                                        <span className="text-[10px] font-bold text-black/40 tracking-[0.3em]">{comp.id}</span>
+                                        <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-black/30">{comp.short}</span>
                                     </div>
+
+                                    {/* Imagen Superior Estática */}
+                                    <div className="relative w-full aspect-[16/9] overflow-hidden bg-white/50">
+                                        <img
+                                            src={comp.img}
+                                            alt={comp.t1}
+                                            className={`w-full h-full object-cover grayscale transition-all duration-1000 ${isOpened ? 'brightness-100 scale-100' : 'brightness-50 scale-110'}`}
+                                        />
+                                    </div>
+
+                                    {/* Contenido que emerge hacia abajo */}
                                     <div
-                                        className="absolute inset-0 z-20 transition-transform duration-700 ease-in-out will-change-transform"
-                                        style={{ transform: `translateY(${isOpen ? '-100%' : '0%'})` }}
+                                        className={`grid transition-[grid-template-rows,opacity,transform] duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] ${isOpened ? 'grid-rows-[1fr] opacity-100 translate-y-0' : 'grid-rows-[0fr] opacity-0 translate-y-[-20px]'}`}
                                     >
-                                        <img src={comp.img} alt={comp.t1} className="w-full h-full object-cover grayscale brightness-50" />
+                                        <div className="overflow-hidden">
+                                            <div className="pt-10 flex flex-col gap-8">
+                                                <h4 className="text-[42px] font-black tracking-tighter uppercase leading-[0.85] text-black">
+                                                    {comp.t1} <br />
+                                                    {comp.t2}
+                                                </h4>
+
+                                                <p className="text-[17px] font-light leading-relaxed text-black/70">
+                                                    {comp.desc}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {/* Nueva Línea y Etiquetas Inferiores - Siempre visibles, se desplazan con el contenido */}
+                                    <div className="flex flex-col mt-8">
+                                        <div className="w-full border-t border-black/10 pt-4 flex justify-between items-center transition-opacity duration-1000">
+                                            <div className={`flex flex-col transition-all duration-1000 ${isOpened ? 'opacity-100' : 'opacity-30'}`}>
+                                                <span className="text-[9px] font-bold text-black/40 tracking-[0.3em] uppercase">Status // Encrypted</span>
+                                            </div>
+                                            <div className={`flex flex-col transition-all duration-1000 ${isOpened ? 'opacity-100' : 'opacity-30'}`}>
+                                                <span className="text-[9px] font-bold text-black/30 tracking-[0.2em] uppercase">Verified System</span>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             );
@@ -463,44 +504,74 @@ const CenthropyMobile = () => {
                     </div>
                 </div>
 
-                <div className="flex flex-col gap-10 border-t border-black/10 pt-16 -mx-6 px-6 bg-white">
-                    <div className="flex flex-col gap-4">
+                <div className="flex flex-col gap-10 border-t border-white/20 pt-16 -mx-6 px-6 bg-white">
+                    <div className="flex flex-col gap-6">
                         <h2 className="text-4xl font-black uppercase tracking-tighter text-black">Soluciones</h2>
-                        <p className="text-lg font-medium text-black/60 leading-tight">
-                            Impulsamos el control, la optimización y la expansión de organizaciones en sectores de eCommerce y Retail.
+                        <p className="text-xl font-light text-black/60 leading-[1.25] tracking-tight">
+                            Servicios y tecnología diseñada para potenciar el control empresarial, la expansión de mercado y el crecimiento de organizaciones en el sector del eCommerce y el Retail.
                         </p>
                     </div>
                     <div className="flex flex-col gap-4">
                         {solutions.map((s, idx) => {
-                            const isActive = activeSolution === idx;
+                            const isOpened = openedSolutions[idx];
+                            const handleOpen = () => {
+                                if (!isOpened) {
+                                    setOpenedSolutions(prev => {
+                                        const next = [...prev];
+                                        next[idx] = true;
+                                        return next;
+                                    });
+                                }
+                            };
+
                             return (
                                 <div
                                     key={idx}
-                                    onClick={() => setActiveSolution(idx)}
-                                    className={`flex flex-col transition-all duration-700 ease-[cubic-bezier(0.23,1,0.32,1)] overflow-hidden border ${isActive ? 'bg-black text-white border-black p-6' : 'bg-white text-black border-white py-6 px-0'}`}
+                                    onClick={handleOpen}
+                                    className={`flex flex-col transition-all duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] overflow-hidden border ${isOpened ? 'bg-black text-white border-black p-8' : 'bg-white text-black border-white py-8 px-0'}`}
                                 >
-                                    <div className={`grid transition-all duration-700 ease-in-out ${isActive ? 'grid-rows-[1fr] opacity-100 mb-8' : 'grid-rows-[0fr] opacity-0'}`}>
-                                        <div className="overflow-hidden">
-                                            <div className="w-full aspect-video overflow-hidden">
-                                                <img src={s.img} alt={s.title} className="w-full h-full object-cover grayscale brightness-75" />
-                                            </div>
-                                        </div>
-                                    </div>
+                                    {/* Título - Ahora siempre arriba para que el despliegue sea hacia abajo */}
                                     <div className="flex items-center justify-between">
-                                        <h3 className="text-2xl font-black uppercase tracking-tight">{s.title}</h3>
-                                        <div className={`transition-all duration-500 ${isActive ? 'opacity-0 scale-0' : 'opacity-20'}`}>
+                                        <h3 className={`text-2xl font-black uppercase tracking-tight transition-transform duration-700`}>
+                                            {s.title}
+                                        </h3>
+                                        <div className={`transition-all duration-700 ${isOpened ? 'opacity-0 scale-0' : 'opacity-20'}`}>
                                             <ChevronRight size={24} />
                                         </div>
                                     </div>
-                                    <div className={`grid transition-all duration-700 ease-in-out ${isActive ? 'grid-rows-[1fr] opacity-100 mt-6' : 'grid-rows-[0fr] opacity-0'}`}>
-                                        <div className="overflow-hidden flex flex-col gap-6">
-                                            <p className="text-sm font-light leading-relaxed opacity-70">{s.desc}</p>
-                                            <Link
-                                                to="/waitlist"
-                                                className="w-full flex items-center justify-center border-[0.3px] border-white p-4 group active:bg-white active:text-black transition-all duration-300"
-                                            >
-                                                <span className="text-[11px] font-medium uppercase tracking-[0.3em]">Conectar</span>
-                                            </Link>
+
+                                    {/* Imagen con Reveal Elegante - Despliega debajo del título */}
+                                    <div className={`grid transition-all duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] ${isOpened ? 'grid-rows-[1fr] opacity-100 mt-8' : 'grid-rows-[0fr] opacity-0 mt-0'}`}>
+                                        <div className="overflow-hidden">
+                                            <div className="w-full aspect-video overflow-hidden">
+                                                <img
+                                                    src={s.img}
+                                                    alt={s.title}
+                                                    className={`w-full h-full object-cover grayscale brightness-75 transition-transform duration-1000 ${isOpened ? 'scale-100' : 'scale-110'}`}
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {/* Contenido Emergente (Desc + Botón) - Despliega debajo de la imagen */}
+                                    <div className={`grid transition-[grid-template-rows,margin] duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] ${isOpened ? 'grid-rows-[1fr] mt-8' : 'grid-rows-[0fr] mt-0'}`}>
+                                        <div className="overflow-hidden">
+                                            <div className="flex flex-col gap-8 pb-4">
+                                                {/* Descripción */}
+                                                <p className={`text-[15px] font-light leading-relaxed opacity-70 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${isOpened ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}>
+                                                    {s.desc}
+                                                </p>
+
+                                                {/* Botón */}
+                                                <div className={`transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${isOpened ? 'translate-y-0 delay-[400ms]' : 'translate-y-24 delay-0'}`}>
+                                                    <Link
+                                                        to="/waitlist"
+                                                        className="w-full flex items-center justify-center border-white border-[0.5px] p-5 active:bg-white active:text-black"
+                                                    >
+                                                        <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-white">Conectar</span>
+                                                    </Link>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -520,8 +591,8 @@ const CenthropyMobile = () => {
                         <ChevronRight size={40} />
                     </Link>
                 </div>
-            </main>
-        </div>
+            </main >
+        </div >
     );
 };
 

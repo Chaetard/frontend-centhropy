@@ -164,27 +164,27 @@ const CenthropyDesktop = () => {
         {
             l: 'Metric_01',
             w: 'Control',
-            desc: 'Gestión enfocada en elevar el control general de las organizaciones, mediante la centralización de flujos de datos, análisis avanzados y toma de decisiones.'
+            desc: 'Tecnología desarrollada para elevar el control empresarial, mediante la centralización y unificación de tres elementos: Datos, Análisis y Decisiones.'
         },
         {
             l: 'Logic_02',
             w: 'Optimización',
-            desc: 'Refinamiento continuo de esfuerzos, recursos y estrategias de negocio, por medio de la generación constante de insights accionables de alto impacto.'
+            desc: 'Impulsar el refinamiento continuo de procesos, recursos y estrategias de negocio, por medio de la generación constante de insights accionables y de alto impacto.'
         },
         {
             l: 'Core_03',
             w: 'Escalabilidad',
-            desc: 'Aumento en la capacidad organizacional de multiplicar resultados exponencialmente, aplicando tácticas de negocio avanzadas en tiempo real.'
+            desc: 'Otorgar a las organizaciones, la capacidad de multiplicar sus propios resultados exponencialmente, mediante la implementación de estrategias generadas en Unify.'
         },
         {
             l: 'Goal_04',
             w: 'Crecimiento',
-            desc: 'Estrategias de expansión impulsadas por inteligencia de datos, que detectan oportunidades de mercado, optimizan el rendimiento e incrementan las ventas.'
+            desc: 'Generar estrategias de negocio accionables, mediante la detección constante y en tiempo real, de oportunidades para incrementar ventas y ganancias.'
         },
         {
             l: 'Yield_05',
             w: 'Rentabilidad',
-            desc: 'El enfoque "Data-Driven-Growth" aumenta la capacidad en las organizaciones de alcanzar y superar sus propios objetivos de rentabilización.'
+            desc: 'Crear la tecnología Unify bajo el enfoque “Data Driven Growth”, permite garantizar que las organizaciones aumenten su capacidad de alcanzar y superar sus objetivos de rentabilización.'
         }
     ];
 
@@ -397,10 +397,10 @@ const CenthropyDesktop = () => {
                             <div className="max-w-6xl mx-auto mb-32 text-center">
                                 <h2 className="text-3xl md:text-[64px] font-normal tracking-tight leading-[1.0] text-black flex flex-col gap-0">
                                     {[
-                                        "Ecosistema que optimiza decisiones",
-                                        "en tiempo real en organizaciones",
-                                        "de alto valor, potenciadas con",
-                                        "inteligencia de datos avanzada."
+                                        "Ecosistema creado para potenciar",
+                                        "y optimizar, en tiempo real, la",
+                                        "toma de decisiones en",
+                                        "organizaciones de alto valor."
                                     ].map((line, i) => (
                                         <span
                                             key={i}
@@ -424,10 +424,10 @@ const CenthropyDesktop = () => {
 
                             <div className="flex flex-col">
                                 {[
-                                    { id: 'SYS.01', t1: 'Unify', t2: 'Protocol', short: 'UP', desc: 'Protocolo de ontología diseñado para descifrar el pulso de vida de las organizaciones con un grado de precisión militar.' },
-                                    { id: 'SYS.02', t1: 'Unify Data', t2: 'Center', short: 'DC', desc: 'Centro de unificación y análisis avanzado de datos, desarrollado para impulsar decisiones de negocio enfocadas en el crecimiento y el control de las organizaciones. UDC cuenta con una interfaz simplificada e intuitiva, potenciada por nuestro Unify Agent (Analista de Datos en Lenguaje Natural de Última Generación).' },
-                                    { id: 'SYS.03', t1: 'Unify', t2: 'Agent', short: 'UA', desc: 'Agente de inteligencia avanzada de datos, es un copiloto ideal para la toma de decisiones ágiles centradas en el crecimiento, la optimización y el control.' },
-                                    { id: 'SYS.04', t1: 'Unify', t2: 'Team', short: 'UT', desc: 'Equipo de élite especializado en Data-Driven-Growth y enfocado en garantizar la confiabilidad de todo el ecosistema Unify.' }
+                                    { id: 'SYS.01', t1: 'Unify', t2: 'Protocol', short: 'UP', desc: 'Protocolo de ontología de datos, diseñado para descifrar, con grado de precisión militar, el comportamiento real y potencial de las organizaciones, permitiendo garantizar resultados de alto impacto.' },
+                                    { id: 'SYS.02', t1: 'Unify Data', t2: 'Center', short: 'DC', desc: 'Centro de unificación y análisis avanzado de datos, desarrollado como plataforma para potenciar la toma de decisión en las organizaciones. UDC es una interfaz intuitiva, impulsada por nuestro Unify Agent (Analista Inteligente de Datos de Última Generación).' },
+                                    { id: 'SYS.03', t1: 'Unify', t2: 'Agent', short: 'UA', desc: 'Analista de datos de última generación, creado para ser el copiloto ideal en la dirección corporativa, impulsando la agilidad y efectividad en la toma decisiones centradas en el crecimiento.' },
+                                    { id: 'SYS.04', t1: 'Unify', t2: 'Team', short: 'UT', desc: 'Equipo humano de élite, especializado y enfocado en garantizar la confiabilidad, eficacia y sostenibilidad del ecosistema Unify.' }
                                 ].map((comp, idx) => (
                                     <div key={idx} className="flex flex-col md:flex-row items-center border-t border-black/10 py-16 md:py-32 gap-24 group transition-all duration-500 hover:bg-black/[0.01]">
                                         <div className="w-full md:w-[240px] flex flex-col gap-6">
@@ -493,21 +493,21 @@ const CenthropyDesktop = () => {
                                             id: 'SERV.01',
                                             title: 'Unify Data Center',
                                             subtitle: 'Centro de Datos y Decisiones',
-                                            desc: 'Centro de unificación y análisis avanzado de datos, desarrollado para impulsar decisiones de negocio enfocadas en el crecimiento y el control de las organizaciones. UDC cuenta con una interfaz simplificada e intuitiva, potenciada por nuestro Unify Agent (Analista de Datos en Lenguaje Natural de Última Generación).',
+                                            desc: 'Interfaz simple e intuitiva, desarrollada para centralizar y unificar datos, análisis y decisiones, con el objetivo de optimizar el control y el crecimiento empresarial. UDC posee integración nativa con nuestro agente de datos inteligente Unify Agent.',
                                             features: ['Insights to Growth', 'Advanced Analytics', 'Intelligent Agent']
                                         },
                                         {
                                             id: 'SERV.02',
                                             title: 'TI Outsourcing',
                                             subtitle: 'Digitalización de Datos',
-                                            desc: 'Gestión integral de infraestructura de datos, desde la ingesta, limpieza y transformación, hasta la digitalización, almacenamiento, sistemas de búsqueda semántica y RAG.',
+                                            desc: 'Gestión integral de infraestructura de datos. Desde la ingesta, limpieza y transformación, hasta la digitalización almacenamiento, sistemas de búsqueda semántica y RAG.',
                                             features: ['Conexiones e Ingesta', 'Almacenamiento & Backup', 'Gestión de Documentos']
                                         },
                                         {
                                             id: 'SERV.03',
                                             title: 'Retail Intelligence',
                                             subtitle: 'Intelligent eCommerce',
-                                            desc: 'Gestión 360° eCommerce: desarrollo, operación estratégica, investigaciones de mercados y toma de decisiones accionables enfocadas en maximizar la conversión, el crecimiento y la rentabilidad.',
+                                            desc: 'Gestión de Crecimiento 360°: Desarrollo y gestión de eCommerce, dirección de estratégica y operativa, investigación de mercado y toda la potencia del ecosistema Unify, enfocada en maximizar la conversión, impulsar el crecimiento y elevar la rentabilidad.',
                                             features: ['Desarrollo & Operación', 'Integración Unify', 'Investigación & Estrategia']
                                         }
                                     ].map((service, sIdx) => {
