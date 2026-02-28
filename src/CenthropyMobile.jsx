@@ -547,7 +547,7 @@ const CenthropyMobile = () => {
                     <ConnectorsSection />
                 </div>
 
-                <div className="flex flex-col gap-10 border-t border-white/20 pt-8 -mx-6 px-6 bg-white">
+                <div className="flex flex-col gap-10 border-t border-white/20 pt-12 pb-12 -mx-6 px-6 bg-white">
                     <div className="flex flex-col gap-6">
                         <h2 className="text-4xl font-black uppercase tracking-tighter text-black">Soluciones</h2>
                     </div>
@@ -625,7 +625,7 @@ const CenthropyMobile = () => {
                     <OrganizationsCarousel />
                 </div>
 
-                <div className="bg-white text-black py-24 flex flex-col gap-12 border-t border-black/10 -mx-6 px-6">
+                <div className="bg-white text-black py-12 flex flex-col gap-12 border-t border-black/10 -mx-6 px-6">
                     <h4 className="text-5xl font-black uppercase tracking-tighter leading-[0.85]">
                         CONECTAR
                     </h4>

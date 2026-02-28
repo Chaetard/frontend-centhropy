@@ -477,7 +477,7 @@ const CenthropyDesktop = () => {
 
                             <ConnectorsSection />
 
-                            <div className="mt-12 mb-12">
+                            <div className="mt-16 mb-24">
                                 <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-10 gap-8">
                                     <div className="flex flex-col">
                                         <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-black/40 mb-2">Sistemas de Crecimiento</span>
