@@ -1,22 +1,22 @@
 import React, { useState } from 'react';
 
 const connectorsData = [
-    { id: 1, name: "Google", logo: "/src/assets/connectors/01_google_1.svg" },
-    { id: 2, name: "Meta", logo: "/src/assets/connectors/02_meta_2-02.svg" },
-    { id: 3, name: "AWS", logo: "/src/assets/connectors/03_aws_2-03.svg" },
-    { id: 4, name: "Oracle", logo: "/src/assets/connectors/04_oracle_8.svg" },
-    { id: 5, name: "Shopify", logo: "/src/assets/connectors/05_shopify_11.svg" },
-    { id: 6, name: "WooCommerce", logo: "/src/assets/connectors/06_woocommerce_12.svg" },
-    { id: 7, name: "Zoho", logo: "/src/assets/connectors/07_zoho_4.svg" },
-    { id: 8, name: "HubSpot", logo: "/src/assets/connectors/08_hubspot_5.svg" },
-    { id: 9, name: "Salesforce", logo: "/src/assets/connectors/09_salesforce_10.svg" },
-    { id: 10, name: "Stripe", logo: "/src/assets/connectors/10_stripe_13.svg" },
-    { id: 11, name: "Twilio", logo: "/src/assets/connectors/11_twilio_14.svg" },
-    { id: 12, name: "Snowflake", logo: "/src/assets/connectors/12_snowflake_15.svg" },
-    { id: 13, name: "MongoDB", logo: "/src/assets/connectors/13_mongodb_6.svg" },
-    { id: 14, name: "MySQL", logo: "/src/assets/connectors/14_mysql_7.svg" },
-    { id: 15, name: "PostgreSQL", logo: "/src/assets/connectors/15_postgres_9.svg" },
-    { id: 16, name: "Files Connectors", logo: "/src/assets/connectors/16_filesconnectors_16.svg" }
+    { id: 1, name: "Google", logo: "/connectors/01_google_1.svg" },
+    { id: 2, name: "Meta", logo: "/connectors/02_meta_2-02.svg" },
+    { id: 3, name: "AWS", logo: "/connectors/03_aws_2-03.svg" },
+    { id: 4, name: "Oracle", logo: "/connectors/04_oracle_8.svg" },
+    { id: 5, name: "Shopify", logo: "/connectors/05_shopify_11.svg" },
+    { id: 6, name: "WooCommerce", logo: "/connectors/06_woocommerce_12.svg" },
+    { id: 7, name: "Zoho", logo: "/connectors/07_zoho_4.svg" },
+    { id: 8, name: "HubSpot", logo: "/connectors/08_hubspot_5.svg" },
+    { id: 9, name: "Salesforce", logo: "/connectors/09_salesforce_10.svg" },
+    { id: 10, name: "Stripe", logo: "/connectors/10_stripe_13.svg" },
+    { id: 11, name: "Twilio", logo: "/connectors/11_twilio_14.svg" },
+    { id: 12, name: "Snowflake", logo: "/connectors/12_snowflake_15.svg" },
+    { id: 13, name: "MongoDB", logo: "/connectors/13_mongodb_6.svg" },
+    { id: 14, name: "MySQL", logo: "/connectors/14_mysql_7.svg" },
+    { id: 15, name: "PostgreSQL", logo: "/connectors/15_postgres_9.svg" },
+    { id: 16, name: "Files Connectors", logo: "/connectors/16_filesconnectors_16.svg" }
 ];
 
 const SearchIcon = ({ className }) => (
