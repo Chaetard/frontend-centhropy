@@ -93,7 +93,7 @@ const OrganizationsCarousel = () => {
         <section className="py-24 bg-white overflow-hidden w-full">
             <div className="max-w-[1800px] mx-auto px-5 md:px-10 mb-16">
                 <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-black/40 mb-2 block">Our Reviews</span>
-                <h2 className="text-5xl md:text-7xl font-black uppercase tracking-tighter text-black">
+                <h2 className="text-4xl md:text-7xl font-black uppercase tracking-tighter text-black">
                     ORGANIZACIONES
                 </h2>
             </div>

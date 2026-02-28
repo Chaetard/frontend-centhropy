@@ -45,7 +45,7 @@ const ConnectorsSection = () => {
             <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-8">
                 <div className="flex flex-col max-w-2xl">
                     <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-black/40 mb-2">Integración de Datos</span>
-                    <h3 className="text-5xl md:text-7xl font-black uppercase tracking-tighter mb-6">INTEGRACIONES</h3>
+                    <h3 className="text-4xl md:text-7xl font-black uppercase tracking-tighter mb-6">INTEGRACIONES</h3>
                 </div>
                 <div className="w-full md:w-auto relative mb-4 md:mb-0">
                     <input
