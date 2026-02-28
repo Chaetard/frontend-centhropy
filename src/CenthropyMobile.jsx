@@ -430,11 +430,11 @@ const CenthropyMobile = () => {
                     <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-black/30">Centhropy // Unify Ecosystem</span>
                     <h2 className="text-[8.8vw] min-[400px]:text-[34px] font-medium tracking-tight leading-[1.15] text-black flex flex-col gap-0 w-full">
                         {[
-                            "Ecosistema creado para",
-                            "potenciar y optimizar,",
-                            "en tiempo real, la",
-                            "toma de decisiones",
-                            "en organizaciones de",
+                            "Ecosistema creado",
+                            "para potenciar en",
+                            "tiempo real, la toma",
+                            "de decisiones en",
+                            "organizaciones de",
                             "alto valor."
                         ].map((line, i) => (
                             <span
@@ -547,12 +547,9 @@ const CenthropyMobile = () => {
                     <ConnectorsSection />
                 </div>
 
-                <div className="flex flex-col gap-10 border-t border-white/20 pt-16 -mx-6 px-6 bg-white">
+                <div className="flex flex-col gap-10 border-t border-white/20 pt-8 -mx-6 px-6 bg-white">
                     <div className="flex flex-col gap-6">
                         <h2 className="text-4xl font-black uppercase tracking-tighter text-black">Soluciones</h2>
-                        <p className="text-xl font-light text-black/60 leading-[1.25] tracking-tight">
-                            Servicios y tecnología diseñada para potenciar el control empresarial, la expansión de mercado y el crecimiento de organizaciones en el sector del eCommerce y el Retail.
-                        </p>
                     </div>
                     <div className="relative group">
                         {/* Botones de Navegación Lateral */}
@@ -629,7 +626,7 @@ const CenthropyMobile = () => {
                 </div>
 
                 <div className="bg-white text-black py-24 flex flex-col gap-12 border-t border-black/10 -mx-6 px-6">
-                    <h4 className="text-7xl font-black uppercase tracking-tighter leading-[0.85]">
+                    <h4 className="text-5xl font-black uppercase tracking-tighter leading-[0.85]">
                         CONECTAR
                     </h4>
                     <Link

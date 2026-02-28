@@ -399,10 +399,9 @@ const CenthropyDesktop = () => {
                             <div className="max-w-6xl mx-auto mb-32 text-center">
                                 <h2 className="text-3xl md:text-[64px] font-normal tracking-tight leading-[1.0] text-black flex flex-col gap-0">
                                     {[
-                                        "Ecosistema creado para potenciar",
-                                        "y optimizar, en tiempo real, la",
-                                        "toma de decisiones en",
-                                        "organizaciones de alto valor."
+                                        "Ecosistema creado para potenciar la",
+                                        "toma de decisiones en tiempo real,",
+                                        "en organizaciones de alto valor."
                                     ].map((line, i) => (
                                         <span
                                             key={i}
@@ -478,16 +477,11 @@ const CenthropyDesktop = () => {
 
                             <ConnectorsSection />
 
-                            <div className="mt-24 mb-20">
+                            <div className="mt-12 mb-12">
                                 <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-10 gap-8">
                                     <div className="flex flex-col">
                                         <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-black/40 mb-2">Sistemas de Crecimiento</span>
                                         <h3 className="text-5xl md:text-7xl font-black uppercase tracking-tighter">Soluciones</h3>
-                                    </div>
-                                    <div className="max-w-xs md:text-right">
-                                        <p className="text-xs md:text-sm font-medium uppercase tracking-widest text-black/60 leading-tight">
-                                            Impulsamos el control, la optimización y la expansión de organizaciones en sectores de eCommerce y Retail
-                                        </p>
                                     </div>
                                 </div>
 

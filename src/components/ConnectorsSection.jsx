@@ -41,7 +41,7 @@ const ConnectorsSection = () => {
     };
 
     return (
-        <div className="mt-24 mb-24 border-t border-black/10 pt-24">
+        <div className="mt-12 md:mt-24 mb-12 border-none md:border-t border-black/10 pt-0 md:pt-24 text-black">
             <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-8">
                 <div className="flex flex-col max-w-2xl">
                     <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-black/40 mb-2">Integración de Datos</span>
