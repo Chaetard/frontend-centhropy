@@ -573,7 +573,7 @@ const CenthropyDesktop = () => {
 
                             <div className="mt-24 py-8 border-t border-black flex justify-between items-center">
                                 <div className="flex flex-col">
-                                    <h5 className="text-6xl font-black uppercase tracking-tighter leading-none">Get Started</h5>
+                                    <h5 className="text-6xl font-black uppercase tracking-tighter leading-none">CONECTAR</h5>
                                 </div>
                                 <div className="flex items-center">
                                     <Link to="/waitlist" className="w-16 h-16 border-2 border-black rounded-full flex items-center justify-center group cursor-pointer hover:bg-black hover:text-white transition-all duration-300">

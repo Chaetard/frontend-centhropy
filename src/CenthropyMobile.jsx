@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
-import { ChevronRight } from 'lucide-react';
+import { ChevronRight, ChevronLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import Navbar from './components/Navbar';
 
@@ -135,6 +135,45 @@ const SphereCanvasMobile = React.memo(({ probeDataRef, hudRef }) => {
 const CenthropyMobile = () => {
     const hudRef = useRef(null);
     const probeDataRef = useRef({ phi: Math.PI * 0.5, theta: Math.PI * 0.5 });
+    const solutionsScrollRef = useRef(null);
+    const [scrollIndex, setScrollIndex] = useState(0);
+
+    const scrollSolutions = (direction) => {
+        if (solutionsScrollRef.current) {
+            const container = solutionsScrollRef.current;
+            const width = container.offsetWidth;
+            const totalItems = solutions.length;
+
+            // Calculate current index based on scroll position
+            const currentIndex = Math.round(container.scrollLeft / width);
+
+            let nextIndex;
+            if (direction === 'left') {
+                nextIndex = currentIndex - 1;
+                if (nextIndex < 0) nextIndex = totalItems - 1;
+            } else {
+                nextIndex = currentIndex + 1;
+                if (nextIndex >= totalItems) nextIndex = 0;
+            }
+
+            container.scrollTo({
+                left: nextIndex * width,
+                behavior: 'smooth'
+            });
+        }
+    };
+
+    const handleCarouselScroll = (e) => {
+        const scrollLeft = e.target.scrollLeft;
+        const width = e.target.offsetWidth;
+        if (width > 0) {
+            const newIndex = Math.round(scrollLeft / width);
+            if (newIndex !== scrollIndex) {
+                setScrollIndex(newIndex);
+            }
+        }
+    };
+
     const [openModule, setOpenModule] = useState(0);
     const [probeMetrics, setProbeMetrics] = useState({
         lat: '0.00° N', lon: '0.00° E',
@@ -387,7 +426,7 @@ const CenthropyMobile = () => {
             <main className="relative z-20 bg-white pt-16 pb-24 px-6 flex flex-col gap-10">
                 <div className="flex flex-col gap-6 text-center items-center w-full">
                     <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-black/30">Centhropy // Unify Ecosystem</span>
-                    <h2 className="text-[7.4vw] min-[400px]:text-[28px] font-medium tracking-tight leading-[1.2] text-black flex flex-col gap-0 w-full">
+                    <h2 className="text-[8.8vw] min-[400px]:text-[34px] font-medium tracking-tight leading-[1.15] text-black flex flex-col gap-0 w-full">
                         {[
                             "Ecosistema creado para",
                             "potenciar y optimizar,",
@@ -510,12 +549,28 @@ const CenthropyMobile = () => {
                         </p>
                     </div>
                     <div className="relative group">
-                        {/* Indicador de Desplazamiento Lateral */}
-                        <div className="flex items-center gap-2 mb-6 opacity-30">
-                            <span className="text-[10px] font-bold uppercase tracking-[0.2em]">DESLIZA Y EXPLORA MÁS SOLUCIONES</span>
-                            <div className="h-[1px] w-12 bg-black" />
+                        {/* Botones de Navegación Lateral */}
+                        <div className="flex gap-4 mb-8">
+                            <button
+                                onClick={() => scrollSolutions('left')}
+                                className="w-12 h-12 border border-black flex items-center justify-center active:bg-black transition-all duration-300 group/btn"
+                                aria-label="Anterior"
+                            >
+                                <ChevronLeft size={24} className="text-black group-active/btn:text-white" />
+                            </button>
+                            <button
+                                onClick={() => scrollSolutions('right')}
+                                className="w-12 h-12 border border-black flex items-center justify-center active:bg-black transition-all duration-300 group/btn"
+                                aria-label="Siguiente"
+                            >
+                                <ChevronRight size={24} className="text-black group-active/btn:text-white" />
+                            </button>
                         </div>
-                        <div className="flex overflow-x-auto snap-x snap-mandatory gap-0 no-scrollbar -mx-6 pb-6">
+                        <div
+                            ref={solutionsScrollRef}
+                            onScroll={handleCarouselScroll}
+                            className="flex overflow-x-auto snap-x snap-mandatory gap-0 no-scrollbar -mx-6 pb-6"
+                        >
                             {solutions.map((s, idx) => (
                                 <div key={idx} className="w-screen flex-shrink-0 snap-center px-6">
                                     <div className="bg-black border border-white/5 p-8 flex flex-col gap-8 min-h-[500px] h-full">
@@ -551,10 +606,13 @@ const CenthropyMobile = () => {
                             ))}
                         </div>
 
-                        {/* Dots de Navegación (Visuales) */}
+                        {/* Dots de Navegación (Activos) */}
                         <div className="flex justify-center gap-2.5 mt-4 pb-12">
                             {solutions.map((_, i) => (
-                                <div key={i} className="w-1.5 h-1.5 rounded-full bg-black/10" />
+                                <div
+                                    key={i}
+                                    className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${scrollIndex === i ? 'bg-black scale-125' : 'bg-black/10'}`}
+                                />
                             ))}
                         </div>
                     </div>
@@ -562,7 +620,7 @@ const CenthropyMobile = () => {
 
                 <div className="bg-white text-black py-24 flex flex-col gap-12 border-t border-black/10 -mx-6 px-6">
                     <h4 className="text-7xl font-black uppercase tracking-tighter leading-[0.85]">
-                        Get <br /> Started
+                        CONECTAR
                     </h4>
                     <Link
                         to="/waitlist"

@@ -16,10 +16,10 @@ const ImpactCard = ({ post, index, caseIndex }) => {
     return (
         <Link
             to={`/blog/${post.id}`}
-            className={`group block ${isFeatured ? 'md:col-span-2' : ''}`}
+            className="group block"
         >
             {/* Image */}
-            <div className={`w-full overflow-hidden mb-8 border border-black/5 bg-gray-100 ${isFeatured ? 'aspect-[21/9]' : 'aspect-[16/9]'}`}>
+            <div className="w-full overflow-hidden mb-8 border border-black/5 bg-gray-100 aspect-[16/9]">
                 {image ? (
                     <img
                         src={image}
@@ -53,11 +53,11 @@ const ImpactCard = ({ post, index, caseIndex }) => {
                     </div>
                     <span className="text-[10px] font-mono text-black/20">{caseId}</span>
                 </div>
-                <h2 className={`font-medium tracking-tighter uppercase leading-[0.9] group-hover:text-black/50 transition-colors ${isFeatured ? 'text-5xl md:text-7xl' : 'text-3xl md:text-4xl'}`}>
+                <h2 className="font-medium tracking-tighter uppercase leading-[0.9] group-hover:text-black/50 transition-colors text-3xl md:text-4xl">
                     {post.title}
                 </h2>
                 {excerpt && (
-                    <p className={`text-black/50 font-light leading-snug ${isFeatured ? 'max-w-2xl text-lg' : 'text-sm line-clamp-2'}`}>
+                    <p className="text-black/50 font-light leading-snug text-sm line-clamp-2">
                         {excerpt}
                     </p>
                 )}
@@ -178,8 +178,8 @@ const ImpactStudies = () => {
                                     key={cat}
                                     onClick={() => setActiveCategory(cat)}
                                     className={`px-4 py-2 text-[11px] font-bold uppercase tracking-widest transition-all ${activeCategory === cat
-                                            ? 'bg-black text-white'
-                                            : 'text-black/40 hover:text-black hover:bg-black/5'
+                                        ? 'bg-black text-white'
+                                        : 'text-black/40 hover:text-black hover:bg-black/5'
                                         }`}
                                 >
                                     {cat}
