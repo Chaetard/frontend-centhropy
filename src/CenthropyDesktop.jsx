@@ -3,6 +3,8 @@ import * as THREE from 'three';
 import { Activity, ShieldCheck, Zap, Globe, Cpu, ChevronRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import Navbar from './components/Navbar';
+import ConnectorsSection from './components/ConnectorsSection';
+import OrganizationsCarousel from './components/OrganizationsCarousel';
 
 const SphereCanvas = React.memo(({ probeDataRef, hudRef }) => {
     const containerRef = useRef(null);
@@ -474,6 +476,8 @@ const CenthropyDesktop = () => {
                                 ))}
                             </div>
 
+                            <ConnectorsSection />
+
                             <div className="mt-24 mb-20">
                                 <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-10 gap-8">
                                     <div className="flex flex-col">
@@ -562,7 +566,7 @@ const CenthropyDesktop = () => {
                                                 </div>
 
                                                 {/* CTA Arrow Button */}
-                                                <div className={`absolute bottom-10 right-10 w-14 h-14 rounded-full border border-white/20 flex items-center justify-center text-white z-30 transition-all duration-500 hover:bg-white hover:text-black hover:border-white ${isActive ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
+                                                <div className={`absolute bottom-10 right-10 w-14 h-14 rounded-none border border-white/20 flex items-center justify-center text-white z-30 transition-all duration-500 hover:bg-white hover:text-black hover:border-white ${isActive ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
                                                     <ChevronRight size={28} />
                                                 </div>
                                             </Link>
@@ -570,13 +574,19 @@ const CenthropyDesktop = () => {
                                     })}
                                 </div>
                             </div>
+                        </div>
+                    </div>
 
+                    <OrganizationsCarousel />
+
+                    <div className="w-full px-5 py-12 md:px-10 md:pt-16 md:pb-0 bg-white">
+                        <div className="max-w-[1800px] mx-auto">
                             <div className="mt-24 py-8 border-t border-black flex justify-between items-center">
                                 <div className="flex flex-col">
                                     <h5 className="text-6xl font-black uppercase tracking-tighter leading-none">CONECTAR</h5>
                                 </div>
                                 <div className="flex items-center">
-                                    <Link to="/waitlist" className="w-16 h-16 border-2 border-black rounded-full flex items-center justify-center group cursor-pointer hover:bg-black hover:text-white transition-all duration-300">
+                                    <Link to="/waitlist" className="w-16 h-16 border-2 border-black rounded-none flex items-center justify-center group cursor-pointer hover:bg-black hover:text-white transition-all duration-300">
                                         <ChevronRight size={32} />
                                     </Link>
                                 </div>

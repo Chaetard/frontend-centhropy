@@ -16,6 +16,7 @@ import PageTransition from "./components/PageTransition";
 import AdminLogin from "./editorial/AdminLogin";
 import EditorialPanel from "./editorial/EditorialPanel";
 import Documentation from "./Documentation";
+import DocumentationConstruction from "./DocumentationConstruction";
 import NotFound from "./NotFound";
 
 const App = () => {
@@ -71,7 +72,7 @@ const PageTransitionWrapper = () => {
           <Route path="/waitlist" element={<Waitlist />} />
           <Route path="/login" element={<LoginRedirect />} />
           <Route path="/announcements" element={<CorporateAnnouncements />} />
-          <Route path="/docs" element={<Documentation />} />
+          <Route path="/docs" element={<DocumentationConstruction />} />
           {/* Stealth Editorial Routes */}
           <Route path="/terminal-x92-core" element={<AdminLogin />} />
           <Route
