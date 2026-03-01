@@ -96,13 +96,15 @@ const ConnectorsSection = () => {
                     {visibleConnectors.map((connector, idx) => (
                         <motion.div
                             key={connector.id}
-                            initial={animateOnLoad ? { opacity: 0, scale: 0.9, y: 20 } : false}
-                            animate={{ opacity: 1, scale: 1, y: 0 }}
-                            exit={{ opacity: 0, scale: 0.9, y: 20 }}
-                            transition={animateOnLoad ? {
-                                duration: 0.5,
-                                delay: (idx % initialCount) * 0.05,
-                                ease: [0.16, 1, 0.3, 1]
+                            initial={animateOnLoad && idx >= (visibleCount - increment)
+                                ? { clipPath: "inset(100% 0% 0% 0%)", opacity: 0 }
+                                : false
+                            }
+                            animate={{ clipPath: "inset(0% 0% 0% 0%)", opacity: 1 }}
+                            transition={animateOnLoad && idx >= (visibleCount - increment) ? {
+                                duration: 0.45,
+                                delay: (idx - (visibleCount - increment)) * 0.04,
+                                ease: [0.76, 0, 0.24, 1]
                             } : { duration: 0 }}
                             className="relative bg-[#f5f5f5] aspect-[4/3] md:aspect-[20/9] flex items-center justify-center p-0 md:p-8 group hover:bg-[#ebebeb] transition-all duration-300"
                             style={{ clipPath: "polygon(0 0, calc(100% - 24px) 0, 100% 24px, 100% 100%, 0 100%)" }}
