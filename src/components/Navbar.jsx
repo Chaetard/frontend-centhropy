@@ -11,17 +11,17 @@ const Navbar = ({ subtitle = "Unified Data Engine" }) => {
 
 
     return (
-        <header className={`fixed top-0 left-0 right-0 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${menuOpen
-            ? 'h-screen bg-white'
-            : 'h-[72px] md:h-[84px] backdrop-blur-[12px] bg-white/80'
-            }`}
+        <header className="fixed top-0 left-0 right-0 h-[72px] md:h-[84px] bg-white/80 backdrop-blur-[12px]"
             style={{ zIndex: 10000 }}>
 
-            {/* INTERNAL NAVBAR BACKGROUND (GLASS ON OPEN) */}
-            <div className={`absolute top-0 left-0 right-0 h-[72px] md:h-[84px] transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] z-40 ${menuOpen ? 'bg-white/95 backdrop-blur-2xl opacity-100' : 'opacity-0 pointer-events-none'}`} />
+            {/* INTERNAL NAVBAR BACKGROUND (SOLID ON OPEN) */}
+            <div
+                className={`absolute top-0 left-0 right-0 h-[72px] md:h-[84px] transition-all duration-300 ${menuOpen ? 'bg-white/80 backdrop-blur-[12px] opacity-100' : 'bg-transparent opacity-0 pointer-events-none'}`}
+                style={{ zIndex: 10002 }}
+            />
 
             {/* TOP BAR — always visible, never moves */}
-            <div className="flex justify-between items-center w-full max-w-[1800px] mx-auto px-5 md:px-10 h-[72px] md:h-[84px] shrink-0 relative" style={{ zIndex: 10002 }}>
+            <div className="flex justify-between items-center w-full max-w-[1800px] mx-auto px-5 md:px-10 h-[72px] md:h-[84px] shrink-0 relative" style={{ zIndex: 10003 }}>
                 <Link to="/" className="flex items-center gap-6 pointer-events-auto" onClick={() => setMenuOpen(false)}>
                     <Logo
                         menuOpen={menuOpen}
@@ -55,7 +55,8 @@ const Navbar = ({ subtitle = "Unified Data Engine" }) => {
                 </div>
             </div>
 
-            <div className={`px-5 md:px-10 pt-24 pb-12 transition-all duration-600 ease-[cubic-bezier(0.16,1,0.3,1)] ${isMobile ? 'overflow-y-auto' : 'overflow-hidden'} no-scrollbar ${menuOpen ? 'opacity-100 translate-y-0 delay-[150ms]' : 'opacity-0 -translate-y-6 pointer-events-none'
+            {/* FULL SCREEN MENU OVERLAY */}
+            <div className={`px-5 md:px-10 pt-24 pb-12 transition-all duration-300 ease-out ${isMobile ? 'overflow-y-auto' : 'overflow-hidden'} no-scrollbar bg-white ${menuOpen ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'
                 }`} style={{ height: '100vh', position: 'fixed', top: 0, left: 0, right: 0, zIndex: 10001 }}>
 
                 {isMobile ? (

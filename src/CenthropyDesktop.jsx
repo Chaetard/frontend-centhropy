@@ -203,7 +203,8 @@ const CenthropyDesktop = () => {
         const handleScroll = () => {
             const currentPos = window.pageYOffset;
             const diff = currentPos - scrollPos.current;
-            inertiaRef.current = diff * 0.25;
+            // Reducimos el límite a 8 para que la expansión de líneas no toque la flecha
+            inertiaRef.current = Math.max(-8, Math.min(8, diff * 0.25));
             scrollPos.current = currentPos;
         };
 
@@ -396,7 +397,7 @@ const CenthropyDesktop = () => {
                                 </div>
                             </div>
 
-                            <div className="max-w-6xl mx-auto mb-32 text-center">
+                            <div className="max-w-6xl mx-auto mb-16 text-center">
                                 <h2 className="text-3xl md:text-[64px] font-normal tracking-tight leading-[1.0] text-black flex flex-col gap-0">
                                     {[
                                         "Ecosistema creado para potenciar la",
@@ -407,7 +408,7 @@ const CenthropyDesktop = () => {
                                             key={i}
                                             className="block aria-hidden:true will-change-transform"
                                             style={{
-                                                transform: `translateY(${-introInertia * (8 + i * 2.5)}px)`
+                                                transform: `translateY(${-introInertia * (3.5 + i * 1.5)}px)`
                                             }}
                                         >
                                             {line}
@@ -416,12 +417,13 @@ const CenthropyDesktop = () => {
                                 </h2>
                             </div>
 
-                            <div className="flex justify-center mb-32">
+                            <div className="flex justify-center mb-16">
                                 <svg width="60" height="30" viewBox="0 0 60 30" fill="none" xmlns="http://www.w3.org/2000/svg" className="opacity-80">
                                     <path d="M10 5L30 25L50 5" stroke="black" strokeWidth="1.5" strokeOpacity="0.1" strokeLinecap="round" strokeLinejoin="round" />
                                     <path d="M10 5L30 25L50 5" stroke="black" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="energy-path" />
                                 </svg>
                             </div>
+
 
                             <div className="flex flex-col">
                                 {[
@@ -430,7 +432,7 @@ const CenthropyDesktop = () => {
                                     { id: 'SYS.03', t1: 'Unify', t2: 'Agent', short: 'UA', desc: 'Analista de datos de última generación, creado para ser el copiloto ideal en la dirección corporativa, impulsando la agilidad y efectividad en la toma decisiones centradas en el crecimiento.' },
                                     { id: 'SYS.04', t1: 'Unify', t2: 'Team', short: 'UT', desc: 'Equipo humano de élite, especializado y enfocado en garantizar la confiabilidad, eficacia y sostenibilidad del ecosistema Unify.' }
                                 ].map((comp, idx) => (
-                                    <div key={idx} className="flex flex-col md:flex-row items-center border-t border-black/10 py-16 md:py-32 gap-24 group transition-all duration-500 hover:bg-black/[0.01]">
+                                    <div key={idx} className={`flex flex-col md:flex-row items-center ${idx === 0 ? '' : 'border-t border-black/10'} py-16 md:py-32 gap-24 group transition-all duration-500 hover:bg-black/[0.01]`}>
                                         <div className="w-full md:w-[240px] flex flex-col gap-6">
                                             <span className="text-[14px] font-bold text-black font-funnel">{comp.id}</span>
                                             <p className="text-[15px] font-light leading-relaxed text-black max-w-[240px]">
@@ -477,12 +479,10 @@ const CenthropyDesktop = () => {
 
                             <ConnectorsSection />
 
-                            <div className="mt-16 mb-24">
-                                <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-10 gap-8">
-                                    <div className="flex flex-col">
-                                        <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-black/40 mb-2">Sistemas de Crecimiento</span>
-                                        <h3 className="text-5xl md:text-7xl font-black uppercase tracking-tighter">Soluciones</h3>
-                                    </div>
+                            <div className="mt-40 mb-24">
+                                <div className="flex flex-col w-full mb-8">
+                                    <div className="w-full h-[1px] bg-black/15 mb-10" />
+                                    <h3 className="text-4xl md:text-[70px] font-medium tracking-tighter text-black leading-none">Soluciones</h3>
                                 </div>
 
                                 <div className="flex flex-col md:flex-row gap-4 h-[500px] w-full">
@@ -573,11 +573,11 @@ const CenthropyDesktop = () => {
 
                     <OrganizationsCarousel />
 
-                    <div className="w-full px-5 py-12 md:px-10 md:pt-16 md:pb-0 bg-white">
+                    <div className="w-full px-5 py-4 md:px-10 md:pt-4 md:pb-0 bg-white">
                         <div className="max-w-[1800px] mx-auto">
-                            <div className="mt-24 py-8 border-t border-black flex justify-between items-center">
-                                <div className="flex flex-col">
-                                    <h5 className="text-6xl font-black uppercase tracking-tighter leading-none">CONECTAR</h5>
+                            <div className="mt-8 py-8 border-t border-black flex justify-between items-center">
+                                <div className="flex flex-col w-full">
+                                    <h5 className="text-[70px] font-black uppercase tracking-tighter leading-none">CONECTAR</h5>
                                 </div>
                                 <div className="flex items-center">
                                     <Link to="/waitlist" className="w-16 h-16 border-2 border-black rounded-none flex items-center justify-center group cursor-pointer hover:bg-black hover:text-white transition-all duration-300">

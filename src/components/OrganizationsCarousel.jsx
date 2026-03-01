@@ -90,11 +90,11 @@ const duplicatedTestimonials = [...testimonials, ...testimonials];
 
 const OrganizationsCarousel = () => {
     return (
-        <section className="py-12 md:py-16 bg-white overflow-hidden w-full">
-            <div className="max-w-[1800px] mx-auto px-5 md:px-10 mb-16">
-                <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-black/40 mb-2 block">Our Reviews</span>
-                <h2 className="text-4xl md:text-7xl font-black uppercase tracking-tighter text-black">
-                    ORGANIZACIONES
+        <section className="pt-10 pb-24 bg-white overflow-hidden w-full">
+            <div className="max-w-[1800px] mx-auto px-5 md:px-10 mb-8">
+                <div className="w-full h-[1px] bg-black/15 mb-10" />
+                <h2 className="text-[50px] md:text-[70px] font-medium tracking-tighter text-black leading-none">
+                    Organizaciones
                 </h2>
             </div>
 
