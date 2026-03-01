@@ -93,7 +93,7 @@ const OrganizationsCarousel = () => {
         <section className="pt-10 pb-24 bg-white overflow-hidden w-full">
             <div className="max-w-[1800px] mx-auto px-5 md:px-10 mb-8">
                 <div className="w-full h-[1px] bg-black/15 mb-10" />
-                <h2 className="text-[50px] md:text-[70px] font-medium tracking-tighter text-black leading-none">
+                <h2 className="text-[45px] md:text-[70px] font-medium tracking-tighter text-black leading-none">
                     Organizaciones
                 </h2>
             </div>

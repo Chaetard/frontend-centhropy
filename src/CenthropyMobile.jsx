@@ -464,7 +464,7 @@ const CenthropyMobile = () => {
                 <div className="flex flex-col gap-6 border-t border-white/20 pt-24 -mx-6 px-6 bg-white">
                     <div className="flex flex-col mb-6">
                         <div className="w-full h-[1px] bg-black/15 mb-10" />
-                        <h2 className="text-[50px] font-medium tracking-tighter text-black leading-none">Ecosistema Unify</h2>
+                        <h2 className="text-[45px] font-medium tracking-tighter text-black leading-none">Ecosistema Unify</h2>
                     </div>
                     <div className="flex flex-col gap-12">
                         {systemModules.map((comp, idx) => {
@@ -533,7 +533,7 @@ const CenthropyMobile = () => {
                     <div className="flex flex-col gap-6">
                         <div className="w-full h-[1px] bg-black/15 mb-6" />
                         <div className="flex justify-between items-end mb-6">
-                            <h2 className="text-[50px] font-medium tracking-tighter text-black leading-none m-0">Soluciones</h2>
+                            <h2 className="text-[45px] font-medium tracking-tighter text-black leading-none m-0">Soluciones</h2>
                             <div className="flex gap-4">
                                 <button
                                     onClick={() => scrollSolutions('left')}
@@ -610,7 +610,7 @@ const CenthropyMobile = () => {
                 </div>
 
                 <div className="bg-white text-black py-8 flex flex-row justify-between items-center border-t border-black/10 -mx-6 px-6">
-                    <h4 className="text-[12vw] min-[400px]:text-[50px] font-medium tracking-tighter text-black leading-none m-0">
+                    <h4 className="text-[12vw] min-[400px]:text-[45px] font-medium tracking-tighter text-black leading-none m-0">
                         CONECTAR
                     </h4>
                     <Link

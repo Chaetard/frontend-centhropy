@@ -56,7 +56,7 @@ const ConnectorsSection = () => {
         <div className="mt-20 md:mt-20 mb-12 md:mb-24 pt-0 md:pt-20 text-black">
             <div className="w-full h-[1px] bg-black/15 mb-10" />
             <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 gap-8 w-full">
-                <h3 className="text-[50px] md:text-[70px] font-medium tracking-tighter leading-none m-0">Integraciones</h3>
+                <h3 className="text-[45px] md:text-[70px] font-medium tracking-tighter leading-none m-0">Integraciones</h3>
                 <div className="w-full md:w-auto relative mb-1">
                     <input
                         type="text"
