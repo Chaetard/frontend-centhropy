@@ -1,6 +1,8 @@
 # SPA Fallback for React Router
-
 /login https://app.centhropy.com 301!
-https://centhropyln.netlify.app/* https://centhropy.com/:splat 301!
 
-/*    /index.html   200
+# Forzar dominio oficial sobre el temporal de Cloudflare
+https://frontend-centhropy.pages.dev/* https://centhropy.com/:splat 301!
+
+# Redirección interna para la SPA
+/* /index.html 200
