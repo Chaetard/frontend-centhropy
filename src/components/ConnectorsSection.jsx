@@ -26,15 +26,28 @@ const ConnectorsSection = () => {
     const [visibleCount, setVisibleCount] = useState(8);
     const [animateOnLoad, setAnimateOnLoad] = useState(false);
 
-    // Detectar si es mobile para ajustar el conteo inicial
+    // Detectar si es mobile para ajustar el conteo inicial.
+    // IMPORTANTE: solo reseteamos visibleCount cuando cambia el breakpoint
+    // (mobile ↔ desktop). Los navegadores móviles disparan 'resize' en cada
+    // scroll cuando la barra de URL aparece/desaparece, lo que causaba que
+    // los conectores se colapsaran al hacer scroll luego de "Cargar Más".
     useEffect(() => {
         const checkMobile = () => {
             const mobile = window.innerWidth < 768;
-            setIsMobile(mobile);
-            setVisibleCount(mobile ? 4 : 8);
+            setIsMobile(prev => {
+                if (prev !== mobile) {
+                    // Solo reseteamos el conteo si cambia realmente el breakpoint
+                    setVisibleCount(mobile ? 4 : 8);
+                }
+                return mobile;
+            });
         };
 
-        checkMobile();
+        // Inicialización: establecemos el estado sin pasar por setIsMobile funcional
+        const initialMobile = window.innerWidth < 768;
+        setIsMobile(initialMobile);
+        setVisibleCount(initialMobile ? 4 : 8);
+
         window.addEventListener('resize', checkMobile);
         return () => window.removeEventListener('resize', checkMobile);
     }, []);
