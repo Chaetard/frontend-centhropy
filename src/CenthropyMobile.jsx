@@ -443,17 +443,17 @@ const CenthropyMobile = () => {
                         <div
                             key={i}
                             onClick={() => setOpenModule(openModule === i ? null : i)}
-                            className={`border border-black/[0.03] p-6 transition-colors duration-500 ease-out ${openModule === i ? 'bg-black' : 'bg-white'}`}
+                            className="bg-[#f5f5f5] border border-black/[0.03] p-6 transition-all duration-500 ease-out"
                         >
                             <div className="flex justify-between items-center">
-                                <span className={`text-xl font-black uppercase tracking-tight ${openModule === i ? 'text-white' : 'text-black'}`}>{m.w}</span>
+                                <span className="text-xl font-black uppercase tracking-tight text-black">{m.w}</span>
                                 <ChevronRight
-                                    className={`transition-transform duration-500 ${openModule === i ? 'rotate-90 text-white' : 'rotate-0 text-black/20'}`}
+                                    className={`transition-transform duration-500 ${openModule === i ? 'rotate-90 text-black' : 'rotate-0 text-black/20'}`}
                                     size={20}
                                 />
                             </div>
                             <div className={`grid transition-[grid-template-rows] duration-500 ease-out ${openModule === i ? 'grid-rows-[1fr] mt-4' : 'grid-rows-[0fr]'}`}>
-                                <p className={`overflow-hidden text-sm font-light leading-relaxed text-white/70`}>
+                                <p className="overflow-hidden text-sm font-light leading-relaxed text-black/70">
                                     {m.desc}
                                 </p>
                             </div>
@@ -537,17 +537,17 @@ const CenthropyMobile = () => {
                             <div className="flex gap-4">
                                 <button
                                     onClick={() => scrollSolutions('left')}
-                                    className="w-12 h-12 border border-black flex items-center justify-center active:bg-black transition-all duration-300 group/btn"
+                                    className="w-[43px] h-[43px] border border-black flex items-center justify-center active:bg-black transition-all duration-300 group/btn"
                                     aria-label="Anterior"
                                 >
-                                    <ChevronLeft size={24} className="text-black group-active/btn:text-white" />
+                                    <ChevronLeft size={22} className="text-black group-active/btn:text-white" />
                                 </button>
                                 <button
                                     onClick={() => scrollSolutions('right')}
-                                    className="w-12 h-12 border border-black flex items-center justify-center active:bg-black transition-all duration-300 group/btn"
+                                    className="w-[43px] h-[43px] border border-black flex items-center justify-center active:bg-black transition-all duration-300 group/btn"
                                     aria-label="Siguiente"
                                 >
-                                    <ChevronRight size={24} className="text-black group-active/btn:text-white" />
+                                    <ChevronRight size={22} className="text-black group-active/btn:text-white" />
                                 </button>
                             </div>
                         </div>
@@ -574,7 +574,7 @@ const CenthropyMobile = () => {
                                         </div>
 
                                         <div className="flex flex-col gap-6 flex-grow justify-between">
-                                            <p className="text-[16px] font-light leading-relaxed text-white/70">
+                                            <p className="text-[12px] font-light leading-relaxed text-white/70">
                                                 {s.desc}
                                             </p>
 

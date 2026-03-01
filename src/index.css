@@ -4,11 +4,16 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  background-color: white;
+}
+
 @layer base {
   body {
     @apply m-0 bg-white text-black overflow-x-hidden font-funnel select-none;
     font-family: 'Funnel Display', sans-serif;
     overflow-y: scroll;
+    background-color: white;
   }
 }
 
