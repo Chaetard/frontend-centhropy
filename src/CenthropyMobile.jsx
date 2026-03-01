@@ -1,8 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
-import { ChevronRight } from 'lucide-react';
+import { ChevronRight, ChevronLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import Navbar from './components/Navbar';
+import ConnectorsSection from './components/ConnectorsSection';
+import OrganizationsCarousel from './components/OrganizationsCarousel';
 
 // 1. ISOLATED CANVAS COMPONENT
 const SphereCanvasMobile = React.memo(({ probeDataRef, hudRef }) => {
@@ -135,6 +137,45 @@ const SphereCanvasMobile = React.memo(({ probeDataRef, hudRef }) => {
 const CenthropyMobile = () => {
     const hudRef = useRef(null);
     const probeDataRef = useRef({ phi: Math.PI * 0.5, theta: Math.PI * 0.5 });
+    const solutionsScrollRef = useRef(null);
+    const [scrollIndex, setScrollIndex] = useState(0);
+
+    const scrollSolutions = (direction) => {
+        if (solutionsScrollRef.current) {
+            const container = solutionsScrollRef.current;
+            const width = container.offsetWidth;
+            const totalItems = solutions.length;
+
+            // Calculate current index based on scroll position
+            const currentIndex = Math.round(container.scrollLeft / width);
+
+            let nextIndex;
+            if (direction === 'left') {
+                nextIndex = currentIndex - 1;
+                if (nextIndex < 0) nextIndex = totalItems - 1;
+            } else {
+                nextIndex = currentIndex + 1;
+                if (nextIndex >= totalItems) nextIndex = 0;
+            }
+
+            container.scrollTo({
+                left: nextIndex * width,
+                behavior: 'smooth'
+            });
+        }
+    };
+
+    const handleCarouselScroll = (e) => {
+        const scrollLeft = e.target.scrollLeft;
+        const width = e.target.offsetWidth;
+        if (width > 0) {
+            const newIndex = Math.round(scrollLeft / width);
+            if (newIndex !== scrollIndex) {
+                setScrollIndex(newIndex);
+            }
+        }
+    };
+
     const [openModule, setOpenModule] = useState(0);
     const [probeMetrics, setProbeMetrics] = useState({
         lat: '0.00° N', lon: '0.00° E',
@@ -191,7 +232,8 @@ const CenthropyMobile = () => {
         const handleScroll = () => {
             const currentPos = window.pageYOffset;
             const diff = currentPos - scrollPos.current;
-            inertiaRef.current = diff * 0.25;
+            // Aplicamos un límite a la inercia a 8 para evitar que las líneas toquen la flecha en mobile
+            inertiaRef.current = Math.max(-8, Math.min(8, diff * 0.25));
             scrollPos.current = currentPos;
         };
 
@@ -260,52 +302,32 @@ const CenthropyMobile = () => {
                         next[idx] = true;
                         return next;
                     });
-                    observer.unobserve(entry.target);
                 }
             }, observerOptions);
 
-            if (ref.current) observer.observe(ref.current);
+            const current = ref.current;
+            if (current) observer.observe(current);
             return observer;
         });
 
         return () => {
-            observers.forEach(o => o.disconnect());
+            observers.forEach(obs => obs.disconnect());
         };
     }, []);
 
-    // Live probe metrics
-    useEffect(() => {
-        const interval = setInterval(() => {
-            const { phi, theta } = probeDataRef.current;
-            const t = performance.now() * 0.001;
-            const now = new Date();
-            const latDeg = Math.cos(theta) * 90;
-            const lonDeg = ((phi % (2 * Math.PI)) / (2 * Math.PI)) * 360 - 180;
-            setProbeMetrics({
-                lat: `${Math.abs(latDeg).toFixed(2)}° ${latDeg >= 0 ? 'N' : 'S'}`,
-                lon: `${Math.abs(lonDeg).toFixed(2)}° ${lonDeg >= 0 ? 'E' : 'W'}`,
-                roi: (28.6 + Math.cos(t * 0.5) * 5.1).toFixed(1) + '%',
-                progress: (50 + Math.sin(t * 0.6) * 35).toFixed(0) + '%',
-                timer: `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}:${String(now.getSeconds()).padStart(2, '0')}`
-            });
-        }, 80);
-        return () => clearInterval(interval);
-    }, []);
-
     return (
-        <div className="font-funnel no-select w-full bg-white text-black min-h-screen relative flex flex-col">
-            {/* BACKGROUND CANVAS */}
+        <div className="font-funnel no-select w-full bg-white text-black min-h-screen relative overflow-x-hidden">
+            {/* CANVAS LAYER */}
             <SphereCanvasMobile probeDataRef={probeDataRef} hudRef={hudRef} />
 
-            <Navbar subtitle="Mobile Data Sync" />
+            {/* HEADER */}
+            <Navbar subtitle="Unified Data Engine" />
 
-            {/* FLOATING PROBE */}
+            {/* FLOATING PROBE HUD (MOBILE) */}
             <div
                 ref={hudRef}
+                className="fixed top-0 left-0 transform-gpu"
                 style={{
-                    position: 'fixed',
-                    top: 0,
-                    left: 0,
                     zIndex: 15,
                     pointerEvents: 'none',
                     opacity: 0,
@@ -384,23 +406,23 @@ const CenthropyMobile = () => {
             </div>
 
             {/* MAIN CONTENT AREA */}
-            <main className="relative z-20 bg-white pt-16 pb-24 px-6 flex flex-col gap-10">
+            <main className="relative z-20 bg-white pt-16 pb-24 px-6 flex flex-col gap-8">
                 <div className="flex flex-col gap-6 text-center items-center w-full">
-                    <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-black/30">Centhropy // Unify Ecosystem</span>
-                    <h2 className="text-[7.4vw] min-[400px]:text-[28px] font-medium tracking-tight leading-[1.2] text-black flex flex-col gap-0 w-full">
+
+                    <h2 className="text-[8.8vw] min-[400px]:text-[34px] font-medium tracking-tight leading-[1.15] text-black flex flex-col gap-0 w-full">
                         {[
-                            "Ecosistema creado para",
-                            "potenciar y optimizar,",
-                            "en tiempo real, la",
-                            "toma de decisiones",
-                            "en organizaciones de",
+                            "Ecosistema creado",
+                            "para potenciar en",
+                            "tiempo real, la toma",
+                            "de decisiones en",
+                            "organizaciones de",
                             "alto valor."
                         ].map((line, i) => (
                             <span
                                 key={i}
                                 className="block aria-hidden:true will-change-transform"
                                 style={{
-                                    transform: `translateY(${-introInertia * (2.5 + i * 1.2)}px)`
+                                    transform: `translateY(${-introInertia * (1.2 + i * 0.8)}px)`
                                 }}
                             >
                                 {line}
@@ -421,17 +443,17 @@ const CenthropyMobile = () => {
                         <div
                             key={i}
                             onClick={() => setOpenModule(openModule === i ? null : i)}
-                            className={`border border-black/[0.03] p-6 transition-colors duration-500 ease-out ${openModule === i ? 'bg-black' : 'bg-white'}`}
+                            className="bg-[#f5f5f5] border border-black/[0.03] p-6 transition-all duration-500 ease-out"
                         >
                             <div className="flex justify-between items-center">
-                                <span className={`text-xl font-black uppercase tracking-tight ${openModule === i ? 'text-white' : 'text-black'}`}>{m.w}</span>
+                                <span className="text-xl font-black uppercase tracking-tight text-black">{m.w}</span>
                                 <ChevronRight
-                                    className={`transition-transform duration-500 ${openModule === i ? 'rotate-90 text-white' : 'rotate-0 text-black/20'}`}
+                                    className={`transition-transform duration-500 ${openModule === i ? 'rotate-90 text-black' : 'rotate-0 text-black/20'}`}
                                     size={20}
                                 />
                             </div>
                             <div className={`grid transition-[grid-template-rows] duration-500 ease-out ${openModule === i ? 'grid-rows-[1fr] mt-4' : 'grid-rows-[0fr]'}`}>
-                                <p className={`overflow-hidden text-sm font-light leading-relaxed text-white/70`}>
+                                <p className="overflow-hidden text-sm font-light leading-relaxed text-black/70">
                                     {m.desc}
                                 </p>
                             </div>
@@ -439,9 +461,10 @@ const CenthropyMobile = () => {
                     ))}
                 </div>
 
-                <div className="flex flex-col border-t border-white/20 pt-16 -mx-6 px-6 bg-white">
-                    <div className="flex flex-col mb-16">
-                        <h2 className="text-4xl font-black uppercase tracking-tighter text-black">NÚCLEO DE ECOSISTEMA</h2>
+                <div className="flex flex-col gap-6 border-t border-white/20 pt-24 -mx-6 px-6 bg-white">
+                    <div className="flex flex-col mb-6">
+                        <div className="w-full h-[1px] bg-black/15 mb-10" />
+                        <h2 className="text-[45px] font-medium tracking-tighter text-black leading-none">Ecosistema Unify</h2>
                     </div>
                     <div className="flex flex-col gap-12">
                         {systemModules.map((comp, idx) => {
@@ -502,20 +525,39 @@ const CenthropyMobile = () => {
                     </div>
                 </div>
 
-                <div className="flex flex-col gap-10 border-t border-white/20 pt-16 -mx-6 px-6 bg-white">
+                <div className="bg-white px-6 -mx-6">
+                    <ConnectorsSection />
+                </div>
+
+                <div className="flex flex-col gap-6 border-t border-white/20 pt-12 pb-12 -mx-6 px-6 bg-white">
                     <div className="flex flex-col gap-6">
-                        <h2 className="text-4xl font-black uppercase tracking-tighter text-black">Soluciones</h2>
-                        <p className="text-xl font-light text-black/60 leading-[1.25] tracking-tight">
-                            Servicios y tecnología diseñada para potenciar el control empresarial, la expansión de mercado y el crecimiento de organizaciones en el sector del eCommerce y el Retail.
-                        </p>
+                        <div className="w-full h-[1px] bg-black/15 mb-6" />
+                        <div className="flex justify-between items-end mb-6">
+                            <h2 className="text-[45px] font-medium tracking-tighter text-black leading-none m-0">Soluciones</h2>
+                            <div className="flex gap-4">
+                                <button
+                                    onClick={() => scrollSolutions('left')}
+                                    className="w-[43px] h-[43px] border border-black flex items-center justify-center active:bg-black transition-all duration-300 group/btn"
+                                    aria-label="Anterior"
+                                >
+                                    <ChevronLeft size={22} className="text-black group-active/btn:text-white" />
+                                </button>
+                                <button
+                                    onClick={() => scrollSolutions('right')}
+                                    className="w-[43px] h-[43px] border border-black flex items-center justify-center active:bg-black transition-all duration-300 group/btn"
+                                    aria-label="Siguiente"
+                                >
+                                    <ChevronRight size={22} className="text-black group-active/btn:text-white" />
+                                </button>
+                            </div>
+                        </div>
                     </div>
                     <div className="relative group">
-                        {/* Indicador de Desplazamiento Lateral */}
-                        <div className="flex items-center gap-2 mb-6 opacity-30">
-                            <span className="text-[10px] font-bold uppercase tracking-[0.2em]">DESLIZA Y EXPLORA MÁS SOLUCIONES</span>
-                            <div className="h-[1px] w-12 bg-black" />
-                        </div>
-                        <div className="flex overflow-x-auto snap-x snap-mandatory gap-0 no-scrollbar -mx-6 pb-6">
+                        <div
+                            ref={solutionsScrollRef}
+                            onScroll={handleCarouselScroll}
+                            className="flex overflow-x-auto snap-x snap-mandatory gap-0 no-scrollbar -mx-6 pb-6"
+                        >
                             {solutions.map((s, idx) => (
                                 <div key={idx} className="w-screen flex-shrink-0 snap-center px-6">
                                     <div className="bg-black border border-white/5 p-8 flex flex-col gap-8 min-h-[500px] h-full">
@@ -532,7 +574,7 @@ const CenthropyMobile = () => {
                                         </div>
 
                                         <div className="flex flex-col gap-6 flex-grow justify-between">
-                                            <p className="text-[16px] font-light leading-relaxed text-white/70">
+                                            <p className="text-[12px] font-light leading-relaxed text-white/70">
                                                 {s.desc}
                                             </p>
 
@@ -551,24 +593,31 @@ const CenthropyMobile = () => {
                             ))}
                         </div>
 
-                        {/* Dots de Navegación (Visuales) */}
+                        {/* Dots de Navegación (Activos) */}
                         <div className="flex justify-center gap-2.5 mt-4 pb-12">
                             {solutions.map((_, i) => (
-                                <div key={i} className="w-1.5 h-1.5 rounded-full bg-black/10" />
+                                <div
+                                    key={i}
+                                    className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${scrollIndex === i ? 'bg-black scale-125' : 'bg-black/10'}`}
+                                />
                             ))}
                         </div>
                     </div>
                 </div>
 
-                <div className="bg-white text-black py-24 flex flex-col gap-12 border-t border-black/10 -mx-6 px-6">
-                    <h4 className="text-7xl font-black uppercase tracking-tighter leading-[0.85]">
-                        Get <br /> Started
+                <div className="bg-white -mx-6">
+                    <OrganizationsCarousel />
+                </div>
+
+                <div className="bg-white text-black py-8 flex flex-row justify-between items-center border-t border-black/10 -mx-6 px-6">
+                    <h4 className="text-[12vw] min-[400px]:text-[45px] font-medium tracking-tighter text-black leading-none m-0">
+                        CONECTAR
                     </h4>
                     <Link
                         to="/waitlist"
-                        className="w-20 h-20 border-2 border-black rounded-full flex items-center justify-center group active:bg-black active:text-white transition-all duration-300"
+                        className="w-14 h-14 border-2 border-black rounded-none flex items-center justify-center group active:bg-black active:text-white transition-all duration-300 shrink-0"
                     >
-                        <ChevronRight size={40} />
+                        <ChevronRight size={28} />
                     </Link>
                 </div>
             </main >

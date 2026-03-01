@@ -104,6 +104,7 @@ const migratePost = (post) => {
 // ─────────────────────────────────────────────
 
 const INITIAL_POSTS = [
+    // --- NEWS / BLOG ---
     {
         id: '1',
         slug: 'blockchain-integration-supply-chain',
@@ -115,82 +116,8 @@ const INITIAL_POSTS = [
         tags: ['Blockchain', 'Supply Chain', 'Datos'],
         authorId: 'author_ce_1',
         readTime: '3 min read',
-        coverImage: 'https://images.unsplash.com/photo-1639762681485-074b7f938ba0?auto=format&fit=crop&w=800&q=80',
-        image: 'https://images.unsplash.com/photo-1639762681485-074b7f938ba0?auto=format&fit=crop&w=800&q=80',
-        coverCaption: '',
-        content: [
-            { id: generateId(), type: 'paragraph', text: 'Exploring how blockchain is revolutionizing transparency in global logistics.' }
-        ],
-        seo: {
-            metaTitle: 'Blockchain Integration in Supply Chain | Centhropy',
-            metaDescription: 'Exploring how blockchain is revolutionizing transparency in global logistics.',
-            focusKeyword: 'blockchain supply chain',
-            canonicalUrl: '',
-            ogImage: 'https://images.unsplash.com/photo-1639762681485-074b7f938ba0?auto=format&fit=crop&w=800&q=80',
-            noIndex: false,
-            geoSummary: '',
-            entityMentions: ['Centhropy', 'Blockchain', 'Supply Chain'],
-        },
-        status: 'active',
-        date: new Date().toISOString()
-    },
-    {
-        id: '2',
-        slug: 'new-strategic-partnership-tech-giants',
-        type: 'announcement',
-        category: 'Alianzas Estratégicas',
-        title: 'New Strategic Partnership with Tech Giants',
-        excerpt: 'Centhropy announces a major collaboration to scale AI infrastructure.',
-        description: 'Centhropy announces a major collaboration to scale AI infrastructure.',
-        tags: ['Alianza', 'AI', 'Estrategia'],
-        authorId: 'author_ce_2',
-        readTime: '2 min read',
-        coverImage: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=800&q=80',
-        image: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=800&q=80',
-        coverCaption: '',
-        content: [
-            { id: generateId(), type: 'paragraph', text: 'Centhropy announces a major collaboration to scale AI infrastructure.' }
-        ],
-        seo: {
-            metaTitle: 'New Strategic Partnership with Tech Giants | Centhropy',
-            metaDescription: 'Centhropy announces a major collaboration to scale AI infrastructure.',
-            focusKeyword: 'strategic partnership AI',
-            canonicalUrl: '',
-            ogImage: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=800&q=80',
-            noIndex: false,
-            geoSummary: '',
-            entityMentions: ['Centhropy', 'AI'],
-        },
-        status: 'active',
-        date: new Date().toISOString()
-    },
-    {
-        id: '3',
-        slug: 'retail-transformation-case-study',
-        type: 'impact_study',
-        category: 'Retail Intelligence',
-        title: 'Retail Transformation Case Study',
-        excerpt: 'How our data solutions increased efficiency by 40% for a leading retailer.',
-        description: 'How our data solutions increased efficiency by 40% for a leading retailer.',
-        tags: ['Retail', 'Case Study', 'Data'],
-        authorId: 'author_ce_1',
-        readTime: '4 min read',
-        coverImage: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=800&q=80',
-        image: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=800&q=80',
-        coverCaption: '',
-        content: [
-            { id: generateId(), type: 'paragraph', text: 'How our data solutions increased efficiency by 40% for a leading retailer.' }
-        ],
-        seo: {
-            metaTitle: 'Retail Transformation Case Study | Centhropy',
-            metaDescription: 'How our data solutions increased efficiency by 40% for a leading retailer.',
-            focusKeyword: 'retail data transformation',
-            canonicalUrl: '',
-            ogImage: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=800&q=80',
-            noIndex: false,
-            geoSummary: '',
-            entityMentions: ['Centhropy', 'Retail'],
-        },
+        coverImage: 'https://images.unsplash.com/photo-1565891741441-64926e441838?auto=format&fit=crop&w=800&q=80',
+        image: 'https://images.unsplash.com/photo-1565891741441-64926e441838?auto=format&fit=crop&w=800&q=80',
         status: 'active',
         date: new Date().toISOString()
     },
@@ -205,24 +132,174 @@ const INITIAL_POSTS = [
         tags: ['AI', 'Governance', 'Ética'],
         authorId: 'author_ce_2',
         readTime: '3 min read',
-        coverImage: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=800&q=80',
-        image: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=800&q=80',
-        coverCaption: '',
-        content: [
-            { id: generateId(), type: 'paragraph', text: 'New frameworks for responsible AI deployment are being adopted worldwide.' }
-        ],
-        seo: {
-            metaTitle: 'AI Governance and Ethics in 2026 | Centhropy',
-            metaDescription: 'New frameworks for responsible AI deployment are being adopted worldwide.',
-            focusKeyword: 'AI governance ethics',
-            canonicalUrl: '',
-            ogImage: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=800&q=80',
-            noIndex: false,
-            geoSummary: '',
-            entityMentions: ['Centhropy', 'AI'],
-        },
+        coverImage: 'https://images.unsplash.com/photo-1573164713988-8665fc963095?auto=format&fit=crop&w=800&q=80',
+        image: 'https://images.unsplash.com/photo-1573164713988-8665fc963095?auto=format&fit=crop&w=800&q=80',
+        status: 'active',
+        date: new Date(Date.now() - 86400000).toISOString()
+    },
+    {
+        id: '5',
+        slug: 'future-of-autonomous-data',
+        type: 'news',
+        category: 'Tecnología',
+        title: 'The Future of Autonomous Data Intelligence',
+        excerpt: 'How self-correcting data pipelines are changing the landscape of enterprise AI.',
+        description: 'How self-correcting data pipelines are changing the landscape of enterprise AI.',
+        tags: ['Data', 'AI', 'Automation'],
+        authorId: 'author_ce_1',
+        readTime: '5 min read',
+        coverImage: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=800&q=80',
+        image: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=800&q=80',
+        status: 'active',
+        date: new Date(Date.now() - 172800000).toISOString()
+    },
+    {
+        id: '6',
+        slug: 'unify-agent-capabilities',
+        type: 'news',
+        category: 'Producto',
+        title: 'Deep Dive: Unify Agent 3.0 Capabilities',
+        excerpt: 'An inside look at the cognitive architecture of our most advanced data assistant.',
+        description: 'An inside look at the cognitive architecture of our most advanced data assistant.',
+        tags: ['Unify', 'Agent', 'Product'],
+        authorId: 'author_ce_1',
+        readTime: '4 min read',
+        coverImage: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80',
+        image: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80',
+        status: 'active',
+        date: new Date(Date.now() - 259200000).toISOString()
+    },
+
+    // --- ANNOUNCEMENTS ---
+    {
+        id: '2',
+        slug: 'new-strategic-partnership-tech-giants',
+        type: 'announcement',
+        category: 'Alianzas Estratégicas',
+        title: 'New Strategic Partnership with Tech Giants',
+        excerpt: 'Centhropy announces a major collaboration to scale AI infrastructure.',
+        description: 'Centhropy announces a major collaboration to scale AI infrastructure.',
+        tags: ['Alianza', 'AI', 'Estrategia'],
+        authorId: 'author_ce_2',
+        readTime: '2 min read',
+        coverImage: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=800&q=80',
+        image: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=800&q=80',
         status: 'active',
         date: new Date().toISOString()
+    },
+    {
+        id: '7',
+        slug: 'expansion-into-european-market',
+        type: 'announcement',
+        category: 'Estructura Organizativa',
+        title: 'Expansion into the European Market',
+        excerpt: 'Centhropy opens new data center hubs in Berlin and Madrid.',
+        description: 'Centhropy opens new data center hubs in Berlin and Madrid.',
+        tags: ['Expansión', 'Global', 'Infraestructura'],
+        authorId: 'author_ce_1',
+        readTime: '2 min read',
+        coverImage: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80',
+        image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80',
+        status: 'active',
+        date: new Date(Date.now() - 432000000).toISOString()
+    },
+    {
+        id: '8',
+        slug: 'sustainability-report-2025',
+        type: 'announcement',
+        category: 'Gobierno Corporativo',
+        title: '2025 Sustainability & Impact Report',
+        excerpt: 'Our commitment to carbon-neutral data processing and ethical computing.',
+        description: 'Our commitment to carbon-neutral data processing and ethical computing.',
+        tags: ['Sustainability', 'ESG', 'Ethics'],
+        authorId: 'author_ce_2',
+        readTime: '3 min read',
+        coverImage: 'https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&w=800&q=80',
+        image: 'https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&w=800&q=80',
+        status: 'active',
+        date: new Date(Date.now() - 604800000).toISOString()
+    },
+    {
+        id: '9',
+        slug: 'appointment-new-cto',
+        type: 'announcement',
+        category: 'Nombramientos',
+        title: 'Centhropy Appoints New Chief Technology Officer',
+        excerpt: 'Renowned AI researcher joins our leadership team to drive innovation.',
+        description: 'Renowned AI researcher joins our leadership team to drive innovation.',
+        tags: ['Leadership', 'CTO', 'Talent'],
+        authorId: 'author_ce_2',
+        readTime: '2 min read',
+        coverImage: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=800&q=80',
+        image: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=800&q=80',
+        status: 'active',
+        date: new Date(Date.now() - 864000000).toISOString()
+    },
+
+    // --- IMPACT STUDIES ---
+    {
+        id: '3',
+        slug: 'retail-transformation-case-study',
+        type: 'impact_study',
+        category: 'Retail Intelligence',
+        title: 'Retail Transformation Case Study',
+        excerpt: 'How our data solutions increased efficiency by 40% for a leading retailer.',
+        description: 'How our data solutions increased efficiency by 40% for a leading retailer.',
+        tags: ['Retail', 'Case Study', 'Data'],
+        authorId: 'author_ce_1',
+        readTime: '4 min read',
+        coverImage: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=800&q=80',
+        image: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=800&q=80',
+        status: 'active',
+        date: new Date().toISOString()
+    },
+    {
+        id: '10',
+        slug: 'autonomous-logistics-optimization',
+        type: 'impact_study',
+        category: 'Logística',
+        title: 'Autonomous Logistics Optimization',
+        excerpt: 'Reducing transit times by 25% using real-time predictive analytics.',
+        description: 'Reducing transit times by 25% using real-time predictive analytics.',
+        tags: ['Logistics', 'Predictive', 'Impact'],
+        authorId: 'author_ce_1',
+        readTime: '5 min read',
+        coverImage: 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=800&q=80',
+        image: 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=800&q=80',
+        status: 'active',
+        date: new Date(Date.now() - 1209600000).toISOString()
+    },
+    {
+        id: '11',
+        slug: 'fintech-security-scaling',
+        type: 'impact_study',
+        category: 'Fintech',
+        title: 'Scaling Security for Next-Gen Fintech',
+        excerpt: 'Zero-trust architecture for high-frequency financial data processing.',
+        description: 'Zero-trust architecture for high-frequency financial data processing.',
+        tags: ['Security', 'Fintech', 'Scale'],
+        authorId: 'author_ce_1',
+        readTime: '6 min read',
+        coverImage: 'https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=800&q=80',
+        image: 'https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=800&q=80',
+        status: 'active',
+        date: new Date(Date.now() - 1555200000).toISOString()
+    },
+    {
+        id: '12',
+        slug: 'predictive-maintenance-industrial',
+        type: 'impact_study',
+        category: 'Industrial',
+        title: 'Predictive Maintenance in Heavy Industry',
+        excerpt: 'Preventing downtime worth millions through loT data integration.',
+        description: 'Preventing downtime worth millions through loT data integration.',
+        tags: ['IoT', 'Industry', 'Analytics'],
+        authorId: 'author_ce_1',
+        readTime: '4 min read',
+        coverImage: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=800&q=80',
+        image: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=800&q=80',
+        status: 'active',
+        date: new Date(Date.now() - 1814400000).toISOString()
     }
 ];
 
@@ -241,17 +318,10 @@ export const useEditorial = () => {
 
     // ── POSTS ──────────────────────────────────
     const [posts, setPosts] = useState(() => {
-        const saved = localStorage.getItem('ces_posts_v5');
+        const saved = localStorage.getItem('ces_posts_v11');
         if (saved) {
-            // Migrate any saved posts that might be old format
             const parsed = JSON.parse(saved);
             return parsed.map(migratePost);
-        }
-        // Try migrating from old key
-        const legacySaved = localStorage.getItem('ces_posts');
-        if (legacySaved) {
-            const legacyParsed = JSON.parse(legacySaved);
-            return legacyParsed.map(migratePost);
         }
         return INITIAL_POSTS;
     });
@@ -270,7 +340,7 @@ export const useEditorial = () => {
 
     // ── PERSISTENCE ────────────────────────────
     useEffect(() => {
-        localStorage.setItem('ces_posts_v5', JSON.stringify(posts));
+        localStorage.setItem('ces_posts_v11', JSON.stringify(posts));
         // Keep legacy sync for current public pages' safety
         localStorage.setItem('ces_posts', JSON.stringify(posts));
     }, [posts]);

@@ -16,6 +16,7 @@ import PageTransition from "./components/PageTransition";
 import AdminLogin from "./editorial/AdminLogin";
 import EditorialPanel from "./editorial/EditorialPanel";
 import Documentation from "./Documentation";
+import DocumentationConstruction from "./DocumentationConstruction";
 import NotFound from "./NotFound";
 
 const App = () => {
@@ -34,6 +35,9 @@ const PageTransitionWrapper = () => {
   // Handle Initial Load
   useEffect(() => {
     console.log("Deployed. Developed by Centhropy.");
+    if ('scrollRestoration' in window.history) {
+      window.history.scrollRestoration = 'manual';
+    }
 
     const timer = setTimeout(() => {
       setTransitionStage("revealing");
@@ -49,11 +53,17 @@ const PageTransitionWrapper = () => {
       const timer = setTimeout(() => {
         setDisplayLocation(location);
         setTransitionStage("revealing");
+        window.scrollTo(0, 0);
       }, 150); // Internal navigation cover time
 
       return () => clearTimeout(timer);
     }
   }, [location.pathname, displayLocation.pathname]);
+
+  // Fallback Scroll to top on navigation change (for displayLocation updates)
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [displayLocation.pathname]);
 
   return (
     <>
@@ -71,7 +81,7 @@ const PageTransitionWrapper = () => {
           <Route path="/waitlist" element={<Waitlist />} />
           <Route path="/login" element={<LoginRedirect />} />
           <Route path="/announcements" element={<CorporateAnnouncements />} />
-          <Route path="/docs" element={<Documentation />} />
+          <Route path="/docs" element={<DocumentationConstruction />} />
           {/* Stealth Editorial Routes */}
           <Route path="/terminal-x92-core" element={<AdminLogin />} />
           <Route
