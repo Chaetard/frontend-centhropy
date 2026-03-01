@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 
 const connectorsData = [
     { id: 1, name: "Google", logo: "/connectors/01_google_1.svg" },
@@ -24,26 +24,25 @@ const ConnectorsSection = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [isMobile, setIsMobile] = useState(false);
     const [visibleCount, setVisibleCount] = useState(8);
-    const [animateOnLoad, setAnimateOnLoad] = useState(false);
 
-    // Detectar si es mobile para ajustar el conteo inicial.
-    // IMPORTANTE: solo reseteamos visibleCount cuando cambia el breakpoint
-    // (mobile ↔ desktop). Los navegadores móviles disparan 'resize' en cada
-    // scroll cuando la barra de URL aparece/desaparece, lo que causaba que
-    // los conectores se colapsaran al hacer scroll luego de "Cargar Más".
+    // Ref que guarda desde qué índice empiezan las tarjetas NUEVAS.
+    // -1 = no hay tarjetas nuevas (carga inicial o búsqueda).
+    const newStartRef = useRef(-1);
+
+    // Detectar mobile — solo resetea visibleCount cuando cambia el breakpoint,
+    // no en cada resize (evita el bug de scroll en mobile).
     useEffect(() => {
         const checkMobile = () => {
             const mobile = window.innerWidth < 768;
             setIsMobile(prev => {
                 if (prev !== mobile) {
-                    // Solo reseteamos el conteo si cambia realmente el breakpoint
+                    newStartRef.current = -1;
                     setVisibleCount(mobile ? 4 : 8);
                 }
                 return mobile;
             });
         };
 
-        // Inicialización: establecemos el estado sin pasar por setIsMobile funcional
         const initialMobile = window.innerWidth < 768;
         setIsMobile(initialMobile);
         setVisibleCount(initialMobile ? 4 : 8);
@@ -52,8 +51,8 @@ const ConnectorsSection = () => {
         return () => window.removeEventListener('resize', checkMobile);
     }, []);
 
-    const filteredConnectors = connectorsData.filter(connector =>
-        connector.name.toLowerCase().includes(searchTerm.toLowerCase())
+    const filteredConnectors = connectorsData.filter(c =>
+        c.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
     const visibleConnectors = filteredConnectors.slice(0, visibleCount);
@@ -61,22 +60,26 @@ const ConnectorsSection = () => {
     const increment = isMobile ? 4 : 8;
 
     const handleLoadMore = () => {
-        setAnimateOnLoad(true);
+        // Marcamos desde dónde empiezan las nuevas ANTES de actualizar el estado
+        newStartRef.current = visibleCount;
         setVisibleCount(prev => Math.min(prev + increment, filteredConnectors.length));
     };
 
     return (
         <div className="mt-20 md:mt-20 mb-12 md:mb-24 pt-0 md:pt-20 text-black">
             <div className="w-full h-[1px] bg-black/15 mb-10" />
+
             <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 gap-8 w-full">
-                <h3 className="text-[45px] md:text-[70px] font-medium tracking-tighter leading-none m-0">Integraciones</h3>
+                <h3 className="text-[45px] md:text-[70px] font-medium tracking-tighter leading-none m-0">
+                    Integraciones
+                </h3>
                 <div className="w-full md:w-auto relative mb-1">
                     <input
                         type="text"
                         placeholder="Buscar conector..."
                         value={searchTerm}
                         onChange={(e) => {
-                            setAnimateOnLoad(false);
+                            newStartRef.current = -1;
                             setSearchTerm(e.target.value);
                             setVisibleCount(initialCount);
                         }}
@@ -84,26 +87,27 @@ const ConnectorsSection = () => {
                     />
                     <div className="absolute right-6 top-1/2 -translate-y-1/2 text-black/20 pointer-events-none">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                            <circle cx="11" cy="11" r="8"></circle>
-                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                            <circle cx="11" cy="11" r="8" />
+                            <line x1="21" y1="21" x2="16.65" y2="16.65" />
                         </svg>
                     </div>
                 </div>
             </div>
 
             <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-4 md:gap-6 mb-16">
-                <AnimatePresence>
-                    {visibleConnectors.map((connector, idx) => (
+                {visibleConnectors.map((connector, idx) => {
+                    // Solo las tarjetas genuinamente nuevas reciben animación
+                    const isNew = newStartRef.current >= 0 && idx >= newStartRef.current;
+                    const newIdx = isNew ? idx - newStartRef.current : 0;
+
+                    return (
                         <motion.div
                             key={connector.id}
-                            initial={animateOnLoad && idx >= (visibleCount - increment)
-                                ? { clipPath: "inset(100% 0% 0% 0%)", opacity: 0 }
-                                : false
-                            }
-                            animate={{ clipPath: "inset(0% 0% 0% 0%)", opacity: 1 }}
-                            transition={animateOnLoad && idx >= (visibleCount - increment) ? {
-                                duration: 0.45,
-                                delay: (idx - (visibleCount - increment)) * 0.04,
+                            initial={isNew ? { opacity: 0, y: 20 } : false}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={isNew ? {
+                                duration: 0.30,
+                                delay: newIdx * 0.04,
                                 ease: [0.76, 0, 0.24, 1]
                             } : { duration: 0 }}
                             className="relative bg-[#f5f5f5] aspect-[4/3] md:aspect-[20/9] flex items-center justify-center p-0 md:p-8 group hover:bg-[#ebebeb] transition-all duration-300"
@@ -115,13 +119,15 @@ const ConnectorsSection = () => {
                                 className="w-full h-full max-w-none max-h-none md:max-w-[360px] md:max-h-[180px] md:w-[80%] md:h-auto object-contain p-0 md:p-0 opacity-70 group-hover:opacity-100 transition-all duration-300 scale-[1.25] md:scale-100 group-hover:scale-[1.35] md:group-hover:scale-110 transform"
                             />
                         </motion.div>
-                    ))}
-                </AnimatePresence>
+                    );
+                })}
             </div>
 
             {filteredConnectors.length === 0 && (
                 <div className="w-full py-20 text-center">
-                    <p className="text-black/40 uppercase tracking-widest font-bold text-sm">No se encontraron conectores que coincidan con "{searchTerm}"</p>
+                    <p className="text-black/40 uppercase tracking-widest font-bold text-sm">
+                        No se encontraron conectores que coincidan con "{searchTerm}"
+                    </p>
                 </div>
             )}
 
