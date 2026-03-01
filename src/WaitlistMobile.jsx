@@ -63,6 +63,10 @@ const countries = [
 ];
 
 const WaitlistMobile = () => {
+    React.useLayoutEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
     const [selectedCountry, setSelectedCountry] = React.useState(null);
     const [selectedSolutions, setSelectedSolutions] = React.useState([]);
     const [isDropdownOpen, setIsDropdownOpen] = React.useState(false);

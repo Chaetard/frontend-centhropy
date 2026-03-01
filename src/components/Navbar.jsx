@@ -179,7 +179,7 @@ const Navbar = ({ subtitle = "Unified Data Engine" }) => {
                                 className="group flex justify-between items-center bg-black transition-all duration-500 py-4 px-6 rounded-none border border-black/10"
                             >
                                 <span className="text-3xl font-medium uppercase tracking-tighter text-white flex items-center gap-2">CONECTAR <span className="text-2xl leading-none">→</span></span>
-                                <div className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-white group-hover:border-white transition-all">
+                                <div className="w-12 h-12 rounded-none border border-white/20 flex items-center justify-center text-white group-hover:border-white transition-all">
                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                                     </svg>
