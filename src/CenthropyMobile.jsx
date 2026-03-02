@@ -427,7 +427,7 @@ const CenthropyMobile = () => {
             </div>
 
             {/* MAIN CONTENT AREA */}
-            <main className="relative z-20 bg-white pt-20 pb-24 px-6 flex flex-col gap-8">
+            <main className="relative z-20 bg-white pt-40 pb-24 px-6 flex flex-col gap-8">
                 <div className="flex flex-col gap-6 text-center items-center w-full">
                     <h2 className="text-[6vw] font-medium tracking-tight leading-[1.25] text-black text-center flex flex-col gap-0 w-full">
                         {[
