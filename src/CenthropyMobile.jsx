@@ -430,24 +430,14 @@ const CenthropyMobile = () => {
             <main className="relative z-20 bg-white pt-32 pb-24 px-6 flex flex-col gap-8">
                 <div className="flex flex-col gap-6 text-center items-center w-full">
 
-                    <h2 className="text-[7.8vw] min-[400px]:text-[30px] font-medium tracking-tight leading-[1.2] text-black text-center flex flex-col gap-1 w-full px-4">
-                        {[
-                            "Ecosistema creado para",
-                            "potenciar, en tiempo real,",
-                            "la toma de decisiones en",
-                            "organizaciones de",
-                            "alto valor."
-                        ].map((line, i) => (
-                            <span
-                                key={i}
-                                className="block aria-hidden:true will-change-transform whitespace-nowrap"
-                                style={{
-                                    transform: `translateY(${-introInertia * (1.2 + i * 0.8)}px)`
-                                }}
-                            >
-                                {line}
-                            </span>
-                        ))}
+                    <h2
+                        className="text-[8vw] min-[380px]:text-[28px] font-medium tracking-tight leading-[1.2] text-black text-center w-full"
+                        style={{
+                            textWrap: 'balance',
+                            transform: `translateY(${-introInertia * 1.5}px)`
+                        }}
+                    >
+                        Ecosistema creado para potenciar, en tiempo real, la toma de decisiones en organizaciones de alto valor.
                     </h2>
                 </div>
 
