@@ -427,7 +427,7 @@ const CenthropyMobile = () => {
             </div>
 
             {/* MAIN CONTENT AREA */}
-            <main className="relative z-20 bg-white pt-16 pb-24 px-6 flex flex-col gap-8">
+            <main className="relative z-20 bg-white pt-6 pb-24 px-6 flex flex-col gap-8">
                 <div className="flex flex-col gap-6 text-center items-center w-full">
 
                     <h2
@@ -473,7 +473,7 @@ const CenthropyMobile = () => {
                 </div>
 
                 {/* SECCIÓN ECOSISTEMA UNIFY */}
-                <div className="flex flex-col gap-6 border-t border-white/20 pt-24 -mx-6 px-6 bg-white">
+                <div className="flex flex-col gap-6 border-t border-white/20 pt-36 -mx-6 px-6 bg-white">
                     <div className="flex flex-col mb-6">
                         <div className="w-full h-[1px] bg-black/15 mb-10" />
                         <h2 className="text-[45px] font-medium tracking-tighter text-black leading-none">Ecosistema Unify</h2>
