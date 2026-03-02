@@ -26,20 +26,20 @@ const ConnectorItem = ({ connector, isNew, newIdx, isMobile }) => {
     return (
         <motion.div
             initial={isNew ? { opacity: 0, y: 20 } : false}
-            animate={(isMobile && isNew) ? (imageLoaded ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }) : { opacity: 1, y: 0 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={isNew ? {
-                duration: 0.30,
-                delay: isMobile ? 0 : (newIdx * 0.04), // Eliminamos delay en mobile para que no parpadeen uno a uno sin imagen
-                ease: [0.76, 0, 0.24, 1]
+                duration: 0.45,
+                delay: isMobile ? 0 : (newIdx * 0.04),
+                ease: [0.22, 1, 0.36, 1]
             } : { duration: 0 }}
-            className="relative bg-[#f5f5f5] aspect-[4/3] md:aspect-[20/9] flex items-center justify-center p-0 md:p-8 group hover:bg-[#ebebeb] transition-all duration-300"
+            className="relative bg-[#f5f5f5] aspect-[4/3] md:aspect-[20/9] flex items-center justify-center p-0 md:p-8 group hover:bg-[#ebebeb] transition-colors duration-300"
             style={{ clipPath: "polygon(0 0, calc(100% - 24px) 0, 100% 24px, 100% 100%, 0 100%)" }}
         >
             <img
                 src={connector.logo}
                 alt={connector.name}
                 onLoad={() => setImageLoaded(true)}
-                className={`w-full h-full max-w-none max-h-none md:max-w-[360px] md:max-h-[180px] md:w-[80%] md:h-auto object-contain p-0 md:p-0 transition-all duration-300 scale-[1.25] md:scale-100 group-hover:scale-[1.35] md:group-hover:scale-110 transform ${imageLoaded ? 'opacity-70 group-hover:opacity-100' : 'opacity-0'}`}
+                className={`w-full h-full max-w-none max-h-none md:max-w-[360px] md:max-h-[180px] md:w-[80%] md:h-auto object-contain p-0 md:p-0 transition-all duration-700 scale-[1.25] md:scale-100 group-hover:scale-[1.35] md:group-hover:scale-110 transform ${imageLoaded ? 'opacity-70 group-hover:opacity-100' : 'opacity-0'}`}
             />
         </motion.div>
     );
@@ -98,7 +98,7 @@ const ConnectorsSection = () => {
     };
 
     return (
-        <div className="mt-20 md:mt-20 mb-12 md:mb-24 pt-0 md:pt-20 text-black">
+        <div className="mt-12 md:mt-20 mb-12 md:mb-24 pt-0 md:pt-20 text-black">
             <div className="w-full h-[1px] bg-black/15 mb-10" />
 
             <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 gap-8 w-full">
