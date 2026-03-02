@@ -183,6 +183,27 @@ const CenthropyMobile = () => {
         progress: '50%', timer: '00:00:00'
     });
 
+    // Metrics dynamic logic
+    useEffect(() => {
+        const interval = setInterval(() => {
+            const { phi, theta } = probeDataRef.current;
+            const time = performance.now() * 0.001;
+            const now = new Date();
+            const latDeg = Math.cos(theta) * 90;
+            const lonDeg = ((phi % (2 * Math.PI)) / (2 * Math.PI)) * 360 - 180;
+
+            setProbeMetrics(prev => ({
+                ...prev,
+                lat: `${Math.abs(latDeg).toFixed(2)}° ${latDeg >= 0 ? 'N' : 'S'}`,
+                lon: `${Math.abs(lonDeg).toFixed(2)}° ${lonDeg >= 0 ? 'E' : 'W'}`,
+                progress: (40 + Math.sin(time * 1.5) * 30).toFixed(0) + "%",
+                timer: `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}:${String(now.getSeconds()).padStart(2, '0')}`
+            }));
+        }, 100);
+
+        return () => clearInterval(interval);
+    }, []);
+
     // Strategy Cycling Logic
     const objectives = ["RENTABILITY INSIGHT", "GROWTH TACTIC", "OPTIMIZATION STRATEGIC"];
     const tags = ["X-7", "X-8", "X-9"];
@@ -406,10 +427,10 @@ const CenthropyMobile = () => {
             </div>
 
             {/* MAIN CONTENT AREA */}
-            <main className="relative z-20 bg-white pt-16 pb-24 px-6 flex flex-col gap-8">
+            <main className="relative z-20 bg-white pt-32 pb-24 px-6 flex flex-col gap-8">
                 <div className="flex flex-col gap-6 text-center items-center w-full">
 
-                    <h2 className="text-[8.8vw] min-[400px]:text-[34px] font-medium tracking-tight leading-[1.15] text-black flex flex-col gap-0 w-full">
+                    <h2 className="text-[8.5vw] min-[400px]:text-[32px] font-medium tracking-tight leading-[1.2] text-black text-center flex flex-col gap-1 w-full px-2">
                         {[
                             "Ecosistema creado para",
                             "potenciar, en tiempo real,",
@@ -430,14 +451,14 @@ const CenthropyMobile = () => {
                     </h2>
                 </div>
 
-                <div className="flex justify-center">
+                <div className="flex justify-center mt-8">
                     <svg width="60" height="30" viewBox="0 0 60 30" fill="none" xmlns="http://www.w3.org/2000/svg" className="opacity-80">
                         <path d="M10 5L30 25L50 5" stroke="black" strokeWidth="1.5" strokeOpacity="0.1" strokeLinecap="square" strokeLinejoin="miter" />
                         <path d="M10 5L30 25L50 5" stroke="black" strokeWidth="1.5" strokeLinecap="square" strokeLinejoin="miter" className="energy-path" />
                     </svg>
                 </div>
 
-                <div className="flex flex-col gap-4">
+                <div className="flex flex-col gap-4 mt-12">
                     {modules.map((m, i) => (
                         <div
                             key={i}
@@ -451,8 +472,8 @@ const CenthropyMobile = () => {
                                     size={20}
                                 />
                             </div>
-                            <div className={`grid transition-[grid-template-rows] duration-500 ease-out ${openModule === i ? 'grid-rows-[1fr] mt-4' : 'grid-rows-[0fr]'}`}>
-                                <p className="overflow-hidden text-sm font-light leading-relaxed text-black/70">
+                            <div className={`grid transition-[grid-template-rows] duration-500 ease-out ${openModule === i ? 'grid-rows-[1fr] mt-5' : 'grid-rows-[0fr]'}`}>
+                                <p className="overflow-hidden text-[16px] font-light leading-relaxed text-black/60 tracking-tight">
                                     {m.desc}
                                 </p>
                             </div>
@@ -460,6 +481,7 @@ const CenthropyMobile = () => {
                     ))}
                 </div>
 
+                {/* SECCIÓN ECOSISTEMA UNIFY */}
                 <div className="flex flex-col gap-6 border-t border-white/20 pt-24 -mx-6 px-6 bg-white">
                     <div className="flex flex-col mb-6">
                         <div className="w-full h-[1px] bg-black/15 mb-10" />
@@ -474,13 +496,13 @@ const CenthropyMobile = () => {
                                     ref={moduleRefs.current[idx]}
                                     className="relative w-full bg-[#f5f5f5] border border-black/[0.05] p-8 flex flex-col overflow-hidden"
                                 >
-                                    {/* ID y Marcador - Ahora dentro de la tarjeta gris */}
+                                    {/* ID y Marcador */}
                                     <div className={`flex justify-between items-center border-b border-black/10 pb-4 mb-8 transition-opacity duration-1000 ${isOpened ? 'opacity-100' : 'opacity-30'}`}>
                                         <span className="text-[10px] font-bold text-black/40 tracking-[0.3em]">{comp.id}</span>
                                         <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-black/30">{comp.short}</span>
                                     </div>
 
-                                    {/* Imagen Superior Estática */}
+                                    {/* Imagen Superior */}
                                     <div className="relative w-full aspect-[16/9] overflow-hidden bg-white/50">
                                         <img
                                             src={comp.img}
@@ -489,7 +511,7 @@ const CenthropyMobile = () => {
                                         />
                                     </div>
 
-                                    {/* Contenido que emerge hacia abajo */}
+                                    {/* Contenido que emerge */}
                                     <div
                                         className={`grid transition-[grid-template-rows,opacity,transform] duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] ${isOpened ? 'grid-rows-[1fr] opacity-100 translate-y-0' : 'grid-rows-[0fr] opacity-0 translate-y-[-20px]'}`}
                                     >
@@ -507,7 +529,7 @@ const CenthropyMobile = () => {
                                         </div>
                                     </div>
 
-                                    {/* Nueva Línea y Etiquetas Inferiores - Siempre visibles, se desplazan con el contenido */}
+                                    {/* Etiquetas Inferiores */}
                                     <div className="flex flex-col mt-8">
                                         <div className="w-full border-t border-black/10 pt-4 flex justify-between items-center transition-opacity duration-1000">
                                             <div className={`flex flex-col transition-all duration-1000 ${isOpened ? 'opacity-100' : 'opacity-30'}`}>
@@ -524,7 +546,8 @@ const CenthropyMobile = () => {
                     </div>
                 </div>
 
-                <div className="flex flex-col gap-6 border-t border-white/20 pt-12 pb-12 -mx-6 px-6 bg-white">
+                {/* SECCIÓN SOLUCIONES */}
+                <div className="flex flex-col gap-6 border-t border-white/20 pt-32 pb-12 -mx-6 px-6 bg-white">
                     <div className="flex flex-col gap-6">
                         <div className="w-full h-[1px] bg-black/15 mb-6" />
                         <div className="flex justify-between items-end mb-6">
