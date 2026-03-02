@@ -430,7 +430,7 @@ const CenthropyMobile = () => {
             <main className="relative z-20 bg-white pt-32 pb-24 px-6 flex flex-col gap-8">
                 <div className="flex flex-col gap-6 text-center items-center w-full">
 
-                    <h2 className="text-[8.5vw] min-[400px]:text-[32px] font-medium tracking-tight leading-[1.2] text-black text-center flex flex-col gap-1 w-full px-2">
+                    <h2 className="text-[7.8vw] min-[400px]:text-[30px] font-medium tracking-tight leading-[1.2] text-black text-center flex flex-col gap-1 w-full px-4">
                         {[
                             "Ecosistema creado para",
                             "potenciar, en tiempo real,",
@@ -440,7 +440,7 @@ const CenthropyMobile = () => {
                         ].map((line, i) => (
                             <span
                                 key={i}
-                                className="block aria-hidden:true will-change-transform"
+                                className="block aria-hidden:true will-change-transform whitespace-nowrap"
                                 style={{
                                     transform: `translateY(${-introInertia * (1.2 + i * 0.8)}px)`
                                 }}
