@@ -20,17 +20,50 @@ const connectorsData = [
     { id: 16, name: "Files", logo: "/connectors/16_filesconnectors_16.svg" }
 ];
 
+const ConnectorItem = ({ connector, isNew, newIdx, isMobile }) => {
+    const [imageLoaded, setImageLoaded] = useState(false);
+
+    return (
+        <motion.div
+            initial={isNew ? { opacity: 0, y: 20 } : false}
+            animate={(isMobile && isNew) ? (imageLoaded ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }) : { opacity: 1, y: 0 }}
+            transition={isNew ? {
+                duration: 0.30,
+                delay: isMobile ? 0 : (newIdx * 0.04), // Eliminamos delay en mobile para que no parpadeen uno a uno sin imagen
+                ease: [0.76, 0, 0.24, 1]
+            } : { duration: 0 }}
+            className="relative bg-[#f5f5f5] aspect-[4/3] md:aspect-[20/9] flex items-center justify-center p-0 md:p-8 group hover:bg-[#ebebeb] transition-all duration-300"
+            style={{ clipPath: "polygon(0 0, calc(100% - 24px) 0, 100% 24px, 100% 100%, 0 100%)" }}
+        >
+            <img
+                src={connector.logo}
+                alt={connector.name}
+                onLoad={() => setImageLoaded(true)}
+                className={`w-full h-full max-w-none max-h-none md:max-w-[360px] md:max-h-[180px] md:w-[80%] md:h-auto object-contain p-0 md:p-0 transition-all duration-300 scale-[1.25] md:scale-100 group-hover:scale-[1.35] md:group-hover:scale-110 transform ${imageLoaded ? 'opacity-70 group-hover:opacity-100' : 'opacity-0'}`}
+            />
+        </motion.div>
+    );
+};
+
 const ConnectorsSection = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [isMobile, setIsMobile] = useState(false);
     const [visibleCount, setVisibleCount] = useState(8);
 
     // Ref que guarda desde qué índice empiezan las tarjetas NUEVAS.
-    // -1 = no hay tarjetas nuevas (carga inicial o búsqueda).
     const newStartRef = useRef(-1);
 
-    // Detectar mobile — solo resetea visibleCount cuando cambia el breakpoint,
-    // no en cada resize (evita el bug de scroll en mobile).
+    // Precarga de imágenes solo para mobile
+    useEffect(() => {
+        if (isMobile) {
+            connectorsData.forEach((connector) => {
+                const img = new Image();
+                img.src = connector.logo;
+            });
+        }
+    }, [isMobile]);
+
+    // Detectar mobile
     useEffect(() => {
         const checkMobile = () => {
             const mobile = window.innerWidth < 768;
@@ -60,7 +93,6 @@ const ConnectorsSection = () => {
     const increment = isMobile ? 4 : 8;
 
     const handleLoadMore = () => {
-        // Marcamos desde dónde empiezan las nuevas ANTES de actualizar el estado
         newStartRef.current = visibleCount;
         setVisibleCount(prev => Math.min(prev + increment, filteredConnectors.length));
     };
@@ -96,29 +128,17 @@ const ConnectorsSection = () => {
 
             <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-4 md:gap-6 mb-16">
                 {visibleConnectors.map((connector, idx) => {
-                    // Solo las tarjetas genuinamente nuevas reciben animación
                     const isNew = newStartRef.current >= 0 && idx >= newStartRef.current;
                     const newIdx = isNew ? idx - newStartRef.current : 0;
 
                     return (
-                        <motion.div
+                        <ConnectorItem
                             key={connector.id}
-                            initial={isNew ? { opacity: 0, y: 20 } : false}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={isNew ? {
-                                duration: 0.30,
-                                delay: newIdx * 0.04,
-                                ease: [0.76, 0, 0.24, 1]
-                            } : { duration: 0 }}
-                            className="relative bg-[#f5f5f5] aspect-[4/3] md:aspect-[20/9] flex items-center justify-center p-0 md:p-8 group hover:bg-[#ebebeb] transition-all duration-300"
-                            style={{ clipPath: "polygon(0 0, calc(100% - 24px) 0, 100% 24px, 100% 100%, 0 100%)" }}
-                        >
-                            <img
-                                src={connector.logo}
-                                alt={connector.name}
-                                className="w-full h-full max-w-none max-h-none md:max-w-[360px] md:max-h-[180px] md:w-[80%] md:h-auto object-contain p-0 md:p-0 opacity-70 group-hover:opacity-100 transition-all duration-300 scale-[1.25] md:scale-100 group-hover:scale-[1.35] md:group-hover:scale-110 transform"
-                            />
-                        </motion.div>
+                            connector={connector}
+                            isNew={isNew}
+                            newIdx={newIdx}
+                            isMobile={isMobile}
+                        />
                     );
                 })}
             </div>

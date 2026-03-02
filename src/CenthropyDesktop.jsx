@@ -144,7 +144,7 @@ const CenthropyDesktop = () => {
     const hudRef = useRef(null);
     const probeDataRef = useRef({ phi: Math.PI * 0.5, theta: Math.PI * 0.5 });
     const [openModule, setOpenModule] = useState(0);
-    const [activeService, setActiveService] = useState(0);
+    const [activeService, setActiveService] = useState(2);
     const [metrics, setMetrics] = useState({
         coordX: "12.45° N",
         coordY: "88.10° E",
@@ -166,27 +166,27 @@ const CenthropyDesktop = () => {
         {
             l: 'Metric_01',
             w: 'Control',
-            desc: 'Tecnología desarrollada para elevar el control empresarial, mediante la centralización y unificación de tres elementos: Datos, Análisis y Decisiones.'
+            desc: 'Elevar el control organizacional, centralizando y unificando: Datos, Análisis y Decisiones.'
         },
         {
             l: 'Logic_02',
             w: 'Optimización',
-            desc: 'Impulsar el refinamiento continuo de procesos, recursos y estrategias de negocio, por medio de la generación constante de insights accionables y de alto impacto.'
+            desc: 'Impulsar la optimización de procesos, recursos y estrategias de negocio de alto impacto, en tiempo real.'
         },
         {
             l: 'Core_03',
             w: 'Escalabilidad',
-            desc: 'Otorgar a las organizaciones, la capacidad de multiplicar sus propios resultados exponencialmente, mediante la implementación de estrategias generadas en Unify.'
+            desc: 'Detectar continuamente, oportunidades de expansión, apertura de mercados, líneas de negocio y diversificación de recursos.'
         },
         {
             l: 'Goal_04',
             w: 'Crecimiento',
-            desc: 'Generar estrategias de negocio accionables, mediante la detección constante y en tiempo real, de oportunidades para incrementar ventas y ganancias.'
+            desc: 'Generar en las organizaciones el potencial de multiplicar resultados, impulsar ventas y aumentar ganancias.'
         },
         {
             l: 'Yield_05',
             w: 'Rentabilidad',
-            desc: 'Crear la tecnología Unify bajo el enfoque “Data Driven Growth”, permite garantizar que las organizaciones aumenten su capacidad de alcanzar y superar sus objetivos de rentabilización.'
+            desc: 'Potenciar la capacidad empresarial de cumplir y superar sus propios objetivos de rentabilización y sostenibilidad financiera.'
         }
     ];
 
@@ -400,8 +400,8 @@ const CenthropyDesktop = () => {
                             <div className="max-w-6xl mx-auto mb-16 text-center">
                                 <h2 className="text-3xl md:text-[64px] font-normal tracking-tight leading-[1.0] text-black flex flex-col gap-0">
                                     {[
-                                        "Ecosistema creado para potenciar la",
-                                        "toma de decisiones en tiempo real,",
+                                        "Ecosistema creado para potenciar,",
+                                        "en tiempo real, la toma de decisiones",
                                         "en organizaciones de alto valor."
                                     ].map((line, i) => (
                                         <span
@@ -428,9 +428,9 @@ const CenthropyDesktop = () => {
                             <div className="flex flex-col">
                                 {[
                                     { id: 'SYS.01', t1: 'Unify', t2: 'Protocol', short: 'UP', desc: 'Protocolo de ontología de datos, diseñado para descifrar, con grado de precisión militar, el comportamiento real y potencial de las organizaciones, permitiendo garantizar resultados de alto impacto.' },
-                                    { id: 'SYS.02', t1: 'Unify Data', t2: 'Center', short: 'DC', desc: 'Centro de unificación y análisis avanzado de datos, desarrollado como plataforma para potenciar la toma de decisión en las organizaciones. UDC es una interfaz intuitiva, impulsada por nuestro Unify Agent (Analista Inteligente de Datos de Última Generación).' },
-                                    { id: 'SYS.03', t1: 'Unify', t2: 'Agent', short: 'UA', desc: 'Analista de datos de última generación, creado para ser el copiloto ideal en la dirección corporativa, impulsando la agilidad y efectividad en la toma decisiones centradas en el crecimiento.' },
-                                    { id: 'SYS.04', t1: 'Unify', t2: 'Team', short: 'UT', desc: 'Equipo humano de élite, especializado y enfocado en garantizar la confiabilidad, eficacia y sostenibilidad del ecosistema Unify.' }
+                                    { id: 'SYS.02', t1: 'Unify Data', t2: 'Center', short: 'DC', desc: 'Interfaz de unificación y análisis avanzado de datos, desarrollada para potenciar la toma de decisiones (Impulsada Unify Agent).' },
+                                    { id: 'SYS.03', t1: 'Unify', t2: 'Agent', short: 'UA', desc: 'Analista inteligente de última generación, creado para potenciar decisiones de crecimiento, generando estrategias accionables de alto impacto y en tiempo real.' },
+                                    { id: 'SYS.04', t1: 'Unify', t2: 'Team', short: 'UT', desc: 'Equipo humano de élite, especializado y enfocado en garantizar la confiabilidad, la eficacia y sostenibilidad del ecosistema Unify.' }
                                 ].map((comp, idx) => (
                                     <div key={idx} className={`flex flex-col md:flex-row items-center ${idx === 0 ? '' : 'border-t border-black/10'} py-16 md:py-32 gap-24 group transition-all duration-500 hover:bg-black/[0.01]`}>
                                         <div className="w-full md:w-[240px] flex flex-col gap-6">
@@ -477,8 +477,6 @@ const CenthropyDesktop = () => {
                                 ))}
                             </div>
 
-                            <ConnectorsSection />
-
                             <div className="mt-40 mb-24">
                                 <div className="flex flex-col w-full mb-8">
                                     <div className="w-full h-[1px] bg-black/15 mb-10" />
@@ -488,24 +486,24 @@ const CenthropyDesktop = () => {
                                 <div className="flex flex-col md:flex-row gap-4 h-[500px] w-full">
                                     {[
                                         {
-                                            id: 'SERV.01',
-                                            title: 'Unify Data Center',
-                                            subtitle: 'Centro de Datos y Decisiones',
-                                            desc: 'Interfaz simple e intuitiva, desarrollada para centralizar y unificar datos, análisis y decisiones, con el objetivo de optimizar el control y el crecimiento empresarial. UDC posee integración nativa con nuestro agente de datos inteligente Unify Agent.',
-                                            features: ['Insights to Growth', 'Advanced Analytics', 'Intelligent Agent']
-                                        },
-                                        {
                                             id: 'SERV.02',
                                             title: 'TI Outsourcing',
                                             subtitle: 'Digitalización de Datos',
-                                            desc: 'Gestión integral de infraestructura de datos. Desde la ingesta, limpieza y transformación, hasta la digitalización almacenamiento, sistemas de búsqueda semántica y RAG.',
+                                            desc: 'Gestión integral de infraestructura de datos. Desde la ingesta, limpieza y transformación, hasta la digitalización, almacenamiento, mantenimiento y seguridad de los datos.',
                                             features: ['Conexiones e Ingesta', 'Almacenamiento & Backup', 'Gestión de Documentos']
+                                        },
+                                        {
+                                            id: 'SERV.01',
+                                            title: 'Unify Data Center',
+                                            subtitle: 'Centro de Datos y Decisiones',
+                                            desc: 'Interfaz inteligente, desarrollada para unificar datos, análisis y decisiones, enfocada en la optimización y el crecimiento empresarial. UDC es potenciada por la integración nativa de Unify Agent (Agente Inteligente de Análisis de Negocio Avanzado).',
+                                            features: ['Insights to Growth', 'Advanced Analytics', 'Intelligent Agent']
                                         },
                                         {
                                             id: 'SERV.03',
                                             title: 'Retail Intelligence',
                                             subtitle: 'Intelligent eCommerce',
-                                            desc: 'Gestión de Crecimiento 360°: Desarrollo y gestión de eCommerce, dirección de estratégica y operativa, investigación de mercado y toda la potencia del ecosistema Unify, enfocada en maximizar la conversión, impulsar el crecimiento y elevar la rentabilidad.',
+                                            desc: 'Gestión 360: Desarrollo y mantenimiento de eCommerce, dirección estratégica y operativa, investigación de mercados e integración total del ecosistema Unify; una solución enfocada en maximizar la conversión, impulsar el crecimiento y elevar la rentabilidad.',
                                             features: ['Desarrollo & Operación', 'Integración Unify', 'Investigación & Estrategia']
                                         }
                                     ].map((service, sIdx) => {
@@ -568,6 +566,8 @@ const CenthropyDesktop = () => {
                                     })}
                                 </div>
                             </div>
+
+                            <ConnectorsSection />
                         </div>
                     </div>
 

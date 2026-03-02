@@ -254,26 +254,26 @@ const CenthropyMobile = () => {
     }, []);
 
     const modules = [
-        { w: 'Control', desc: 'Tecnología desarrollada para elevar el control empresarial, mediante la centralización y unificación de tres elementos: Datos, Análisis y Decisiones.' },
-        { w: 'Optimización', desc: 'Impulsar el refinamiento continuo de procesos, recursos y estrategias de negocio, por medio de la generación constante de insights accionables y de alto impacto.' },
-        { w: 'Escalabilidad', desc: 'Otorgar a las organizaciones, la capacidad de multiplicar sus propios resultados exponencialmente, mediante la implementación de estrategias generadas en Unify.' },
-        { w: 'Crecimiento', desc: 'Generar estrategias de negocio accionables, mediante la detección constante y en tiempo real, de oportunidades para incrementar ventas y ganancias.' },
-        { w: 'Rentabilidad', desc: 'Crear la tecnología Unify bajo el enfoque “Data Driven Growth”, permite garantizar que las organizaciones aumenten su capacidad de alcanzar y superar sus objetivos de rentabilización.' }
+        { w: 'Control', desc: 'Elevar el control organizacional, centralizando y unificando: Datos, Análisis y Decisiones.' },
+        { w: 'Optimización', desc: 'Impulsar la optimización de procesos, recursos y estrategias de negocio de alto impacto, en tiempo real.' },
+        { w: 'Escalabilidad', desc: 'Detectar continuamente, oportunidades de expansión, apertura de mercados, líneas de negocio y diversificación de recursos.' },
+        { w: 'Crecimiento', desc: 'Generar en las organizaciones el potencial de multiplicar resultados, impulsar ventas y aumentar ganancias.' },
+        { w: 'Rentabilidad', desc: 'Potenciar la capacidad empresarial de cumplir y superar sus propios objetivos de rentabilización y sostenibilidad financiera.' }
     ];
 
     const systemModules = [
         { id: 'SYS.01', t1: 'Unify', t2: 'Protocol', short: 'UP', img: '/Unifyprotocol.jpg', desc: 'Protocolo de ontología de datos, diseñado para descifrar, con grado de precisión militar, el comportamiento real y potencial de las organizaciones, permitiendo garantizar resultados de alto impacto.' },
-        { id: 'SYS.02', t1: 'Unify Data', t2: 'Center', short: 'DC', img: '/Unifydc.jpg', desc: 'Centro de unificación y análisis avanzado de datos, desarrollado como plataforma para potenciar la toma de decisión en las organizaciones. UDC es una interfaz intuitiva, impulsada por nuestro Unify Agent (Analista Inteligente de Datos de Última Generación).' },
-        { id: 'SYS.03', t1: 'Unify', t2: 'Agent', short: 'UA', img: '/Unifyagent3.0.jpg', desc: 'Analista de datos de última generación, creado para ser el copiloto ideal en la dirección corporativa, impulsando la agilidad y efectividad en la toma decisiones centradas en el crecimiento.' },
-        { id: 'SYS.04', t1: 'Unify', t2: 'Team', short: 'UT', img: '/Unifyteam.jpg', desc: 'Equipo humano de élite, especializado y enfocado en garantizar la confiabilidad, eficacia y sostenibilidad del ecosistema Unify.' }
+        { id: 'SYS.02', t1: 'Unify Data', t2: 'Center', short: 'DC', img: '/Unifydc.jpg', desc: 'Interfaz de unificación y análisis avanzado de datos, desarrollada para potenciar la toma de decisiones (Impulsada Unify Agent).' },
+        { id: 'SYS.03', t1: 'Unify', t2: 'Agent', short: 'UA', img: '/Unifyagent3.0.jpg', desc: 'Analista inteligente de última generación, creado para potenciar decisiones de crecimiento, generando estrategias accionables de alto impacto y en tiempo real.' },
+        { id: 'SYS.04', t1: 'Unify', t2: 'Team', short: 'UT', img: '/Unifyteam.jpg', desc: 'Equipo humano de élite, especializado y enfocado en garantizar la confiabilidad, la eficacia y sostenibilidad del ecosistema Unify.' }
     ];
 
     // Solutions Accordion State
     const [activeSolution, setActiveSolution] = useState(0);
     const solutions = [
-        { id: '01', title: 'Unify Data Center', img: '/Unifydc.jpg', desc: 'Interfaz simple e intuitiva, desarrollada para centralizar y unificar datos, análisis y decisiones, con el objetivo de optimizar el control y el crecimiento empresarial. UDC posee integración nativa con nuestro agente de datos inteligente Unify Agent.' },
-        { id: '02', title: 'TI Outsourcing', img: '/Unifyprotocol.jpg', desc: 'Gestión integral de infraestructura de datos. Desde la ingesta, limpieza y transformación, hasta la digitalización almacenamiento, sistemas de búsqueda semántica y RAG.' },
-        { id: '03', title: 'Retail Intelligence', img: '/Unifyagent3.0.jpg', desc: 'Gestión de Crecimiento 360°: Desarrollo y gestión de eCommerce, dirección de estratégica y operativa, investigación de mercado y toda la potencia del ecosistema Unify, enfocada en maximizar la conversión, impulsar el crecimiento y elevar la rentabilidad.' }
+        { id: '03', title: 'Retail Intelligence', img: '/Unifyagent3.0.jpg', desc: 'Gestión 360: Desarrollo y mantenimiento de eCommerce, dirección estratégica y operativa, investigación de mercados e integración total del ecosistema Unify; una solución enfocada en maximizar la conversión, impulsar el crecimiento y elevar la rentabilidad.' },
+        { id: '01', title: 'Unify Data Center', img: '/Unifydc.jpg', desc: 'Interfaz inteligente, desarrollada para unificar datos, análisis y decisiones, enfocada en la optimización y el crecimiento empresarial. UDC es potenciada por la integración nativa de Unify Agent (Agente Inteligente de Análisis de Negocio Avanzado).' },
+        { id: '02', title: 'TI Outsourcing', img: '/Unifyprotocol.jpg', desc: 'Gestión integral de infraestructura de datos. Desde la ingesta, limpieza y transformación, hasta la digitalización, almacenamiento, mantenimiento y seguridad de los datos.' }
     ];
 
     // State for sticky reveal of system nodes
@@ -411,10 +411,9 @@ const CenthropyMobile = () => {
 
                     <h2 className="text-[8.8vw] min-[400px]:text-[34px] font-medium tracking-tight leading-[1.15] text-black flex flex-col gap-0 w-full">
                         {[
-                            "Ecosistema creado",
-                            "para potenciar en",
-                            "tiempo real, la toma",
-                            "de decisiones en",
+                            "Ecosistema creado para",
+                            "potenciar, en tiempo real,",
+                            "la toma de decisiones en",
                             "organizaciones de",
                             "alto valor."
                         ].map((line, i) => (
@@ -525,10 +524,6 @@ const CenthropyMobile = () => {
                     </div>
                 </div>
 
-                <div className="bg-white px-6 -mx-6">
-                    <ConnectorsSection />
-                </div>
-
                 <div className="flex flex-col gap-6 border-t border-white/20 pt-12 pb-12 -mx-6 px-6 bg-white">
                     <div className="flex flex-col gap-6">
                         <div className="w-full h-[1px] bg-black/15 mb-6" />
@@ -603,6 +598,10 @@ const CenthropyMobile = () => {
                             ))}
                         </div>
                     </div>
+                </div>
+
+                <div className="bg-white px-6 -mx-6">
+                    <ConnectorsSection />
                 </div>
 
                 <div className="bg-white -mx-6">
