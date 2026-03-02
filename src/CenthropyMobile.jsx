@@ -431,9 +431,10 @@ const CenthropyMobile = () => {
                 <div className="flex flex-col gap-6 text-center items-center w-full">
 
                     <h2
-                        className="text-[8vw] min-[380px]:text-[28px] font-medium tracking-tight leading-[1.2] text-black text-center w-full"
+                        className="text-[8vw] min-[380px]:text-[28px] font-medium tracking-tight leading-[1.2] text-black text-center w-full mx-auto"
                         style={{
                             textWrap: 'balance',
+                            textAlign: 'center',
                             transform: `translateY(${-introInertia * 1.5}px)`
                         }}
                     >
