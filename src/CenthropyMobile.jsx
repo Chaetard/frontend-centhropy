@@ -427,18 +427,25 @@ const CenthropyMobile = () => {
             </div>
 
             {/* MAIN CONTENT AREA */}
-            <main className="relative z-20 bg-white pt-6 pb-24 px-6 flex flex-col gap-8">
+            <main className="relative z-20 bg-white pt-20 pb-24 px-6 flex flex-col gap-8">
                 <div className="flex flex-col gap-6 text-center items-center w-full">
-
-                    <h2
-                        className="text-[8vw] min-[380px]:text-[28px] font-medium tracking-tight leading-[1.2] text-black text-center w-full mx-auto"
-                        style={{
-                            textWrap: 'balance',
-                            textAlign: 'center',
-                            transform: `translateY(${-introInertia * 1.5}px)`
-                        }}
-                    >
-                        Ecosistema creado para potenciar, en tiempo real, la toma de decisiones en organizaciones de alto valor.
+                    <h2 className="text-[6vw] font-medium tracking-tight leading-[1.25] text-black text-center flex flex-col gap-0 w-full">
+                        {[
+                            "Ecosistema creado para",
+                            "potenciar, en tiempo real,",
+                            "la toma de decisiones en",
+                            "organizaciones de alto valor."
+                        ].map((line, i) => (
+                            <span
+                                key={i}
+                                className="block will-change-transform"
+                                style={{
+                                    transform: `translateY(${-introInertia * (1.5 + i * 0.8)}px)`
+                                }}
+                            >
+                                {line}
+                            </span>
+                        ))}
                     </h2>
                 </div>
 
@@ -473,7 +480,7 @@ const CenthropyMobile = () => {
                 </div>
 
                 {/* SECCIÓN ECOSISTEMA UNIFY */}
-                <div className="flex flex-col gap-6 border-t border-white/20 pt-36 -mx-6 px-6 bg-white">
+                <div className="flex flex-col gap-6 border-t border-white/20 pt-20 -mx-6 px-6 bg-white">
                     <div className="flex flex-col mb-6">
                         <div className="w-full h-[1px] bg-black/15 mb-10" />
                         <h2 className="text-[45px] font-medium tracking-tighter text-black leading-none">Ecosistema Unify</h2>
@@ -538,7 +545,7 @@ const CenthropyMobile = () => {
                 </div>
 
                 {/* SECCIÓN SOLUCIONES */}
-                <div className="flex flex-col gap-6 border-t border-white/20 pt-32 pb-12 -mx-6 px-6 bg-white">
+                <div className="flex flex-col gap-6 border-t border-white/20 pt-20 pb-12 -mx-6 px-6 bg-white">
                     <div className="flex flex-col gap-6">
                         <div className="w-full h-[1px] bg-black/15 mb-6" />
                         <div className="flex justify-between items-end mb-6">

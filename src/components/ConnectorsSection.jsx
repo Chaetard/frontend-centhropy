@@ -98,7 +98,7 @@ const ConnectorsSection = () => {
     };
 
     return (
-        <div className="mt-12 md:mt-20 mb-12 md:mb-24 pt-0 md:pt-20 text-black">
+        <div className="mt-6 md:mt-20 mb-12 md:mb-24 pt-0 md:pt-20 text-black">
             <div className="w-full h-[1px] bg-black/15 mb-10" />
 
             <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 gap-8 w-full">
