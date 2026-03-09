@@ -427,10 +427,10 @@ const CenthropyDesktop = () => {
 
                             <div className="flex flex-col">
                                 {[
-                                    { id: 'SYS.01', t1: 'Unify', t2: 'Protocol', short: 'UP', desc: 'Protocolo de ontología de datos, diseñado para descifrar, con grado de precisión militar, el comportamiento real y potencial de las organizaciones, permitiendo garantizar resultados de alto impacto.' },
-                                    { id: 'SYS.02', t1: 'Unify Data', t2: 'Center', short: 'DC', desc: 'Interfaz de unificación y análisis avanzado de datos, desarrollada para potenciar la toma de decisiones (Impulsada Unify Agent).' },
-                                    { id: 'SYS.03', t1: 'Unify', t2: 'Agent', short: 'UA', desc: 'Analista inteligente de última generación, creado para potenciar decisiones de crecimiento, generando estrategias accionables de alto impacto y en tiempo real.' },
-                                    { id: 'SYS.04', t1: 'Unify', t2: 'Team', short: 'UT', desc: 'Equipo humano de élite, especializado y enfocado en garantizar la confiabilidad, la eficacia y sostenibilidad del ecosistema Unify.' }
+                                    { id: 'SYS.01', t1: 'Cordyceps', t2: 'Protocol', short: 'CP', desc: 'Ontología de datos diseñada para descifrar la realidad el potencial de las organizaciones, lo que permite garantizar resultados de alto impacto.' },
+                                    { id: 'SYS.02', t1: 'Unify Data', t2: 'Center', short: 'DC', desc: 'Interfaz de unificación y análisis avanzado de datos, desarrollada para potenciar la toma de decisiones. Unify Agent integrado.' },
+                                    { id: 'SYS.03', t1: 'Unify', t2: 'Agent', short: 'UA', desc: 'Analista inteligente de última generación, creado para descubrir insights de alto impacto y generar estrategias accionables en lenguaje natural.' },
+                                    { id: 'SYS.04', t1: 'Unify', t2: 'Team', short: 'UT', desc: 'Equipo humano de élite, especializado y enfocado en garantizar la confiabilidad, eficacia y sostenibilidad del ecosistema Unify.' }
                                 ].map((comp, idx) => (
                                     <div key={idx} className={`flex flex-col md:flex-row items-center ${idx === 0 ? '' : 'border-t border-black/10'} py-16 md:py-32 gap-24 group transition-all duration-500 hover:bg-black/[0.01]`}>
                                         <div className="w-full md:w-[240px] flex flex-col gap-6">
@@ -467,7 +467,7 @@ const CenthropyDesktop = () => {
                                                 className="will-change-transform"
                                                 style={{ transform: `translateY(${-scrollInertia * 0.4}px)` }}
                                             >
-                                                <h4 className="text-5xl md:text-[100px] font-black tracking-tighter uppercase leading-[0.8] text-black transition-transform duration-700 group-hover:translate-x-[-20px]">
+                                                <h4 className="text-5xl md:text-[85px] font-black tracking-tighter uppercase leading-[0.8] text-black transition-transform duration-700 group-hover:translate-x-[-20px]">
                                                     {comp.t1} <br />
                                                     <span className="text-black">{comp.t2}</span>
                                                 </h4>
@@ -501,9 +501,9 @@ const CenthropyDesktop = () => {
                                         },
                                         {
                                             id: 'SERV.03',
-                                            title: 'Retail Intelligence',
+                                            title: 'Growth Engine',
                                             subtitle: 'Intelligent eCommerce',
-                                            desc: 'Gestión 360: Desarrollo y mantenimiento de eCommerce, dirección estratégica y operativa, investigación de mercados e integración total del ecosistema Unify; una solución enfocada en maximizar la conversión, impulsar el crecimiento y elevar la rentabilidad.',
+                                            desc: 'Maximizar la conversión, potenciar la rentabilidad y optimizar la toma de decisiones estratégicas en eCommerce, implementanto el ecosistema Unify con el enfoque Data Driven Growth.',
                                             features: ['Desarrollo & Operación', 'Integración Unify', 'Investigación & Estrategia']
                                         }
                                     ].map((service, sIdx) => {
@@ -516,7 +516,7 @@ const CenthropyDesktop = () => {
                                                 className={`relative cursor-pointer transition-all duration-800 ease-[cubic-bezier(0.16,1,0.3,1)] bg-black overflow-hidden flex flex-col p-10 group ${isActive ? 'flex-[4]' : 'flex-[1]'}`}
                                             >
                                                 <div className="flex justify-between items-start z-10">
-                                                    <span className={`text-[10px] font-bold tracking-[0.4em] uppercase transition-all duration-700 ${isActive ? 'text-white/60 translate-x-0' : 'text-white/10 -translate-x-2'}`}>
+                                                    <span className={`text-[10px] font-bold tracking-[0.4em] uppercase transition-all duration-700 ${isActive ? 'text-white/60 translate-x-0' : 'text-black -translate-x-2'}`}>
                                                         {service.id}
                                                     </span>
                                                     <div className={`w-1.5 h-1.5 rounded-full bg-white transition-all duration-700 ${isActive ? 'opacity-100 scale-125' : 'opacity-10 scale-50'}`} />

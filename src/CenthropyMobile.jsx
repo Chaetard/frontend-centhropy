@@ -283,16 +283,16 @@ const CenthropyMobile = () => {
     ];
 
     const systemModules = [
-        { id: 'SYS.01', t1: 'Unify', t2: 'Protocol', short: 'UP', img: '/Unifyprotocol.jpg', desc: 'Protocolo de ontología de datos, diseñado para descifrar, con grado de precisión militar, el comportamiento real y potencial de las organizaciones, permitiendo garantizar resultados de alto impacto.' },
-        { id: 'SYS.02', t1: 'Unify Data', t2: 'Center', short: 'DC', img: '/Unifydc.jpg', desc: 'Interfaz de unificación y análisis avanzado de datos, desarrollada para potenciar la toma de decisiones (Impulsada Unify Agent).' },
-        { id: 'SYS.03', t1: 'Unify', t2: 'Agent', short: 'UA', img: '/Unifyagent3.0.jpg', desc: 'Analista inteligente de última generación, creado para potenciar decisiones de crecimiento, generando estrategias accionables de alto impacto y en tiempo real.' },
-        { id: 'SYS.04', t1: 'Unify', t2: 'Team', short: 'UT', img: '/Unifyteam.jpg', desc: 'Equipo humano de élite, especializado y enfocado en garantizar la confiabilidad, la eficacia y sostenibilidad del ecosistema Unify.' }
+        { id: 'SYS.01', t1: 'Cordyceps', t2: 'Protocol', short: 'CP', img: '/Unifyprotocol.jpg', desc: 'Ontología de datos diseñada para descifrar la realidad el potencial de las organizaciones, lo que permite garantizar resultados de alto impacto.' },
+        { id: 'SYS.02', t1: 'Unify Data', t2: 'Center', short: 'DC', img: '/Unifydc.jpg', desc: 'Interfaz de unificación y análisis avanzado de datos, desarrollada para potenciar la toma de decisiones. Unify Agent integrado.' },
+        { id: 'SYS.03', t1: 'Unify', t2: 'Agent', short: 'UA', img: '/Unifyagent3.0.jpg', desc: 'Analista inteligente de última generación, creado para descubrir insights de alto impacto y generar estrategias accionables en lenguaje natural.' },
+        { id: 'SYS.04', t1: 'Unify', t2: 'Team', short: 'UT', img: '/Unifyteam.jpg', desc: 'Equipo humano de élite, especializado y enfocado en garantizar la confiabilidad, eficacia y sostenibilidad del ecosistema Unify.' }
     ];
 
     // Solutions Accordion State
     const [activeSolution, setActiveSolution] = useState(0);
     const solutions = [
-        { id: '03', title: 'Retail Intelligence', img: '/Unifyagent3.0.jpg', desc: 'Gestión 360: Desarrollo y mantenimiento de eCommerce, dirección estratégica y operativa, investigación de mercados e integración total del ecosistema Unify; una solución enfocada en maximizar la conversión, impulsar el crecimiento y elevar la rentabilidad.' },
+        { id: '03', title: 'Growth Engine', img: '/Unifyagent3.0.jpg', desc: 'Maximizar la conversión, potenciar la rentabilidad y optimizar la toma de decisiones estratégicas en eCommerce, implementanto el ecosistema Unify con el enfoque Data Driven Growth.' },
         { id: '01', title: 'Unify Data Center', img: '/Unifydc.jpg', desc: 'Interfaz inteligente, desarrollada para unificar datos, análisis y decisiones, enfocada en la optimización y el crecimiento empresarial. UDC es potenciada por la integración nativa de Unify Agent (Agente Inteligente de Análisis de Negocio Avanzado).' },
         { id: '02', title: 'TI Outsourcing', img: '/Unifyprotocol.jpg', desc: 'Gestión integral de infraestructura de datos. Desde la ingesta, limpieza y transformación, hasta la digitalización, almacenamiento, mantenimiento y seguridad de los datos.' }
     ];

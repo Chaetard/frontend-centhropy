@@ -71,7 +71,7 @@ const Navbar = ({ subtitle = "Unified Data Engine" }) => {
                                     <div className="flex flex-col gap-5 text-black/80">
                                         <Link to="/waitlist" onClick={() => setMenuOpen(false)} className="text-2xl font-light">↳ Unify Data Center</Link>
                                         <Link to="/waitlist" onClick={() => setMenuOpen(false)} className="text-2xl font-light">↳ TI Outsourcing</Link>
-                                        <Link to="/waitlist" onClick={() => setMenuOpen(false)} className="text-2xl font-light">↳ Retail Intelligence</Link>
+                                        <Link to="/waitlist" onClick={() => setMenuOpen(false)} className="text-2xl font-light">↳ Growth Engine</Link>
                                     </div>
                                 </div>
                                 <div className="border-t border-black/30" />
@@ -161,7 +161,7 @@ const Navbar = ({ subtitle = "Unified Data Engine" }) => {
                                             <img src={posts.find(p => p.id === slots.impact).image} alt="Impact Study" className="w-full h-full object-cover" />
                                         </div>
                                         <div className="flex flex-col gap-1">
-                                            <span className="text-[10px] font-bold text-black/30 uppercase tracking-[0.2em]">Retail Intelligence // Core</span>
+                                            <span className="text-[10px] font-bold text-black/30 uppercase tracking-[0.2em]">Growth Engine // Core</span>
                                             <span className="text-base font-bold text-black uppercase">{posts.find(p => p.id === slots.impact).title}</span>
                                         </div>
                                     </>
@@ -200,7 +200,7 @@ const Navbar = ({ subtitle = "Unified Data Engine" }) => {
                                         <div className="flex flex-col gap-3">
                                             <Link to="/waitlist" onClick={() => setMenuOpen(false)} className="text-2xl font-medium text-black hover:text-black/60 transition-colors">↳ Unify Data Center</Link>
                                             <Link to="/waitlist" onClick={() => setMenuOpen(false)} className="text-2xl font-medium text-black hover:text-black/60 transition-colors">↳ TI Outsourcing</Link>
-                                            <Link to="/waitlist" onClick={() => setMenuOpen(false)} className="text-2xl font-medium text-black hover:text-black/60 transition-colors">↳ Retail Intelligence</Link>
+                                            <Link to="/waitlist" onClick={() => setMenuOpen(false)} className="text-2xl font-medium text-black hover:text-black/60 transition-colors">↳ Growth Engine</Link>
                                         </div>
                                     </div>
                                     <div className="border-t border-black/30" />
@@ -300,7 +300,7 @@ const Navbar = ({ subtitle = "Unified Data Engine" }) => {
                                             <img src={posts.find(p => p.id === slots.impact).image} alt="Impact Study" className="w-full h-full object-cover grayscale brightness-75 transition-all duration-700" />
                                         </div>
                                         <div className="flex flex-col gap-1">
-                                            <span className="text-[9px] font-bold text-black/30 uppercase tracking-[0.2em]">Retail Intelligence // Dynamic_Core</span>
+                                            <span className="text-[9px] font-bold text-black/30 uppercase tracking-[0.2em]">Growth Engine // Dynamic_Core</span>
                                             <span className="text-sm font-bold text-black uppercase">{posts.find(p => p.id === slots.impact).title}</span>
                                         </div>
                                     </Link>
