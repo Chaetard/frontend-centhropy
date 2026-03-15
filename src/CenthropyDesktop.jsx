@@ -5,9 +5,16 @@ import { Link } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import ConnectorsSection from './components/ConnectorsSection';
 import OrganizationsCarousel from './components/OrganizationsCarousel';
+import { useIsDarkMode } from './hooks/useIsDarkMode';
 
 const SphereCanvas = React.memo(({ probeDataRef, hudRef }) => {
     const containerRef = useRef(null);
+    const isDark = useIsDarkMode();
+    const isDarkRef = useRef(isDark);
+
+    useEffect(() => {
+        isDarkRef.current = isDark;
+    }, [isDark]);
 
     useEffect(() => {
         if (!containerRef.current) return;
@@ -62,8 +69,12 @@ const SphereCanvas = React.memo(({ probeDataRef, hudRef }) => {
         const animate = () => {
             frameId = requestAnimationFrame(animate);
             const time = clock.getElapsedTime();
+            const targetHex = isDarkRef.current ? 0xBCC5DC : 0x1B2136;
 
             rings.forEach((ring) => {
+                if (ring.mesh.material.color.getHex() !== targetHex) {
+                    ring.mesh.material.color.setHex(targetHex);
+                }
                 const positions = ring.mesh.geometry.attributes.position.array;
                 const lat = ring.lat;
                 const rBase = ring.baseRadius;
@@ -257,7 +268,7 @@ const CenthropyDesktop = () => {
     }, []);
 
     return (
-        <div className="font-funnel no-select w-full bg-white text-black min-h-screen relative overflow-x-hidden">
+        <div className="font-funnel no-select w-full bg-white dark:bg-[#1B2136] text-[#222944] dark:text-[#BCC5DC] min-h-screen relative">
             {/* CANVAS LAYER */}
             <SphereCanvas probeDataRef={probeDataRef} hudRef={hudRef} />
 
@@ -278,11 +289,11 @@ const CenthropyDesktop = () => {
                             >
                                 <div className="flex flex-col">
                                     <div className="flex items-center gap-3">
-                                        <span className={`text-2xl font-bold uppercase transition-all duration-300 ${openModule === i ? 'text-black' : 'text-black/80 hover:text-black'}`}>
+                                        <span className={`text-2xl font-bold uppercase transition-all duration-300 ${openModule === i ? 'text-[#222944] dark:text-[#BCC5DC]' : 'text-[#222944]/80 dark:text-[#BCC5DC] hover:text-[#222944] dark:text-[#BCC5DC]'}`}>
                                             {item.w}
                                         </span>
                                         <div className={`transition-transform duration-500 ${openModule === i ? 'rotate-90' : 'rotate-0'}`}>
-                                            <ChevronRight size={18} className="text-black" />
+                                            <ChevronRight size={18} className="text-[#222944] dark:text-[#BCC5DC]" />
                                         </div>
                                     </div>
                                 </div>
@@ -293,8 +304,7 @@ const CenthropyDesktop = () => {
                             >
                                 <div className="overflow-hidden">
                                     <div className="relative mt-2 py-2 w-full pr-4">
-                                        <span className="text-[9px] font-funnel text-black/40 mb-2 tracking-[0.2em] uppercase block font-bold">{item.l}</span>
-                                        <p className="text-[13px] font-funnel font-medium leading-relaxed text-black/80 whitespace-normal">
+                                        <p className="text-[16px] font-funnel font-medium leading-relaxed text-[#222944]/80 dark:text-[#BCC5DC] whitespace-normal">
                                             {item.desc}
                                         </p>
                                     </div>
@@ -313,7 +323,7 @@ const CenthropyDesktop = () => {
 
 
             {/* RIGHT SIDE DATA HUD */}
-            <div className="fixed right-0 top-1/2 -translate-y-1/2 pr-10 hidden lg:flex flex-col items-end text-right justify-between h-[65vh] pointer-events-none text-black z-[1000] py-2">
+            <div className="fixed right-0 top-1/2 -translate-y-1/2 pr-10 hidden lg:flex flex-col items-end text-right justify-between h-[65vh] pointer-events-none text-[#222944] dark:text-[#BCC5DC] z-[1000] py-2">
                 {[
                     { icon: <Activity size={14} />, label: 'Data Stream', m1: 'V_SYNC', v1: metrics.vSync, m2: 'FREQ', v2: metrics.freq },
                     { icon: <Cpu size={14} />, label: 'Analytic Engine', m1: 'X_OVER', v1: metrics.xover, m2: 'HEAT', v2: metrics.heat },
@@ -321,15 +331,15 @@ const CenthropyDesktop = () => {
                     { icon: <ShieldCheck size={14} />, label: 'Quantum Vault', m1: 'SEC_BIT', v1: metrics.secBit, m2: 'NODE', v2: 'X-07' },
                     { icon: <Zap size={14} />, label: 'Link Status', m1: 'LATENCY', v1: metrics.latency, m2: 'MESH', v2: metrics.meshNet }
                 ].map((mod, i) => (
-                    <div key={i} className="flex flex-col border-r border-black/20 pr-6 items-end">
-                        <span className="text-[11px] font-funnel font-bold flex items-center gap-2 text-black uppercase tracking-tighter">
+                    <div key={i} className="flex flex-col border-r border-[#222944]/20 dark:border-[#BCC5DC]/20 pr-6 items-end">
+                        <span className="text-[11px] font-funnel font-bold flex items-center gap-2 text-[#222944] dark:text-[#BCC5DC] uppercase tracking-tighter">
                             {mod.icon} {mod.label}
                         </span>
-                        <div className="flex flex-col font-funnel text-[10px] text-black">
-                            <div className="flex justify-between w-48 border-b border-black/10 py-1.5 flex-row-reverse">
+                        <div className="flex flex-col font-funnel text-[10px] text-[#222944] dark:text-[#BCC5DC]">
+                            <div className="flex justify-between w-48 border-b border-[#222944]/10 dark:border-[#BCC5DC]/10 py-1.5 flex-row-reverse">
                                 <span>{mod.m1}</span><span className="font-bold">{mod.v1}</span>
                             </div>
-                            <div className="flex justify-between w-48 border-b border-black/10 py-1.5 flex-row-reverse">
+                            <div className="flex justify-between w-48 border-b border-[#222944]/10 dark:border-[#BCC5DC]/10 py-1.5 flex-row-reverse">
                                 <span>{mod.m2}</span><span className="font-bold">{mod.v2}</span>
                             </div>
                         </div>
@@ -340,11 +350,11 @@ const CenthropyDesktop = () => {
             {/* FLOATING SPHERE HUD */}
             <div ref={hudRef} className="fixed top-0 left-0 pointer-events-none opacity-0 transform-gpu z-[40] flex flex-col items-center">
                 <div className="relative flex items-center justify-center mb-1">
-                    <div className="absolute w-6 h-6 border border-black/20 rounded-full animate-ping"></div>
+                    <div className="absolute w-6 h-6 border border-[#222944]/20 dark:border-[#BCC5DC]/20 rounded-full animate-ping"></div>
                     <div className="w-2.5 h-2.5 bg-black rounded-full border border-white"></div>
                 </div>
                 <div className="tactical-card p-3 min-w-[180px] flex flex-col gap-2">
-                    <div className="flex justify-between items-start border-b border-black/10 pb-1.5">
+                    <div className="flex justify-between items-start border-b border-[#222944]/10 dark:border-[#BCC5DC]/10 pb-1.5">
                         <div className="flex flex-col">
                             <span className="text-[9px] font-funnel font-bold text-gray-500 uppercase leading-none">Node</span>
                             <span className="text-[11px] font-bold uppercase tracking-tight">Unify Agent</span>
@@ -354,15 +364,15 @@ const CenthropyDesktop = () => {
                     <div className="flex flex-col gap-1">
                         <div className="flex justify-between text-[8px] font-funnel uppercase text-gray-500">
                             <span>Lat. Core</span>
-                            <span className="text-black font-bold">{metrics.coordX}</span>
+                            <span className="text-[#222944] dark:text-[#BCC5DC] font-bold">{metrics.coordX}</span>
                         </div>
                         <div className="flex justify-between text-[8px] font-funnel uppercase text-gray-500">
                             <span>Lon. Core</span>
-                            <span className="text-black font-bold">{metrics.coordY}</span>
+                            <span className="text-[#222944] dark:text-[#BCC5DC] font-bold">{metrics.coordY}</span>
                         </div>
                     </div>
                     <div className="flex flex-col gap-1 pt-1">
-                        <div className="w-full h-0.5 bg-black/10 relative overflow-hidden">
+                        <div className="w-full h-0.5 bg-[#222944]/10 dark:bg-[#BCC5DC]/10 relative overflow-hidden">
                             <div className="absolute inset-y-0 left-0 bg-black" style={{ width: metrics.progress }}></div>
                         </div>
                         <div className="flex justify-between text-[7px] font-funnel uppercase pt-0.5">
@@ -377,28 +387,28 @@ const CenthropyDesktop = () => {
             <main className="relative z-[5000] w-full pointer-events-none">
                 <section className="h-screen" />
 
-                <div id="status-panel" className="relative z-[5000] bg-white pointer-events-auto">
-                    <div className="w-full px-5 py-12 md:px-10 md:pt-16 md:pb-0 bg-white">
+                <div id="status-panel" className="relative z-[5000] bg-white dark:bg-[#222944] pointer-events-auto">
+                    <div className="w-full px-5 py-12 md:px-10 md:pt-16 md:pb-0 bg-white dark:bg-[#222944]">
                         <div className="max-w-[1800px] mx-auto">
-                            <div className="flex flex-wrap justify-between gap-8 font-funnel text-[10px] uppercase tracking-[0.2em] border-b border-black/10 pb-12 mb-24 text-black">
+                            <div className="flex flex-wrap justify-between gap-8 font-funnel text-[10px] uppercase tracking-[0.2em] border-b border-[#222944]/10 dark:border-[#BCC5DC]/10 pb-12 mb-24 text-[#222944] dark:text-[#BCC5DC]">
                                 <div className="flex flex-col gap-1">
-                                    <span className="text-black/30">Sync Status</span>
+                                    <span className="text-[#222944]/30 dark:text-[#BCC5DC]/50">Sync Status</span>
                                     <span className="font-bold flex items-center gap-1">
                                         <div className="w-1.5 h-1.5 bg-black rounded-full animate-pulse" /> CORE_OPTIMIZED
                                     </span>
                                 </div>
                                 <div className="flex flex-col gap-1">
-                                    <span className="text-black/30">Encryption</span>
+                                    <span className="text-[#222944]/30 dark:text-[#BCC5DC]/50">Encryption</span>
                                     <span className="font-bold">UNIFY_VAULT_ACTIVE</span>
                                 </div>
                                 <div className="flex flex-col gap-1 text-right">
-                                    <span className="text-black/30">Location</span>
+                                    <span className="text-[#222944]/30 dark:text-[#BCC5DC]/50">Location</span>
                                     <span className="font-bold uppercase">Multi-Node_Global</span>
                                 </div>
                             </div>
 
                             <div className="max-w-6xl mx-auto mb-16 text-center">
-                                <h2 className="text-3xl md:text-[64px] font-normal tracking-tight leading-[1.0] text-black flex flex-col gap-0">
+                                <h2 className="text-3xl md:text-[64px] font-normal tracking-tight leading-[1.0] text-[#222944] dark:text-[#BCC5DC] flex flex-col gap-0">
                                     {[
                                         "Ecosistema creado para potenciar,",
                                         "en tiempo real, la toma de decisiones",
@@ -432,21 +442,21 @@ const CenthropyDesktop = () => {
                                     { id: 'SYS.03', t1: 'Unify', t2: 'Agent', short: 'UA', desc: 'Analista inteligente de última generación, creado para descubrir insights de alto impacto y generar estrategias accionables en lenguaje natural.' },
                                     { id: 'SYS.04', t1: 'Unify', t2: 'Team', short: 'UT', desc: 'Equipo humano de élite, especializado y enfocado en garantizar la confiabilidad, eficacia y sostenibilidad del ecosistema Unify.' }
                                 ].map((comp, idx) => (
-                                    <div key={idx} className={`flex flex-col md:flex-row items-center ${idx === 0 ? '' : 'border-t border-black/10'} py-16 md:py-32 gap-24 group transition-all duration-500 hover:bg-black/[0.01]`}>
+                                    <div key={idx} className={`flex flex-col md:flex-row items-center ${idx === 0 ? '' : 'border-t border-[#222944]/10 dark:border-[#BCC5DC]/10'} py-16 md:py-32 gap-24 group transition-all duration-500`}>
                                         <div className="w-full md:w-[240px] flex flex-col gap-6">
-                                            <span className="text-[14px] font-bold text-black font-funnel">{comp.id}</span>
-                                            <p className="text-[15px] font-light leading-relaxed text-black max-w-[240px]">
+                                            <span className="text-[14px] font-bold text-[#222944] dark:text-[#BCC5DC] font-funnel">{comp.id}</span>
+                                            <p className="text-[15px] font-light leading-relaxed text-[#222944] dark:text-[#BCC5DC] max-w-[240px]">
                                                 {comp.desc}
                                             </p>
                                         </div>
 
                                         <div className="hidden md:flex flex-1 justify-center items-center relative h-[250px] overflow-hidden">
-                                            <span className="text-[220px] font-black text-black/[0.02] leading-none select-none tracking-tighter transition-all duration-700 group-hover:opacity-0 group-hover:scale-95">
+                                            <span className="text-[220px] font-black text-[#222944]/[0.03] dark:text-[#BCC5DC]/[0.02] leading-none select-none tracking-tighter transition-all duration-700 group-hover:opacity-0 group-hover:scale-95">
                                                 {comp.short}
                                             </span>
 
                                             <div className="absolute inset-0 flex items-center justify-end pointer-events-none">
-                                                <div className="w-0 group-hover:w-[450px] transition-all duration-700 ease-in-out flex items-center justify-end overflow-hidden opacity-0 group-hover:opacity-100 origin-right border border-black/10 bg-black">
+                                                <div className="w-0 group-hover:w-[450px] transition-all duration-700 ease-in-out flex items-center justify-end overflow-hidden opacity-0 group-hover:opacity-100 origin-right border border-[#222944]/10 dark:border-[#BCC5DC]/10 bg-black">
                                                     <img
                                                         src={
                                                             idx === 0 ? "/Unifyprotocol.jpg" :
@@ -467,9 +477,9 @@ const CenthropyDesktop = () => {
                                                 className="will-change-transform"
                                                 style={{ transform: `translateY(${-scrollInertia * 0.4}px)` }}
                                             >
-                                                <h4 className="text-5xl md:text-[85px] font-black tracking-tighter uppercase leading-[0.8] text-black transition-transform duration-700 group-hover:translate-x-[-20px]">
+                                                <h4 className="text-5xl md:text-[85px] font-black tracking-tighter uppercase leading-[0.8] text-[#222944] dark:text-[#BCC5DC] transition-transform duration-700 group-hover:translate-x-[-20px]">
                                                     {comp.t1} <br />
-                                                    <span className="text-black">{comp.t2}</span>
+                                                    <span className="text-[#222944] dark:text-[#BCC5DC]">{comp.t2}</span>
                                                 </h4>
                                             </div>
                                         </div>
@@ -479,8 +489,8 @@ const CenthropyDesktop = () => {
 
                             <div className="mt-40 mb-24">
                                 <div className="flex flex-col w-full mb-8">
-                                    <div className="w-full h-[1px] bg-black/15 mb-10" />
-                                    <h3 className="text-4xl md:text-[70px] font-medium tracking-tighter text-black leading-none">Soluciones</h3>
+                                    <div className="w-full h-[1px] bg-[#222944]/15 dark:bg-[#BCC5DC]/15 mb-10" />
+                                    <h3 className="text-4xl md:text-[70px] font-medium tracking-tighter text-[#222944] dark:text-[#BCC5DC] leading-none">Soluciones</h3>
                                 </div>
 
                                 <div className="flex flex-col md:flex-row gap-4 h-[500px] w-full">
@@ -513,13 +523,13 @@ const CenthropyDesktop = () => {
                                                 to="/waitlist"
                                                 key={service.id}
                                                 onMouseEnter={() => setActiveService(sIdx)}
-                                                className={`relative cursor-pointer transition-all duration-800 ease-[cubic-bezier(0.16,1,0.3,1)] bg-black overflow-hidden flex flex-col p-10 group ${isActive ? 'flex-[4]' : 'flex-[1]'}`}
+                                                className={`relative cursor-pointer transition-all duration-800 ease-[cubic-bezier(0.16,1,0.3,1)] bg-[#222944] dark:bg-[#303A5F] overflow-hidden flex flex-col p-10 group ${isActive ? 'flex-[4]' : 'flex-[1]'}`}
                                             >
                                                 <div className="flex justify-between items-start z-10">
-                                                    <span className={`text-[10px] font-bold tracking-[0.4em] uppercase transition-all duration-700 ${isActive ? 'text-white/60 translate-x-0' : 'text-black -translate-x-2'}`}>
+                                                    <span className={`text-[10px] font-bold tracking-[0.4em] uppercase transition-all duration-700 ${isActive ? 'text-white/60 translate-x-0' : 'text-[#222944] dark:text-[#303A5F] -translate-x-2'}`}>
                                                         {service.id}
                                                     </span>
-                                                    <div className={`w-1.5 h-1.5 rounded-full bg-white transition-all duration-700 ${isActive ? 'opacity-100 scale-125' : 'opacity-10 scale-50'}`} />
+                                                    <div className={`w-1.5 h-1.5 rounded-full bg-white dark:bg-[#BCC5DC] transition-all duration-700 ${isActive ? 'opacity-100 scale-125' : 'opacity-10 scale-50'}`} />
                                                 </div>
 
                                                 <div className="mt-auto flex flex-col z-10 w-full">
@@ -532,20 +542,20 @@ const CenthropyDesktop = () => {
                                                         ? 'opacity-100 translate-y-0 transition-all duration-700 delay-[150ms] ease-[cubic-bezier(0.16,1,0.3,1)] pointer-events-auto'
                                                         : 'opacity-0 translate-y-16 transition-none absolute pointer-events-none'
                                                         }`}>
+                                                        <span className={`text-[10px] font-bold text-white/40 uppercase tracking-[0.3em] block mb-6 transition-all duration-700 delay-[100ms] ${isActive ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+                                                            {service.subtitle}
+                                                        </span>
                                                         {service.title}
                                                     </h4>
 
                                                     <div className={`flex flex-col transition-all duration-500 ${isActive ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 translate-y-12 pointer-events-none absolute'}`}>
-                                                        <span className={`text-[10px] font-bold text-white/40 uppercase tracking-[0.3em] block mb-6 transition-all duration-700 delay-[100ms] ${isActive ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-                                                            {service.subtitle}
-                                                        </span>
-                                                        <p className={`text-white/70 text-lg font-light leading-tight mb-8 max-w-xl transition-all duration-700 delay-[200ms] ${isActive ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+                                                        <p className={`text-white/70 text-[15px] font-light leading-tight mb-8 max-w-xl transition-all duration-700 delay-[200ms] ${isActive ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
                                                             {service.desc}
                                                         </p>
 
                                                         <div className={`flex flex-wrap gap-3 transition-all duration-700 delay-[300ms] ${isActive ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
                                                             {service.features.map(f => (
-                                                                <span key={f} className="text-[8px] font-bold uppercase tracking-[0.2em] border border-white/10 px-3 py-1.5 text-white/40 bg-white/5 hover:bg-white/10 transition-colors duration-300">
+                                                                <span key={f} className="text-[8px] font-bold uppercase tracking-[0.2em] border border-white/10 px-3 py-1.5 text-white/40 bg-white/5 dark:bg-[#222944]/15 hover:bg-white/10 dark:bg-[#222944]/10 transition-colors duration-300">
                                                                     {f}
                                                                 </span>
                                                             ))}
@@ -553,12 +563,10 @@ const CenthropyDesktop = () => {
                                                     </div>
                                                 </div>
 
-                                                <div className={`absolute -bottom-10 -right-10 text-[280px] font-black leading-none select-none pointer-events-none transition-all duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] ${isActive ? 'text-white/[0.04] translate-y-0 rotate-0 scale-100' : 'text-white/[0.01] translate-y-40 rotate-12 scale-110'}`}>
-                                                    0{sIdx + 1}
-                                                </div>
+
 
                                                 {/* CTA Arrow Button */}
-                                                <div className={`absolute bottom-10 right-10 w-14 h-14 rounded-none border border-white/20 flex items-center justify-center text-white z-30 transition-all duration-500 hover:bg-white hover:text-black hover:border-white ${isActive ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
+                                                <div className={`absolute bottom-10 right-10 w-14 h-14 rounded-none border border-white/20 flex items-center justify-center text-white z-30 transition-all duration-500 hover:bg-white dark:bg-[#303A5F] hover:text-[#222944] dark:text-[#BCC5DC] hover:border-white ${isActive ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
                                                     <ChevronRight size={28} />
                                                 </div>
                                             </Link>
@@ -573,16 +581,19 @@ const CenthropyDesktop = () => {
 
                     <OrganizationsCarousel />
 
-                    <div className="w-full px-5 py-4 md:px-10 md:pt-4 md:pb-0 bg-white">
+                    <div className="w-full px-5 py-4 md:px-10 md:pt-4 md:pb-16 bg-white dark:bg-[#222944]">
                         <div className="max-w-[1800px] mx-auto">
-                            <div className="mt-8 py-8 border-t border-black flex justify-between items-center">
-                                <div className="flex flex-col w-full">
-                                    <h5 className="text-[70px] font-black uppercase tracking-tighter leading-none">CONECTAR</h5>
-                                </div>
-                                <div className="flex items-center">
-                                    <Link to="/waitlist" className="w-16 h-16 border-2 border-black rounded-none flex items-center justify-center group cursor-pointer hover:bg-black hover:text-white transition-all duration-300">
-                                        <ChevronRight size={32} />
-                                    </Link>
+                            <div className="mt-8 pt-20">
+                                <div className="w-full h-[1px] bg-[#222944]/15 dark:bg-[#BCC5DC]/15 mb-10" />
+                                <div className="flex justify-between items-center">
+                                    <div className="flex flex-col w-full">
+                                        <h5 className="text-[70px] font-black uppercase tracking-tighter leading-none">CONECTAR</h5>
+                                    </div>
+                                    <div className="flex items-center">
+                                        <Link to="/waitlist" className="w-16 h-16 border-2 border-[#222944] dark:border-[#BCC5DC] rounded-none flex items-center justify-center group cursor-pointer hover:bg-[#222944] hover:border-[#222944] hover:text-white transition-all duration-300">
+                                            <ChevronRight size={32} />
+                                        </Link>
+                                    </div>
                                 </div>
                             </div>
                         </div>

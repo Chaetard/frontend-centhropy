@@ -4,7 +4,7 @@ const Logo = ({ className = "", menuOpen = false }) => {
     return (
         <svg
             viewBox="0 0 1000 192"
-            className={`h-6 md:h-7 w-auto fill-current transition-colors duration-500 ${className}`}
+            className={`h-6 md:h-7 w-auto fill-current ${className}`}
             xmlns="http://www.w3.org/2000/svg"
         >
             <g>

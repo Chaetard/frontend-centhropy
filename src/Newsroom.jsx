@@ -18,7 +18,7 @@ const NewsCard = ({ post, index }) => {
             className="group block"
         >
             {/* Image */}
-            <div className="w-full overflow-hidden mb-8 border border-black/5 bg-gray-50 aspect-[16/9]">
+            <div className="w-full overflow-hidden mb-8 border border-[#222944]/15 dark:border-[#BCC5DC]/5 bg-gray-50 aspect-[16/9]">
                 {image ? (
                     <img
                         src={image}
@@ -28,7 +28,7 @@ const NewsCard = ({ post, index }) => {
                     />
                 ) : (
                     <div className="w-full h-full flex items-center justify-center">
-                        <span className="text-black/10 text-xs uppercase tracking-widest">Sin imagen</span>
+                        <span className="text-[#222944]/10 dark:text-[#BCC5DC]/25 text-xs uppercase tracking-widest">Sin imagen</span>
                     </div>
                 )}
             </div>
@@ -36,29 +36,29 @@ const NewsCard = ({ post, index }) => {
             {/* Content */}
             <div className="flex flex-col gap-3">
                 <div className="flex items-center gap-3">
-                    <span className="text-[10px] font-bold text-black/40 uppercase tracking-[0.4em]">
+                    <span className="text-[10px] font-bold text-[#222944]/40 dark:text-[#BCC5DC]/60 uppercase tracking-[0.4em]">
                         {post.category}
                     </span>
                     {post.readTime && (
                         <>
-                            <span className="text-black/20">·</span>
-                            <span className="flex items-center gap-1 text-[10px] text-black/30">
+                            <span className="text-[#222944]/20 dark:text-[#BCC5DC]/40">·</span>
+                            <span className="flex items-center gap-1 text-[10px] text-[#222944]/30 dark:text-[#BCC5DC]/50">
                                 <Clock size={9} />
                                 {post.readTime}
                             </span>
                         </>
                     )}
                 </div>
-                <h2 className="font-medium tracking-tighter uppercase leading-[0.9] group-hover:text-black/50 transition-colors text-3xl md:text-4xl">
+                <h2 className="font-medium tracking-tighter uppercase leading-[0.9] group-hover:text-[#222944]/50 dark:text-[#BCC5DC]/70 transition-colors text-3xl md:text-4xl">
                     {post.title}
                 </h2>
                 {excerpt && (
-                    <p className="text-black/50 font-light leading-snug text-sm line-clamp-2">
+                    <p className="text-[#222944]/50 dark:text-[#BCC5DC]/70 font-light leading-snug text-sm line-clamp-2">
                         {excerpt}
                     </p>
                 )}
                 <div className="pt-3 flex items-center gap-2 group/btn w-fit">
-                    <span className="text-xs font-bold uppercase tracking-widest border-b border-black/20 pb-0.5 group-hover/btn:border-black transition-all">
+                    <span className="text-xs font-bold uppercase tracking-widest border-b border-[#222944]/20 dark:border-[#BCC5DC]/20 pb-0.5 group-hover/btn:border-[#222944] dark:border-[#BCC5DC] transition-all">
                         Leer más
                     </span>
                     <ArrowRight size={14} className="translate-y-[-1px] group-hover/btn:translate-x-1 transition-transform" />
@@ -70,16 +70,16 @@ const NewsCard = ({ post, index }) => {
 
 // ─── EMPTY STATE ─────────────────────────────
 const EmptyState = ({ category }) => (
-    <div className="col-span-full py-32 flex flex-col items-center justify-center border border-dashed border-black/10">
-        <div className="w-8 h-8 border border-black/10 flex items-center justify-center mb-4">
-            <ArrowRight size={14} className="text-black/20" />
+    <div className="col-span-full py-32 flex flex-col items-center justify-center border border-dashed border-[#222944]/10 dark:border-[#BCC5DC]/10">
+        <div className="w-8 h-8 border border-[#222944]/10 dark:border-[#BCC5DC]/10 flex items-center justify-center mb-4">
+            <ArrowRight size={14} className="text-[#222944]/20 dark:text-[#BCC5DC]/40" />
         </div>
-        <p className="text-black/30 text-sm uppercase tracking-widest">
+        <p className="text-[#222944]/30 dark:text-[#BCC5DC]/50 text-sm uppercase tracking-widest">
             {category === 'Todos'
                 ? 'No hay publicaciones disponibles'
                 : `No hay publicaciones en "${category}"`}
         </p>
-        <p className="text-black/20 text-xs mt-2">Vuelve pronto o selecciona otra categoría</p>
+        <p className="text-[#222944]/20 dark:text-[#BCC5DC]/40 text-xs mt-2">Vuelve pronto o selecciona otra categoría</p>
     </div>
 );
 
@@ -119,7 +119,7 @@ const Newsroom = () => {
                 <meta name="description" content="Las últimas noticias, comunicados de prensa, blogs y demostraciones de Centhropy." />
             </Helmet>
 
-            <div className="font-funnel no-select w-full bg-white text-black min-h-screen relative overflow-x-hidden">
+            <div className="font-funnel no-select w-full bg-white dark:bg-[#222944] text-[#222944] dark:text-[#BCC5DC] min-h-screen relative overflow-x-hidden">
                 <Navbar subtitle="Sala de Prensa" />
 
                 <main className="pt-[140px] md:pt-[200px] px-5 md:px-10 max-w-[1800px] mx-auto">
@@ -132,14 +132,14 @@ const Newsroom = () => {
                             </h1>
                         </div>
                         <div className="md:col-span-4 flex items-end">
-                            <p className="text-xl md:text-2xl font-light leading-snug text-black/80">
+                            <p className="text-xl md:text-2xl font-light leading-snug text-[#222944]/80 dark:text-[#BCC5DC]">
                                 Las últimas noticias, comunicados de prensa, blogs y demostraciones de Centhropy.
                             </p>
                         </div>
                     </div>
 
                     {/* CATEGORY NAV */}
-                    <div className="border-t border-black/10 py-6 mb-16 overflow-x-auto no-scrollbar">
+                    <div className="border-t border-[#222944]/10 dark:border-[#BCC5DC]/10 py-6 mb-16 overflow-x-auto no-scrollbar">
                         <div className="flex gap-1 whitespace-nowrap">
                             {categories.map(cat => (
                                 <button
@@ -147,12 +147,12 @@ const Newsroom = () => {
                                     onClick={() => setActiveCategory(cat)}
                                     className={`relative px-4 py-2 text-[11px] font-bold uppercase tracking-widest transition-all ${activeCategory === cat
                                         ? 'bg-black text-white'
-                                        : 'text-black/40 hover:text-black hover:bg-black/5'
+                                        : 'text-[#222944]/40 dark:text-[#BCC5DC]/60 hover:text-[#222944] dark:text-[#BCC5DC] hover:bg-[#222944]/15 dark:bg-[#BCC5DC]/5'
                                         }`}
                                 >
                                     {cat}
                                     {getCategoryCount(cat) > 0 && (
-                                        <span className={`ml-2 text-[9px] font-mono ${activeCategory === cat ? 'text-white/60' : 'text-black/20'}`}>
+                                        <span className={`ml-2 text-[9px] font-mono ${activeCategory === cat ? 'text-white/60' : 'text-[#222944]/20 dark:text-[#BCC5DC]/40'}`}>
                                             {getCategoryCount(cat)}
                                         </span>
                                     )}
@@ -172,15 +172,15 @@ const Newsroom = () => {
                     </div>
                 </main>
 
-                <footer className="bg-white border-t border-black/5 px-5 md:px-10 py-20 max-w-[1800px] mx-auto">
+                <footer className="bg-white dark:bg-[#222944] border-t border-[#222944]/15 dark:border-[#BCC5DC]/5 px-5 md:px-10 py-20 max-w-[1800px] mx-auto">
                     <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-12">
                         <div>
-                            <Logo className="text-black mb-4" />
-                            <p className="text-sm text-black/40 max-w-xs">Building the global fabric for autonomous data intelligence.</p>
+                            <Logo className="text-[#222944] dark:text-[#BCC5DC] mb-4" />
+                            <p className="text-sm text-[#222944]/40 dark:text-[#BCC5DC]/60 max-w-xs">Building the global fabric for autonomous data intelligence.</p>
                         </div>
                         <div className="flex flex-col gap-2 items-start md:items-end">
-                            <span className="text-[10px] font-bold text-black/30 uppercase tracking-[0.3em]">© {new Date().getFullYear()} Centhropy</span>
-                            <span className="text-[10px] font-bold text-black/30 uppercase tracking-[0.3em]">All Rights Reserved</span>
+                            <span className="text-[10px] font-bold text-[#222944]/30 dark:text-[#BCC5DC]/50 uppercase tracking-[0.3em]">© {new Date().getFullYear()} Centhropy</span>
+                            <span className="text-[10px] font-bold text-[#222944]/30 dark:text-[#BCC5DC]/50 uppercase tracking-[0.3em]">All Rights Reserved</span>
                         </div>
                     </div>
                 </footer>

@@ -11,10 +11,10 @@ const CenthropyApp = () => {
 
     return (
         <Suspense fallback={
-            <div className="w-screen h-screen bg-white flex items-center justify-center">
+            <div className="w-screen h-screen bg-white dark:bg-[#222944] flex items-center justify-center">
                 <div className="flex flex-col items-center gap-4">
-                    <Logo className="text-black" />
-                    <div className="w-12 h-[1px] bg-black/20 animate-pulse" />
+                    <Logo className="text-[#222944] dark:text-[#BCC5DC]" />
+                    <div className="w-12 h-[1px] bg-[#222944]/20 dark:bg-[#BCC5DC]/20 animate-pulse" />
                 </div>
             </div>
         }>

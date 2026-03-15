@@ -5,10 +5,17 @@ import { Link } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import ConnectorsSection from './components/ConnectorsSection';
 import OrganizationsCarousel from './components/OrganizationsCarousel';
+import { useIsDarkMode } from './hooks/useIsDarkMode';
 
 // 1. ISOLATED CANVAS COMPONENT
 const SphereCanvasMobile = React.memo(({ probeDataRef, hudRef }) => {
     const containerRef = useRef(null);
+    const isDark = useIsDarkMode();
+    const isDarkRef = useRef(isDark);
+
+    useEffect(() => {
+        isDarkRef.current = isDark;
+    }, [isDark]);
 
     useEffect(() => {
         if (!containerRef.current) return;
@@ -57,9 +64,13 @@ const SphereCanvasMobile = React.memo(({ probeDataRef, hudRef }) => {
         const animate = () => {
             frameId = requestAnimationFrame(animate);
             const time = clock.getElapsedTime();
+            const targetHex = isDarkRef.current ? 0xBCC5DC : 0x1B2136;
 
             for (let i = 0; i < ringCount; i++) {
                 const ring = rings[i];
+                if (ring.mesh.material.color.getHex() !== targetHex) {
+                    ring.mesh.material.color.setHex(targetHex);
+                }
                 const rBase = ring.baseRadius;
                 if (rBase < 0.1) continue;
                 const positions = ring.mesh.geometry.attributes.position.array;
@@ -337,7 +348,7 @@ const CenthropyMobile = () => {
     }, []);
 
     return (
-        <div className="font-funnel no-select w-full bg-white text-black min-h-screen relative overflow-x-hidden">
+        <div className="font-funnel no-select w-full bg-white dark:bg-[#1B2136] text-[#222944] dark:text-[#BCC5DC] min-h-screen relative">
             {/* CANVAS LAYER */}
             <SphereCanvasMobile probeDataRef={probeDataRef} hudRef={hudRef} />
 
@@ -383,7 +394,7 @@ const CenthropyMobile = () => {
 
             {/* HUD / INSIGHTS PANEL */}
             <div className="fixed bottom-6 left-6 right-6 z-10 pointer-events-auto">
-                <div className="w-full border-t border-black/15 pt-5 flex flex-col gap-3">
+                <div className="w-full border-t border-[#222944]/15 dark:border-[#BCC5DC]/15 pt-5 flex flex-col gap-3">
                     <div className="flex justify-between items-end w-full">
                         <div className="flex flex-col">
                             <span className="text-xl font-black uppercase tracking-tighter leading-none min-h-[1.2em]">
@@ -401,24 +412,24 @@ const CenthropyMobile = () => {
                         </div>
                     </div>
 
-                    <div className="flex flex-col font-funnel text-xs text-black">
-                        <div className="flex justify-between border-b border-black/10 py-2">
-                            <span className="text-black/40 uppercase tracking-widest font-bold text-[10px]">Lat. Core</span>
+                    <div className="flex flex-col font-funnel text-xs text-[#222944] dark:text-[#BCC5DC]">
+                        <div className="flex justify-between border-b border-[#222944]/10 dark:border-[#BCC5DC]/10 py-2">
+                            <span className="text-[#222944]/40 dark:text-[#BCC5DC]/60 uppercase tracking-widest font-bold text-[10px]">Lat. Core</span>
                             <span className="font-bold tabular-nums text-[12px]">{probeMetrics.lat}</span>
                         </div>
                         <div className="flex justify-between py-2">
-                            <span className="text-black/40 uppercase tracking-widest font-bold text-[10px]">Lon. Core</span>
+                            <span className="text-[#222944]/40 dark:text-[#BCC5DC]/60 uppercase tracking-widest font-bold text-[10px]">Lon. Core</span>
                             <span className="font-bold tabular-nums text-[12px]">{probeMetrics.lon}</span>
                         </div>
                     </div>
                     <div className="flex flex-col gap-1.5 pt-0">
-                        <div className="w-full h-[1.5px] bg-black/10 relative overflow-hidden">
+                        <div className="w-full h-[1.5px] bg-[#222944]/10 dark:bg-[#BCC5DC]/10 relative overflow-hidden">
                             <div
                                 className="absolute inset-y-0 left-0 bg-black transition-all duration-300"
                                 style={{ width: probeMetrics.progress }}
                             />
                         </div>
-                        <div className="flex justify-between text-[9px] font-funnel uppercase font-bold text-black/30">
+                        <div className="flex justify-between text-[9px] font-funnel uppercase font-bold text-[#222944]/30 dark:text-[#BCC5DC]/50">
                             <span className="tabular-nums tracking-widest">{probeMetrics.timer}</span>
                             <span className="tracking-widest text-[8px]">Active Stream</span>
                         </div>
@@ -427,9 +438,9 @@ const CenthropyMobile = () => {
             </div>
 
             {/* MAIN CONTENT AREA */}
-            <main className="relative z-20 bg-white pt-20 pb-24 px-6 flex flex-col gap-8">
+            <main className="relative z-20 bg-white dark:bg-[#222944] pt-20 pb-24 px-6 flex flex-col gap-8">
                 <div className="flex flex-col gap-6 text-center items-center w-full">
-                    <h2 className="text-[8vw] min-[380px]:text-[32px] font-medium tracking-tight leading-[1.2] text-black text-center flex flex-col gap-0 w-full">
+                    <h2 className="text-[8vw] min-[380px]:text-[32px] font-medium tracking-tight leading-[1.2] text-[#222944] dark:text-[#BCC5DC] text-center flex flex-col gap-0 w-full">
                         {[
                             "Ecosistema creado",
                             "para potenciar, en",
@@ -463,17 +474,17 @@ const CenthropyMobile = () => {
                         <div
                             key={i}
                             onClick={() => setOpenModule(openModule === i ? null : i)}
-                            className="bg-[#f5f5f5] border border-black/[0.03] p-6 transition-all duration-500 ease-out"
+                            className="bg-[#222944] dark:bg-[#303A5F] border border-white/5 p-6 transition-all duration-500 ease-out"
                         >
                             <div className="flex justify-between items-center">
-                                <span className="text-xl font-black uppercase tracking-tight text-black">{m.w}</span>
+                                <span className="text-xl font-black uppercase tracking-tight text-white">{m.w}</span>
                                 <ChevronRight
-                                    className={`transition-transform duration-500 ${openModule === i ? 'rotate-90 text-black' : 'rotate-0 text-black/20'}`}
+                                    className={`transition-transform duration-500 ${openModule === i ? 'rotate-90 text-white' : 'rotate-0 text-white/30'}`}
                                     size={20}
                                 />
                             </div>
                             <div className={`grid transition-[grid-template-rows] duration-500 ease-out ${openModule === i ? 'grid-rows-[1fr] mt-5' : 'grid-rows-[0fr]'}`}>
-                                <p className="overflow-hidden text-[16px] font-light leading-relaxed text-black/60 tracking-tight">
+                                <p className="overflow-hidden text-[16px] font-light leading-relaxed text-white/70 tracking-tight">
                                     {m.desc}
                                 </p>
                             </div>
@@ -482,10 +493,10 @@ const CenthropyMobile = () => {
                 </div>
 
                 {/* SECCIÓN ECOSISTEMA UNIFY */}
-                <div className="flex flex-col gap-6 border-t border-white/20 pt-20 -mx-6 px-6 bg-white">
+                <div className="flex flex-col gap-6 border-t border-white/20 pt-20 -mx-6 px-6 bg-white dark:bg-[#222944]">
                     <div className="flex flex-col mb-6">
-                        <div className="w-full h-[1px] bg-black/15 mb-10" />
-                        <h2 className="text-[45px] font-medium tracking-tighter text-black leading-none">Ecosistema Unify</h2>
+                        <div className="w-full h-[1px] bg-[#222944]/15 dark:bg-[#BCC5DC]/15 mb-10" />
+                        <h2 className="text-[45px] font-medium tracking-tighter text-[#222944] dark:text-[#BCC5DC] leading-none">Ecosistema Unify</h2>
                     </div>
                     <div className="flex flex-col gap-12">
                         {systemModules.map((comp, idx) => {
@@ -494,16 +505,16 @@ const CenthropyMobile = () => {
                                 <div
                                     key={idx}
                                     ref={moduleRefs.current[idx]}
-                                    className="relative w-full bg-[#f5f5f5] border border-black/[0.05] p-8 flex flex-col overflow-hidden"
+                                    className="relative w-full bg-[#f5f5f5] dark:bg-[#303A5F] border border-black/[0.05] p-8 flex flex-col overflow-hidden"
                                 >
                                     {/* ID y Marcador */}
-                                    <div className={`flex justify-between items-center border-b border-black/10 pb-4 mb-8 transition-opacity duration-1000 ${isOpened ? 'opacity-100' : 'opacity-30'}`}>
-                                        <span className="text-[10px] font-bold text-black/40 tracking-[0.3em]">{comp.id}</span>
-                                        <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-black/30">{comp.short}</span>
+                                    <div className={`flex justify-between items-center border-b border-[#222944]/10 dark:border-[#BCC5DC]/10 pb-4 mb-8 transition-opacity duration-1000 ${isOpened ? 'opacity-100' : 'opacity-30'}`}>
+                                        <span className="text-[10px] font-bold text-[#222944]/40 dark:text-[#BCC5DC]/60 tracking-[0.3em]">{comp.id}</span>
+                                        <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#222944]/30 dark:text-[#BCC5DC]/50">{comp.short}</span>
                                     </div>
 
                                     {/* Imagen Superior */}
-                                    <div className="relative w-full aspect-[16/9] overflow-hidden bg-white/50">
+                                    <div className="relative w-full aspect-[16/9] overflow-hidden bg-white/50 dark:bg-[#222944]/150">
                                         <img
                                             src={comp.img}
                                             alt={comp.t1}
@@ -517,12 +528,12 @@ const CenthropyMobile = () => {
                                     >
                                         <div className="overflow-hidden">
                                             <div className="pt-10 flex flex-col gap-8">
-                                                <h4 className="text-[42px] font-black tracking-tighter uppercase leading-[0.85] text-black">
+                                                <h4 className="text-[42px] font-black tracking-tighter uppercase leading-[0.85] text-[#222944] dark:text-[#BCC5DC]">
                                                     {comp.t1} <br />
                                                     {comp.t2}
                                                 </h4>
 
-                                                <p className="text-[17px] font-light leading-relaxed text-black/70">
+                                                <p className="text-[17px] font-light leading-relaxed text-[#222944]/70 dark:text-[#BCC5DC]/90">
                                                     {comp.desc}
                                                 </p>
                                             </div>
@@ -531,12 +542,12 @@ const CenthropyMobile = () => {
 
                                     {/* Etiquetas Inferiores */}
                                     <div className="flex flex-col mt-8">
-                                        <div className="w-full border-t border-black/10 pt-4 flex justify-between items-center transition-opacity duration-1000">
+                                        <div className="w-full border-t border-[#222944]/10 dark:border-[#BCC5DC]/10 pt-4 flex justify-between items-center transition-opacity duration-1000">
                                             <div className={`flex flex-col transition-all duration-1000 ${isOpened ? 'opacity-100' : 'opacity-30'}`}>
-                                                <span className="text-[9px] font-bold text-black/40 tracking-[0.3em] uppercase">Status // Encrypted</span>
+                                                <span className="text-[9px] font-bold text-[#222944]/40 dark:text-[#BCC5DC]/60 tracking-[0.3em] uppercase">Status // Encrypted</span>
                                             </div>
                                             <div className={`flex flex-col transition-all duration-1000 ${isOpened ? 'opacity-100' : 'opacity-30'}`}>
-                                                <span className="text-[9px] font-bold text-black/30 tracking-[0.2em] uppercase">Verified System</span>
+                                                <span className="text-[9px] font-bold text-[#222944]/30 dark:text-[#BCC5DC]/50 tracking-[0.2em] uppercase">Verified System</span>
                                             </div>
                                         </div>
                                     </div>
@@ -547,25 +558,25 @@ const CenthropyMobile = () => {
                 </div>
 
                 {/* SECCIÓN SOLUCIONES */}
-                <div className="flex flex-col gap-6 border-t border-white/20 pt-20 pb-12 -mx-6 px-6 bg-white">
+                <div className="flex flex-col gap-6 border-t border-white/20 pt-20 pb-12 -mx-6 px-6 bg-white dark:bg-[#222944]">
                     <div className="flex flex-col gap-6">
-                        <div className="w-full h-[1px] bg-black/15 mb-6" />
+                        <div className="w-full h-[1px] bg-[#222944]/15 dark:bg-[#BCC5DC]/15 mb-6" />
                         <div className="flex justify-between items-end mb-6">
-                            <h2 className="text-[45px] font-medium tracking-tighter text-black leading-none m-0">Soluciones</h2>
+                            <h2 className="text-[45px] font-medium tracking-tighter text-[#222944] dark:text-[#BCC5DC] leading-none m-0">Soluciones</h2>
                             <div className="flex gap-4">
                                 <button
                                     onClick={() => scrollSolutions('left')}
-                                    className="w-[43px] h-[43px] border border-black flex items-center justify-center active:bg-black transition-all duration-300 group/btn"
+                                    className="w-[43px] h-[43px] border border-[#222944] dark:border-[#BCC5DC] flex items-center justify-center active:bg-black transition-all duration-300 group/btn"
                                     aria-label="Anterior"
                                 >
-                                    <ChevronLeft size={22} className="text-black group-active/btn:text-white" />
+                                    <ChevronLeft size={22} className="text-[#222944] dark:text-[#BCC5DC] group-active/btn:text-white" />
                                 </button>
                                 <button
                                     onClick={() => scrollSolutions('right')}
-                                    className="w-[43px] h-[43px] border border-black flex items-center justify-center active:bg-black transition-all duration-300 group/btn"
+                                    className="w-[43px] h-[43px] border border-[#222944] dark:border-[#BCC5DC] flex items-center justify-center active:bg-black transition-all duration-300 group/btn"
                                     aria-label="Siguiente"
                                 >
-                                    <ChevronRight size={22} className="text-black group-active/btn:text-white" />
+                                    <ChevronRight size={22} className="text-[#222944] dark:text-[#BCC5DC] group-active/btn:text-white" />
                                 </button>
                             </div>
                         </div>
@@ -578,12 +589,12 @@ const CenthropyMobile = () => {
                         >
                             {solutions.map((s, idx) => (
                                 <div key={idx} className="w-screen flex-shrink-0 snap-center px-6">
-                                    <div className="bg-black border border-white/5 p-8 flex flex-col gap-8 min-h-[500px] h-full">
+                                    <div className="bg-[#222944] dark:bg-[#303A5F] border border-white/5 p-8 flex flex-col gap-8 min-h-[500px] h-full">
                                         <h3 className="text-3xl font-black uppercase tracking-tighter text-white leading-none">
                                             {s.title}
                                         </h3>
 
-                                        <div className="w-full aspect-video overflow-hidden bg-white/10 shrink-0">
+                                        <div className="w-full aspect-video overflow-hidden bg-white/10 dark:bg-[#222944]/10 shrink-0">
                                             <img
                                                 src={s.img}
                                                 alt={s.title}
@@ -616,31 +627,34 @@ const CenthropyMobile = () => {
                             {solutions.map((_, i) => (
                                 <div
                                     key={i}
-                                    className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${scrollIndex === i ? 'bg-black scale-125' : 'bg-black/10'}`}
+                                    className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${scrollIndex === i ? 'bg-black scale-125' : 'bg-[#222944]/10 dark:bg-[#BCC5DC]/10'}`}
                                 />
                             ))}
                         </div>
                     </div>
                 </div>
 
-                <div className="bg-white px-6 -mx-6">
+                <div className="bg-white dark:bg-[#222944] px-6 -mx-6">
                     <ConnectorsSection />
                 </div>
 
-                <div className="bg-white -mx-6">
+                <div className="bg-white dark:bg-[#222944] -mx-6">
                     <OrganizationsCarousel />
                 </div>
 
-                <div className="bg-white text-black py-8 flex flex-row justify-between items-center border-t border-black/10 -mx-6 px-6">
-                    <h4 className="text-[12vw] min-[400px]:text-[45px] font-medium tracking-tighter text-black leading-none m-0">
-                        CONECTAR
-                    </h4>
-                    <Link
-                        to="/waitlist"
-                        className="w-14 h-14 border-2 border-black rounded-none flex items-center justify-center group active:bg-black active:text-white transition-all duration-300 shrink-0"
-                    >
-                        <ChevronRight size={28} />
-                    </Link>
+                <div className="bg-white dark:bg-[#222944] text-[#222944] dark:text-[#BCC5DC] -mx-6 px-6 pt-20 pb-20">
+                    <div className="w-full h-[1px] bg-[#222944]/15 dark:bg-[#BCC5DC]/15 mb-10" />
+                    <div className="flex flex-row justify-between items-center">
+                        <h4 className="text-[12vw] min-[400px]:text-[45px] font-medium tracking-tighter text-[#222944] dark:text-[#BCC5DC] leading-none m-0">
+                            CONECTAR
+                        </h4>
+                        <Link
+                            to="/waitlist"
+                            className="w-14 h-14 border-2 border-[#222944] dark:border-[#BCC5DC] rounded-none flex items-center justify-center group active:bg-[#222944] active:border-[#222944] active:text-white transition-all duration-300 shrink-0"
+                        >
+                            <ChevronRight size={28} />
+                        </Link>
+                    </div>
                 </div>
             </main >
         </div >

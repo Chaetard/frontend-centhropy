@@ -5,17 +5,15 @@
 @tailwind utilities;
 
 html {
-  background-color: white;
-  overscroll-behavior-y: none;
+  overscroll-behavior-y: auto;
 }
 
 @layer base {
   body {
-    @apply m-0 bg-white text-black overflow-x-hidden font-funnel select-none;
+    @apply m-0 bg-white dark:bg-[#222944] text-[#222944] dark:text-[#BCC5DC] overflow-x-hidden font-funnel;
     font-family: 'Funnel Display', sans-serif;
-    overflow-y: scroll;
-    background-color: white;
-    overscroll-behavior-y: none;
+    overflow-y: auto;
+    overscroll-behavior-y: auto;
   }
 }
 
@@ -45,13 +43,17 @@ header {
   font-family: 'Funnel Display', sans-serif;
   font-weight: 700;
   letter-spacing: -0.02em;
-  color: #000000;
+  color: #222944;
   opacity: 1;
   transition: all 0.4s ease;
 }
 
+.dark .value-word {
+  color: #BCC5DC;
+}
+
 .tactical-card {
-  border-left: 1.5px solid #050505;
+  border-left: 1.5px solid #222944;
   background: rgba(255, 255, 255, 0.7);
   backdrop-filter: blur(8px);
   /* Restored glassmorphism */
@@ -119,8 +121,12 @@ header {
   left: 0;
   height: 100%;
   width: 100%;
-  background: #000;
+  background: #222944;
   animation: energy-flow 2s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+}
+
+.dark .energy-line-active {
+  background: #BCC5DC;
 }
 
 /* SVG ENERGY PATH - SINGLE FAST PULSE */
@@ -168,31 +174,16 @@ header {
   animation: bounce-slow 3s ease-in-out infinite;
 }
 
-/* TACTICAL SCROLLBAR - Global Styles */
-::-webkit-scrollbar {
-  width: 5px !important;
-  height: 5px !important;
-}
-
-::-webkit-scrollbar-track {
-  background: transparent !important;
-  border-radius: 0 !important;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #000000 !important;
-  border-radius: 0 !important;
-  border: none !important;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #333333 !important;
-}
-
-/* Firefox support */
+/* HIDE SCROLLBAR GLOBALLY FOR A CLEAN LOOK */
 * {
-  scrollbar-width: thin !important;
-  scrollbar-color: #000000 transparent !important;
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;     /* Firefox */
+}
+
+::-webkit-scrollbar {
+  display: none !important;  /* Chrome, Safari and Opera */
+  width: 0 !important;
+  height: 0 !important;
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */
@@ -250,7 +241,7 @@ header {
   position: absolute;
   width: 100%;
   height: 100%;
-  background: black;
+  background: #222944;
   color: white;
   display: flex;
   align-items: center;
@@ -259,6 +250,11 @@ header {
   font-weight: 800;
   backface-visibility: hidden;
   border-radius: 1px;
+}
+
+.dark .hud-tag-face-mobile {
+  background: #BCC5DC;
+  color: #222944;
 }
 
 .hud-tag-f1 {

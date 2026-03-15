@@ -12,28 +12,28 @@ import PostEditor from './PostEditor';
 const T = {
     // surfaces
     page: 'bg-[#f5f5f3]',
-    sidebar: 'bg-white',
-    card: 'bg-white',
+    sidebar: 'bg-white dark:bg-[#222944]',
+    card: 'bg-white dark:bg-[#222944]',
     cardHover: 'hover:bg-gray-50',
-    header: 'bg-white/90 backdrop-blur-md',
+    header: 'bg-white/90 dark:bg-[#222944]/90 backdrop-blur-md',
     // borders
-    border: 'border-black/8',
-    borderMd: 'border-black/12',
+    border: 'border-[#222944]/8 dark:border-[#BCC5DC]/8',
+    borderMd: 'border-[#222944]/12 dark:border-[#BCC5DC]/12',
     // text
-    label: 'text-black/40',
-    body: 'text-black/70',
-    title: 'text-black',
+    label: 'text-[#222944]/40 dark:text-[#BCC5DC]/60',
+    body: 'text-[#222944]/70 dark:text-[#BCC5DC]/90',
+    title: 'text-[#222944] dark:text-[#BCC5DC]',
     // inputs
-    input: 'bg-gray-50 border border-black/10 text-black placeholder:text-black/25 outline-none focus:border-black/40 focus:bg-white transition-colors',
-    select: 'bg-gray-50 border border-black/10 text-black outline-none focus:border-black/40 transition-colors',
+    input: 'bg-gray-50 border border-[#222944]/10 dark:border-[#BCC5DC]/10 text-[#222944] dark:text-[#BCC5DC] placeholder:text-[#222944]/25 dark:text-[#BCC5DC]/45 outline-none focus:border-[#222944]/40 dark:border-[#BCC5DC]/40 focus:bg-white dark:bg-[#222944] transition-colors',
+    select: 'bg-gray-50 border border-[#222944]/10 dark:border-[#BCC5DC]/10 text-[#222944] dark:text-[#BCC5DC] outline-none focus:border-[#222944]/40 dark:border-[#BCC5DC]/40 transition-colors',
     // buttons
-    btnPrimary: 'bg-black text-white hover:bg-black/80 transition-all active:scale-95',
-    btnGhost: 'bg-black/5 hover:bg-black/10 text-black/70 transition-all border border-black/8',
-    btnDanger: 'bg-black/5 hover:bg-red-500 hover:text-white transition-all border border-black/8 hover:border-red-500',
+    btnPrimary: 'bg-black text-white hover:bg-[#222944]/80 dark:bg-[#BCC5DC]/80 transition-all active:scale-95',
+    btnGhost: 'bg-[#222944]/15 dark:bg-[#BCC5DC]/5 hover:bg-[#222944]/10 dark:bg-[#BCC5DC]/10 text-[#222944]/70 dark:text-[#BCC5DC]/90 transition-all border border-[#222944]/8 dark:border-[#BCC5DC]/8',
+    btnDanger: 'bg-[#222944]/15 dark:bg-[#BCC5DC]/5 hover:bg-red-500 hover:text-white transition-all border border-[#222944]/8 dark:border-[#BCC5DC]/8 hover:border-red-500',
     // status dots
     dotActive: 'bg-emerald-500',
     dotDraft: 'bg-amber-400',
-    dotOff: 'bg-black/20',
+    dotOff: 'bg-[#222944]/20 dark:bg-[#BCC5DC]/20',
 };
 
 // ─── POST LIST VIEW ────────────────────────────────────────────
@@ -64,7 +64,7 @@ const PostsList = ({ posts, authors, toggleStatus, onDelete, onEdit }) => {
             {/* Toolbar */}
             <div className="flex items-center gap-3 mb-6">
                 <div className="flex-1 relative">
-                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-black/30" />
+                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-[#222944]/30 dark:text-[#BCC5DC]/50" />
                     <input
                         value={search}
                         onChange={e => setSearch(e.target.value)}
@@ -87,10 +87,10 @@ const PostsList = ({ posts, authors, toggleStatus, onDelete, onEdit }) => {
             {/* Stats chips */}
             <div className="flex gap-2 mb-6">
                 {[
-                    { label: 'Total', count: posts.length, color: 'bg-black/5 text-black' },
+                    { label: 'Total', count: posts.length, color: 'bg-[#222944]/15 dark:bg-[#BCC5DC]/5 text-[#222944] dark:text-[#BCC5DC]' },
                     { label: 'Live', count: posts.filter(p => p.status === 'active').length, color: 'bg-emerald-50 text-emerald-700' },
                     { label: 'Draft', count: posts.filter(p => p.status === 'draft').length, color: 'bg-amber-50 text-amber-700' },
-                    { label: 'Off', count: posts.filter(p => p.status === 'inactive').length, color: 'bg-black/5 text-black/40' },
+                    { label: 'Off', count: posts.filter(p => p.status === 'inactive').length, color: 'bg-[#222944]/15 dark:bg-[#BCC5DC]/5 text-[#222944]/40 dark:text-[#BCC5DC]/60' },
                 ].map(chip => (
                     <span key={chip.label} className={`px-3 py-1 text-[10px] font-mono font-medium uppercase tracking-wider ${chip.color}`}>
                         {chip.label} <span className="font-bold">{chip.count}</span>
@@ -99,9 +99,9 @@ const PostsList = ({ posts, authors, toggleStatus, onDelete, onEdit }) => {
             </div>
 
             {filtered.length === 0 ? (
-                <div className="text-center py-24 border border-dashed border-black/10 bg-white">
-                    <FileText className="w-8 h-8 text-black/10 mx-auto mb-3" />
-                    <p className="text-black/30 text-sm">No hay publicaciones{search ? ` para "${search}"` : ''}</p>
+                <div className="text-center py-24 border border-dashed border-[#222944]/10 dark:border-[#BCC5DC]/10 bg-white dark:bg-[#222944]">
+                    <FileText className="w-8 h-8 text-[#222944]/10 dark:text-[#BCC5DC]/25 mx-auto mb-3" />
+                    <p className="text-[#222944]/30 dark:text-[#BCC5DC]/50 text-sm">No hay publicaciones{search ? ` para "${search}"` : ''}</p>
                 </div>
             ) : (
                 <div className="space-y-2">
@@ -114,7 +114,7 @@ const PostsList = ({ posts, authors, toggleStatus, onDelete, onEdit }) => {
                                 className={`group flex items-center gap-5 p-4 border ${T.border} ${T.card} ${T.cardHover} transition-all`}
                             >
                                 {/* Cover */}
-                                <div className="w-20 h-14 bg-gray-100 border border-black/5 overflow-hidden shrink-0">
+                                <div className="w-20 h-14 bg-gray-100 border border-[#222944]/15 dark:border-[#BCC5DC]/5 overflow-hidden shrink-0">
                                     {(post.coverImage || post.image) ? (
                                         <img
                                             src={post.coverImage || post.image}
@@ -123,7 +123,7 @@ const PostsList = ({ posts, authors, toggleStatus, onDelete, onEdit }) => {
                                         />
                                     ) : (
                                         <div className="w-full h-full flex items-center justify-center">
-                                            <ImageIcon className="w-4 h-4 text-black/15" />
+                                            <ImageIcon className="w-4 h-4 text-[#222944]/15 dark:text-[#BCC5DC]/30" />
                                         </div>
                                     )}
                                 </div>
@@ -132,20 +132,20 @@ const PostsList = ({ posts, authors, toggleStatus, onDelete, onEdit }) => {
                                 <div className="flex-1 min-w-0">
                                     <div className="flex items-center gap-2 mb-1">
                                         <div className={`w-1.5 h-1.5 rounded-full ${statusCfg.dot}`} />
-                                        <span className="text-[9px] font-mono text-black/35 uppercase tracking-widest">
+                                        <span className="text-[9px] font-mono text-[#222944]/35 dark:text-[#BCC5DC]/35 uppercase tracking-widest">
                                             {TYPE_LABELS[post.type] || post.type}
                                         </span>
-                                        <span className="text-black/20">·</span>
-                                        <span className="text-[9px] font-mono text-black/35">{post.category}</span>
+                                        <span className="text-[#222944]/20 dark:text-[#BCC5DC]/40">·</span>
+                                        <span className="text-[9px] font-mono text-[#222944]/35 dark:text-[#BCC5DC]/35">{post.category}</span>
                                         <span className={`ml-auto text-[8px] font-mono px-1.5 py-0.5 ${post.status === 'active' ? 'bg-emerald-50 text-emerald-600'
                                             : post.status === 'draft' ? 'bg-amber-50 text-amber-600'
-                                                : 'bg-black/5 text-black/35'
+                                                : 'bg-[#222944]/15 dark:bg-[#BCC5DC]/5 text-[#222944]/35 dark:text-[#BCC5DC]/35'
                                             }`}>
                                             {statusCfg.label}
                                         </span>
                                     </div>
-                                    <h3 className="text-sm font-semibold text-black truncate mb-1">{post.title}</h3>
-                                    <div className="flex items-center gap-2 text-[10px] text-black/35">
+                                    <h3 className="text-sm font-semibold text-[#222944] dark:text-[#BCC5DC] truncate mb-1">{post.title}</h3>
+                                    <div className="flex items-center gap-2 text-[10px] text-[#222944]/35 dark:text-[#BCC5DC]/35">
                                         {author && <span>{author.name}</span>}
                                         <span>·</span>
                                         <span>{post.readTime}</span>
@@ -211,8 +211,8 @@ const MenuSlots = ({ posts, slots, setSlot }) => {
                 return (
                     <div key={config.id} className={`${T.card} border ${T.border} p-6`}>
                         <div className="flex items-center gap-2 mb-4">
-                            <config.icon className="w-3.5 h-3.5 text-black/30" />
-                            <span className="text-[10px] font-mono text-black/40 uppercase tracking-widest">{config.label}</span>
+                            <config.icon className="w-3.5 h-3.5 text-[#222944]/30 dark:text-[#BCC5DC]/50" />
+                            <span className="text-[10px] font-mono text-[#222944]/40 dark:text-[#BCC5DC]/60 uppercase tracking-widest">{config.label}</span>
                         </div>
                         <select
                             value={slots[config.id] || ''}
@@ -292,10 +292,10 @@ const AuthorsManager = ({ authors, posts, addAuthor, updateAuthor, deleteAuthor,
             {editing && (
                 <div className={`${T.card} border ${T.borderMd} p-6 mb-6`}>
                     <div className="flex justify-between items-center mb-5">
-                        <span className="text-[10px] font-mono text-black/40 uppercase tracking-widest">
+                        <span className="text-[10px] font-mono text-[#222944]/40 dark:text-[#BCC5DC]/60 uppercase tracking-widest">
                             {editing === 'new' ? 'Nuevo Autor' : 'Editar Autor'}
                         </span>
-                        <button onClick={handleCancel} className="text-black/30 hover:text-black">
+                        <button onClick={handleCancel} className="text-[#222944]/30 dark:text-[#BCC5DC]/50 hover:text-[#222944] dark:text-[#BCC5DC]">
                             <X className="w-4 h-4" />
                         </button>
                     </div>
@@ -305,17 +305,17 @@ const AuthorsManager = ({ authors, posts, addAuthor, updateAuthor, deleteAuthor,
                         <div>
                             {avatarPreview ? (
                                 <div className="relative w-16 h-16">
-                                    <img src={avatarPreview} alt="" className="w-16 h-16 rounded-full object-cover border border-black/10" />
+                                    <img src={avatarPreview} alt="" className="w-16 h-16 rounded-full object-cover border border-[#222944]/10 dark:border-[#BCC5DC]/10" />
                                     <button
                                         onClick={() => { setForm(f => ({ ...f, avatar: null })); setAvatarPreview(''); }}
-                                        className="absolute -top-1 -right-1 bg-white border border-black/10 rounded-full p-0.5 text-black/40 hover:text-black"
+                                        className="absolute -top-1 -right-1 bg-white dark:bg-[#222944] border border-[#222944]/10 dark:border-[#BCC5DC]/10 rounded-full p-0.5 text-[#222944]/40 dark:text-[#BCC5DC]/60 hover:text-[#222944] dark:text-[#BCC5DC]"
                                     >
                                         <X className="w-3 h-3" />
                                     </button>
                                 </div>
                             ) : (
-                                <label className="flex flex-col items-center justify-center w-16 h-16 border border-dashed border-black/15 cursor-pointer hover:border-black/30 rounded-full bg-gray-50">
-                                    <User className="w-5 h-5 text-black/20" />
+                                <label className="flex flex-col items-center justify-center w-16 h-16 border border-dashed border-[#222944]/15 dark:border-[#BCC5DC]/15 cursor-pointer hover:border-[#222944]/30 dark:border-[#BCC5DC]/30 rounded-full bg-gray-50">
+                                    <User className="w-5 h-5 text-[#222944]/20 dark:text-[#BCC5DC]/40" />
                                     <input type="file" className="hidden" accept="image/*" onChange={handleAvatarUpload} />
                                 </label>
                             )}
@@ -324,7 +324,7 @@ const AuthorsManager = ({ authors, posts, addAuthor, updateAuthor, deleteAuthor,
                         {/* Fields */}
                         <div className="space-y-3">
                             <div>
-                                <label className="text-[10px] text-black/40 uppercase tracking-widest block mb-1">Nombre *</label>
+                                <label className="text-[10px] text-[#222944]/40 dark:text-[#BCC5DC]/60 uppercase tracking-widest block mb-1">Nombre *</label>
                                 <input
                                     value={form.name}
                                     onChange={e => setForm(f => ({ ...f, name: e.target.value }))}
@@ -333,7 +333,7 @@ const AuthorsManager = ({ authors, posts, addAuthor, updateAuthor, deleteAuthor,
                                 />
                             </div>
                             <div>
-                                <label className="text-[10px] text-black/40 uppercase tracking-widest block mb-1">Rol</label>
+                                <label className="text-[10px] text-[#222944]/40 dark:text-[#BCC5DC]/60 uppercase tracking-widest block mb-1">Rol</label>
                                 <input
                                     value={form.role}
                                     onChange={e => setForm(f => ({ ...f, role: e.target.value }))}
@@ -345,7 +345,7 @@ const AuthorsManager = ({ authors, posts, addAuthor, updateAuthor, deleteAuthor,
                     </div>
 
                     <div className="mb-5">
-                        <label className="text-[10px] text-black/40 uppercase tracking-widest block mb-1">Bio</label>
+                        <label className="text-[10px] text-[#222944]/40 dark:text-[#BCC5DC]/60 uppercase tracking-widest block mb-1">Bio</label>
                         <textarea
                             value={form.bio}
                             onChange={e => setForm(f => ({ ...f, bio: e.target.value }))}
@@ -377,16 +377,16 @@ const AuthorsManager = ({ authors, posts, addAuthor, updateAuthor, deleteAuthor,
                         key={author.id}
                         className={`group flex items-center gap-4 p-4 border ${T.border} ${T.card} ${T.cardHover} transition-all`}
                     >
-                        <div className="w-10 h-10 rounded-full border border-black/8 overflow-hidden flex items-center justify-center bg-gray-50 shrink-0">
+                        <div className="w-10 h-10 rounded-full border border-[#222944]/8 dark:border-[#BCC5DC]/8 overflow-hidden flex items-center justify-center bg-gray-50 shrink-0">
                             {author.avatar
                                 ? <img src={author.avatar} alt={author.name} className="w-full h-full object-cover" />
-                                : <User className="w-4 h-4 text-black/20" />
+                                : <User className="w-4 h-4 text-[#222944]/20 dark:text-[#BCC5DC]/40" />
                             }
                         </div>
                         <div className="flex-1 min-w-0">
-                            <div className="text-sm font-semibold text-black">{author.name}</div>
-                            <div className="text-[11px] text-black/40">{author.role}</div>
-                            <div className="text-[10px] text-black/25 font-mono">{getPostCount(author.id)} publicaciones</div>
+                            <div className="text-sm font-semibold text-[#222944] dark:text-[#BCC5DC]">{author.name}</div>
+                            <div className="text-[11px] text-[#222944]/40 dark:text-[#BCC5DC]/60">{author.role}</div>
+                            <div className="text-[10px] text-[#222944]/25 dark:text-[#BCC5DC]/45 font-mono">{getPostCount(author.id)} publicaciones</div>
                         </div>
                         <div className="flex items-center gap-1.5 opacity-0 group-hover:opacity-100 transition-opacity">
                             <button onClick={() => handleEdit(author)} className={`p-2 ${T.btnGhost}`} title="Editar">
@@ -473,8 +473,8 @@ const EditorialPanel = () => {
                     <div className="flex items-center gap-2.5">
                         <div className="w-2 h-2 bg-black rounded-full" />
                         <div>
-                            <div className="text-[9px] font-mono text-black/35 uppercase tracking-[0.3em]">CES v5.0</div>
-                            <div className="text-xs font-semibold tracking-tight text-black leading-none">Centhropy Core</div>
+                            <div className="text-[9px] font-mono text-[#222944]/35 dark:text-[#BCC5DC]/35 uppercase tracking-[0.3em]">CES v5.0</div>
+                            <div className="text-xs font-semibold tracking-tight text-[#222944] dark:text-[#BCC5DC] leading-none">Centhropy Core</div>
                         </div>
                     </div>
                 </div>
@@ -487,13 +487,13 @@ const EditorialPanel = () => {
                             onClick={() => setActiveTab(item.id)}
                             className={`w-full flex items-center gap-3 px-3 py-2.5 text-xs font-medium rounded-none transition-all ${activeTab === item.id
                                 ? 'bg-black text-white'
-                                : 'text-black/55 hover:bg-black/5 hover:text-black'
+                                : 'text-[#222944]/55 dark:text-[#BCC5DC]/55 hover:bg-[#222944]/15 dark:bg-[#BCC5DC]/5 hover:text-[#222944] dark:text-[#BCC5DC]'
                                 }`}
                         >
                             <item.icon className="w-3.5 h-3.5 shrink-0" />
                             <span className="flex-1 text-left tracking-wide">{item.label}</span>
                             {item.count !== null && (
-                                <span className={`text-[9px] font-mono px-1.5 py-0.5 min-w-[20px] text-center ${activeTab === item.id ? 'bg-white/20 text-white' : 'bg-black/8 text-black/40'
+                                <span className={`text-[9px] font-mono px-1.5 py-0.5 min-w-[20px] text-center ${activeTab === item.id ? 'bg-white/20 dark:bg-[#222944]/20 text-white' : 'bg-[#222944]/8 dark:bg-[#BCC5DC]/8 text-[#222944]/40 dark:text-[#BCC5DC]/60'
                                     }`}>
                                     {item.count}
                                 </span>
@@ -506,7 +506,7 @@ const EditorialPanel = () => {
                 <div className={`p-3 border-t ${T.border}`}>
                     <button
                         onClick={handleLogout}
-                        className="w-full flex items-center gap-3 px-3 py-2.5 text-xs text-black/35 hover:text-red-500 hover:bg-red-50 transition-all"
+                        className="w-full flex items-center gap-3 px-3 py-2.5 text-xs text-[#222944]/35 dark:text-[#BCC5DC]/35 hover:text-red-500 hover:bg-red-50 transition-all"
                     >
                         <LogOut className="w-3.5 h-3.5" />
                         <span className="tracking-wide">Cerrar sesión</span>
@@ -519,10 +519,10 @@ const EditorialPanel = () => {
                 {/* Header */}
                 <header className={`h-16 px-8 border-b ${T.border} flex justify-between items-center ${T.header} sticky top-0 z-10`}>
                     <div>
-                        <div className="text-[9px] font-mono text-black/30 uppercase tracking-widest mb-0.5">
+                        <div className="text-[9px] font-mono text-[#222944]/30 dark:text-[#BCC5DC]/50 uppercase tracking-widest mb-0.5">
                             {TAB_HEADERS[activeTab]?.sub}
                         </div>
-                        <h2 className="text-lg font-semibold tracking-tight text-black leading-none">
+                        <h2 className="text-lg font-semibold tracking-tight text-[#222944] dark:text-[#BCC5DC] leading-none">
                             {TAB_HEADERS[activeTab]?.title}
                         </h2>
                     </div>

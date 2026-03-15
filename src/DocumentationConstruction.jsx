@@ -18,13 +18,13 @@ const DocumentationConstruction = () => {
     }, []);
 
     return (
-        <div className="fixed inset-0 bg-white z-[9999] flex flex-col items-center justify-center p-6">
+        <div className="fixed inset-0 bg-white dark:bg-[#222944] z-[9999] flex flex-col items-center justify-center p-6">
             {/* Back Button */}
             <button
                 onClick={() => navigate(-1)}
                 className="absolute top-8 left-8 flex items-center gap-2 group cursor-pointer"
             >
-                <div className="w-8 h-8 rounded-none border border-black flex items-center justify-center group-hover:bg-black group-hover:text-white transition-all duration-300">
+                <div className="w-8 h-8 rounded-none border border-[#222944] dark:border-[#BCC5DC] flex items-center justify-center group-hover:bg-black group-hover:text-white transition-all duration-300">
                     <ChevronLeft size={18} />
                 </div>
                 <span className="text-[10px] font-bold uppercase tracking-[0.3em] ml-1">Volver</span>
@@ -33,7 +33,7 @@ const DocumentationConstruction = () => {
                 <motion.span
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="text-[10px] font-bold uppercase tracking-[0.4em] text-black/40 mb-3"
+                    className="text-[10px] font-bold uppercase tracking-[0.4em] text-[#222944]/40 dark:text-[#BCC5DC]/60 mb-3"
                 >
                     System Status: Building
                 </motion.span>
@@ -42,12 +42,12 @@ const DocumentationConstruction = () => {
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.1 }}
-                    className="text-2xl md:text-3xl font-black uppercase tracking-tighter text-black mb-12 text-center"
+                    className="text-2xl md:text-3xl font-black uppercase tracking-tighter text-[#222944] dark:text-[#BCC5DC] mb-12 text-center"
                 >
                     DESARROLLANDO DOCUMENTACIÓN
                 </motion.h1>
 
-                <div className="w-48 h-[1px] bg-black/5 relative overflow-hidden">
+                <div className="w-48 h-[1px] bg-[#222944]/15 dark:bg-[#BCC5DC]/5 relative overflow-hidden">
                     <motion.div
                         className="absolute top-0 left-0 h-full bg-black"
                         style={{ width: `${progress}%` }}
@@ -59,7 +59,7 @@ const DocumentationConstruction = () => {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.5 }}
-                    className="mt-12 text-[9px] font-bold text-black/30 uppercase tracking-[0.3em] font-funnel"
+                    className="mt-12 text-[9px] font-bold text-[#222944]/30 dark:text-[#BCC5DC]/50 uppercase tracking-[0.3em] font-funnel"
                 >
                     Unify Data Center — Unified Data Engine — 2026
                 </motion.p>

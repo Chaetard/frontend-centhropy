@@ -40,7 +40,7 @@ const AdminLogin = () => {
     };
 
     return (
-        <div className="min-h-screen bg-black text-white font-mono flex items-center justify-center p-6 selection:bg-white selection:text-black">
+        <div className="min-h-screen bg-black text-white font-mono flex items-center justify-center p-6 selection:bg-white dark:bg-[#222944] selection:text-[#222944] dark:text-[#BCC5DC]">
             <div className="w-full max-w-md">
                 {/* Tactical Header */}
                 <div className="flex items-center justify-between border-b border-white/10 pb-4 mb-8">
@@ -52,7 +52,7 @@ const AdminLogin = () => {
                 </div>
 
                 {/* Terminal Display */}
-                <div className="bg-white/5 p-4 rounded-sm border border-white/5 mb-8 min-h-[140px] flex flex-col justify-end">
+                <div className="bg-white/5 dark:bg-[#222944]/15 p-4 rounded-sm border border-white/5 mb-8 min-h-[140px] flex flex-col justify-end">
                     {terminalLines.map((line, i) => (
                         <div key={i} className={`text-[10px] mb-1 ${i === terminalLines.length - 1 ? 'text-white' : 'text-gray-500'}`}>
                             {line}
@@ -89,7 +89,7 @@ const AdminLogin = () => {
                     <button
                         type="submit"
                         disabled={isLoading || !password}
-                        className="w-full py-4 border border-white/10 hover:bg-white hover:text-black transition-all flex items-center justify-center gap-3 group disabled:opacity-30 disabled:hover:bg-transparent disabled:hover:text-white"
+                        className="w-full py-4 border border-white/10 hover:bg-white dark:bg-[#222944] hover:text-[#222944] dark:text-[#BCC5DC] transition-all flex items-center justify-center gap-3 group disabled:opacity-30 disabled:hover:bg-transparent disabled:hover:text-white"
                     >
                         <Terminal className="w-4 h-4 group-hover:animate-pulse" />
                         <span className="text-xs font-bold tracking-[0.4em] uppercase">Authenticate</span>
