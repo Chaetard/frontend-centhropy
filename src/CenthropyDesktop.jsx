@@ -351,33 +351,33 @@ const CenthropyDesktop = () => {
             <div ref={hudRef} className="fixed top-0 left-0 pointer-events-none opacity-0 transform-gpu z-[40] flex flex-col items-center">
                 <div className="relative flex items-center justify-center mb-1">
                     <div className="absolute w-6 h-6 border border-[#222944]/20 dark:border-[#BCC5DC]/20 rounded-full animate-ping"></div>
-                    <div className="w-2.5 h-2.5 bg-black rounded-full border border-white"></div>
+                    <div className="w-2.5 h-2.5 bg-[#222944] dark:bg-[#BCC5DC] rounded-full border border-white dark:border-[#222944]"></div>
                 </div>
                 <div className="tactical-card p-3 min-w-[180px] flex flex-col gap-2">
                     <div className="flex justify-between items-start border-b border-[#222944]/10 dark:border-[#BCC5DC]/10 pb-1.5">
                         <div className="flex flex-col">
-                            <span className="text-[9px] font-funnel font-bold text-gray-500 uppercase leading-none">Node</span>
-                            <span className="text-[11px] font-bold uppercase tracking-tight">Unify Agent</span>
+                            <span className="text-[9px] font-funnel font-bold text-[#222944]/50 dark:text-[#BCC5DC]/50 uppercase leading-none">Node</span>
+                            <span className="text-[11px] font-bold uppercase tracking-tight text-[#222944] dark:text-[#BCC5DC]">Unify Agent</span>
                         </div>
-                        <span className="text-[8px] font-funnel bg-black text-white px-1 py-0.5 whitespace-nowrap">X-7</span>
+                        <span className="text-[8px] font-funnel bg-[#222944] dark:bg-[#BCC5DC] text-white dark:text-[#222944] px-1 py-0.5 whitespace-nowrap">X-7</span>
                     </div>
                     <div className="flex flex-col gap-1">
-                        <div className="flex justify-between text-[8px] font-funnel uppercase text-gray-500">
+                        <div className="flex justify-between text-[8px] font-funnel uppercase text-[#222944]/50 dark:text-[#BCC5DC]/50">
                             <span>Lat. Core</span>
                             <span className="text-[#222944] dark:text-[#BCC5DC] font-bold">{metrics.coordX}</span>
                         </div>
-                        <div className="flex justify-between text-[8px] font-funnel uppercase text-gray-500">
+                        <div className="flex justify-between text-[8px] font-funnel uppercase text-[#222944]/50 dark:text-[#BCC5DC]/50">
                             <span>Lon. Core</span>
                             <span className="text-[#222944] dark:text-[#BCC5DC] font-bold">{metrics.coordY}</span>
                         </div>
                     </div>
                     <div className="flex flex-col gap-1 pt-1">
                         <div className="w-full h-0.5 bg-[#222944]/10 dark:bg-[#BCC5DC]/10 relative overflow-hidden">
-                            <div className="absolute inset-y-0 left-0 bg-black" style={{ width: metrics.progress }}></div>
+                            <div className="absolute inset-y-0 left-0 bg-[#222944] dark:bg-[#BCC5DC]" style={{ width: metrics.progress }}></div>
                         </div>
-                        <div className="flex justify-between text-[7px] font-funnel uppercase pt-0.5">
+                        <div className="flex justify-between text-[7px] font-funnel uppercase pt-0.5 text-[#222944]/80 dark:text-[#BCC5DC]/80">
                             <span>{metrics.timer}</span>
-                            <span className="text-gray-500 tracking-tighter">Active Sync</span>
+                            <span className="text-[#222944]/50 dark:text-[#BCC5DC]/50 tracking-tighter">Active Sync</span>
                         </div>
                     </div>
                 </div>
@@ -465,7 +465,7 @@ const CenthropyDesktop = () => {
                                                                         "/Unifyteam.jpg"
                                                         }
                                                         alt={`${comp.t1} ${comp.t2} Illustration`}
-                                                        className="h-auto block"
+                                                        className="h-auto block dark:invert"
                                                         style={{ width: '450px', minWidth: '450px' }}
                                                     />
                                                 </div>

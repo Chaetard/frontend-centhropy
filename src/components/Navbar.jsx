@@ -26,8 +26,10 @@ const Navbar = ({ subtitle = "Unified Data Engine" }) => {
 
             if (next) {
                 document.documentElement.classList.add('dark');
+                localStorage.theme = 'dark';
             } else {
                 document.documentElement.classList.remove('dark');
+                localStorage.theme = 'light';
             }
 
             // Forzar reflujo de CSS para aplicar el estilo inmediatamente
@@ -83,13 +85,12 @@ const Navbar = ({ subtitle = "Unified Data Engine" }) => {
                         </div>
                     </div>
 
-                    <Link
-                        to="/terminal-x92-core"
-                        onClick={() => setMenuOpen(false)}
+                    <a
+                        href="https://app.centhropy.com/login"
                         className="text-[11px] font-funnel font-bold tracking-[0.25em] transition-colors duration-500 uppercase pointer-events-auto text-[#222944] dark:text-[#BCC5DC]"
                     >
                         Ingresar
-                    </Link>
+                    </a>
                 </div>
             </div>
 

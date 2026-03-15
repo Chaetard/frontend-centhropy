@@ -369,24 +369,9 @@ const CenthropyMobile = () => {
                     marginTop: -22,
                 }}
             >
-                <div className="animate-ping" style={{
-                    position: 'absolute', inset: 0,
-                    borderRadius: '50%',
-                    border: '1px solid rgba(0,0,0,0.2)',
-                }} />
-                <div style={{
-                    position: 'absolute', inset: 10,
-                    borderRadius: '50%',
-                    border: '1px solid rgba(0,0,0,0.12)',
-                }} />
-                <div style={{
-                    position: 'absolute',
-                    width: 8, height: 8,
-                    borderRadius: '50%',
-                    background: '#111',
-                    top: '50%', left: '50%',
-                    transform: 'translate(-50%, -50%)',
-                }} />
+                <div className="animate-ping absolute inset-0 rounded-full border border-[#222944]/20 dark:border-[#BCC5DC]/20" />
+                <div className="absolute rounded-full border border-[#222944]/15 dark:border-[#BCC5DC]/15" style={{ inset: 10 }} />
+                <div className="absolute w-2 h-2 rounded-full bg-[#222944] dark:bg-[#BCC5DC] top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 border border-white dark:border-[#222944]" />
             </div>
 
             {/* HERO SPACER */}
@@ -425,7 +410,7 @@ const CenthropyMobile = () => {
                     <div className="flex flex-col gap-1.5 pt-0">
                         <div className="w-full h-[1.5px] bg-[#222944]/10 dark:bg-[#BCC5DC]/10 relative overflow-hidden">
                             <div
-                                className="absolute inset-y-0 left-0 bg-black transition-all duration-300"
+                                className="absolute inset-y-0 left-0 bg-[#222944] dark:bg-[#BCC5DC] transition-all duration-300"
                                 style={{ width: probeMetrics.progress }}
                             />
                         </div>

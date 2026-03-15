@@ -59,6 +59,11 @@ header {
   /* Restored glassmorphism */
 }
 
+.dark .tactical-card {
+  border-left: 1.5px solid #BCC5DC;
+  background: rgba(34, 41, 68, 0.7); /* #222944 at 70% opacity */
+}
+
 .footer-full-card {
   background: #ffffff;
   min-height: 100vh;
