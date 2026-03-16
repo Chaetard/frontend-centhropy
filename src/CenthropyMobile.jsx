@@ -574,8 +574,8 @@ const CenthropyMobile = () => {
                         >
                             {solutions.map((s, idx) => (
                                 <div key={idx} className="w-screen flex-shrink-0 snap-center px-6">
-                                    <div className="bg-[#222944] dark:bg-[#303A5F] border border-white/5 p-8 flex flex-col gap-8 min-h-[500px] h-full">
-                                        <h3 className="text-3xl font-black uppercase tracking-tighter text-white leading-none">
+                                    <div className="bg-[#f5f5f5] dark:bg-[#303A5F] border border-white/5 p-8 flex flex-col gap-8 min-h-[500px] h-full">
+                                        <h3 className="text-3xl font-black uppercase tracking-tighter text-[#222944] dark:text-white leading-none">
                                             {s.title}
                                         </h3>
 
@@ -583,12 +583,12 @@ const CenthropyMobile = () => {
                                             <img
                                                 src={s.img}
                                                 alt={s.title}
-                                                className="w-full h-full object-cover grayscale invert brightness-90 active:grayscale-0 transition-all duration-700"
+                                                className="w-full h-full object-cover grayscale dark:invert brightness-90 active:grayscale-0 transition-all duration-700"
                                             />
                                         </div>
 
                                         <div className="flex flex-col gap-6 flex-grow justify-between">
-                                            <p className="text-[12px] font-light leading-relaxed text-white/70">
+                                            <p className="text-[12px] font-light leading-relaxed text-[#222944]/70 dark:text-white/70">
                                                 {s.desc}
                                             </p>
 
@@ -597,8 +597,8 @@ const CenthropyMobile = () => {
                                                     to="/waitlist"
                                                     className="inline-flex items-center gap-2 group p-2 -mr-2 active:opacity-50 transition-opacity"
                                                 >
-                                                    <span className="text-[11px] font-bold uppercase tracking-[0.4em] text-white">Conectar</span>
-                                                    <ChevronRight size={18} className="text-white group-active:translate-x-1 transition-transform" />
+                                                    <span className="text-[11px] font-bold uppercase tracking-[0.4em] text-[#222944] dark:text-white">Conectar</span>
+                                                    <ChevronRight size={18} className="text-[#222944] dark:text-white group-active:translate-x-1 transition-transform" />
                                                 </Link>
                                             </div>
                                         </div>

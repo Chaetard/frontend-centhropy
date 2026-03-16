@@ -215,7 +215,7 @@ const Navbar = ({ subtitle = "Unified Data Engine" }) => {
                             <Link
                                 to="/waitlist"
                                 onClick={() => setMenuOpen(false)}
-                                className="group flex justify-between items-center bg-black dark:bg-[#303A5F] transition-all duration-500 py-4 px-6 rounded-none border border-[#222944]/10 dark:border-[#BCC5DC]/10"
+                                className="group flex justify-between items-center bg-[#222944] dark:bg-[#303A5F] transition-all duration-500 py-4 px-6 rounded-none border border-[#222944]/10 dark:border-transparent"
                             >
                                 <span className="text-3xl font-medium uppercase tracking-tighter text-white flex items-center gap-2">CONECTAR <span className="text-2xl leading-none">→</span></span>
                                 <div className="w-12 h-12 rounded-none border border-white/20 flex items-center justify-center text-white group-hover:border-white transition-all">

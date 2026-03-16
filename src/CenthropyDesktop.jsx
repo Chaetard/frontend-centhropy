@@ -519,58 +519,78 @@ const CenthropyDesktop = () => {
                                     ].map((service, sIdx) => {
                                         const isActive = sIdx === activeService;
                                         return (
-                                            <Link
+                                             <Link
                                                 to="/waitlist"
                                                 key={service.id}
                                                 onMouseEnter={() => setActiveService(sIdx)}
-                                                className={`relative cursor-pointer transition-all duration-800 ease-[cubic-bezier(0.16,1,0.3,1)] bg-[#222944] dark:bg-[#303A5F] overflow-hidden flex flex-col p-10 group ${isActive ? 'flex-[4]' : 'flex-[1]'}`}
+                                                className={`relative cursor-pointer transition-all duration-800 ease-[cubic-bezier(0.16,1,0.3,1)] bg-[#F8F9FA] dark:bg-[#303A5F] overflow-hidden flex flex-col p-10 group ${isActive ? 'flex-[4]' : 'flex-[1]'}`}
                                             >
-                                                <div className="flex justify-between items-start z-10">
-                                                    <span className={`text-[10px] font-bold tracking-[0.4em] uppercase transition-all duration-700 ${isActive ? 'text-white/60 translate-x-0' : 'text-[#222944] dark:text-[#303A5F] -translate-x-2'}`}>
-                                                        {service.id}
-                                                    </span>
-                                                    <div className={`w-1.5 h-1.5 rounded-full bg-white dark:bg-[#BCC5DC] transition-all duration-700 ${isActive ? 'opacity-100 scale-125' : 'opacity-0 scale-0'}`} />
-                                                </div>
-
-                                                <div className="mt-auto flex flex-col z-10 w-full">
-                                                    <h4 className={`font-black uppercase tracking-tighter text-sm md:text-xl text-white ${isActive ? 'opacity-0 transition-none pointer-events-none' : 'opacity-100 transition-opacity duration-300 ease-out'
-                                                        }`}>
-                                                        {service.title}
-                                                    </h4>
-
-                                                    <h4 className={`font-black uppercase tracking-tighter text-5xl md:text-7xl text-white mb-4 ${isActive
-                                                        ? 'opacity-100 translate-y-0 transition-all duration-700 delay-[150ms] ease-[cubic-bezier(0.16,1,0.3,1)] pointer-events-auto'
-                                                        : 'opacity-0 translate-y-16 transition-none absolute pointer-events-none'
-                                                        }`}>
-                                                        <span className={`text-[10px] font-bold text-white/40 uppercase tracking-[0.3em] block mb-6 transition-all duration-700 delay-[100ms] ${isActive ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+                                                {/* TOP SECTION: Legend, Title and Description */}
+                                                <div className="z-10 w-full flex flex-col gap-10">
+                                                    {/* Legend and Title (Active ONLY) */}
+                                                    <div className="flex flex-col gap-3">
+                                                        <span className={`text-[10px] font-bold text-[#222944]/40 dark:text-white/40 uppercase tracking-[0.3em] transition-all ${isActive 
+                                                            ? 'opacity-100 translate-y-0 duration-700' 
+                                                            : 'opacity-0 -translate-x-4 absolute duration-0'}`}>
                                                             {service.subtitle}
                                                         </span>
+
+                                                        {/* Active Title (Large) */}
+                                                        <h4 className={`font-black uppercase tracking-tighter text-5xl md:text-7xl text-[#222944] dark:text-white transition-all ${isActive
+                                                            ? 'opacity-100 translate-y-0 duration-700 delay-[100ms]'
+                                                            : 'opacity-0 translate-y-8 absolute pointer-events-none duration-0'
+                                                            }`}>
+                                                            {service.title}
+                                                        </h4>
+                                                    </div>
+
+                                                    {/* Decorative Fine Line */}
+                                                    <div className={`h-[1px] bg-[#222944] dark:bg-white transition-all ${isActive 
+                                                        ? 'w-10 opacity-100 duration-700 delay-[150ms]' 
+                                                        : 'w-0 opacity-0 duration-0'}`} 
+                                                    />
+
+                                                    {/* Description (Top) */}
+                                                    <div className={`flex flex-col transition-all ${isActive 
+                                                        ? 'opacity-100 translate-y-0 pointer-events-auto duration-700' 
+                                                        : 'opacity-0 translate-y-12 pointer-events-none absolute duration-0'}`}>
+                                                        
+                                                        <p className={`text-[#222944]/70 dark:text-white/70 text-[15px] font-light leading-relaxed max-w-xl transition-all ${isActive 
+                                                            ? 'opacity-100 translate-y-0 duration-700 delay-[200ms]' 
+                                                            : 'opacity-0 translate-y-4 duration-0'}`}>
+                                                            {service.desc}
+                                                        </p>
+                                                    </div>
+                                                </div>
+
+                                                {/* BOTTOM SECTION: Features (Chips) and Folded Title */}
+                                                <div className="mt-auto z-10 w-full">
+                                                    {/* Inactive Title (Small) - Shows at the BOTTOM when folded */}
+                                                    <h4 className={`font-black uppercase tracking-tighter text-sm md:text-xl text-[#222944] dark:text-white transition-all ${!isActive 
+                                                        ? 'opacity-100 duration-500 delay-200' 
+                                                        : 'opacity-0 absolute pointer-events-none duration-0'
+                                                        }`}>
                                                         {service.title}
                                                     </h4>
 
-                                                    <div className={`flex flex-col ${isActive 
-                                                        ? 'opacity-100 translate-y-0 transition-all duration-500 pointer-events-auto' 
-                                                        : 'opacity-0 translate-y-12 transition-none pointer-events-none absolute'}`}>
-                                                        <p className={`text-white/70 text-[15px] font-light leading-tight mb-8 max-w-xl transition-all duration-700 delay-[200ms] ${isActive ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-                                                            {service.desc}
-                                                        </p>
-
-                                                        <div className={`flex flex-wrap gap-3 transition-all duration-700 delay-[300ms] ${isActive ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-                                                             {service.features.map(f => (
-                                                                <span key={f} className="text-[8px] font-bold uppercase tracking-[0.2em] border border-white/10 px-3 py-1.5 text-white/40 bg-transparent hover:bg-white/5 transition-colors duration-300">
-                                                                    {f}
-                                                                </span>
-                                                            ))}
-                                                        </div>
+                                                    {/* Chips (Active only) */}
+                                                    <div className={`flex flex-wrap gap-4 transition-all ${isActive 
+                                                            ? 'opacity-100 translate-y-0 pointer-events-auto duration-700 delay-[300ms]' 
+                                                            : 'opacity-0 translate-y-4 pointer-events-none absolute duration-0'}`}>
+                                                         {service.features.map(f => (
+                                                            <span key={f} className="text-[9px] font-bold uppercase tracking-[0.2em] border border-[#222944]/10 dark:border-white/10 px-4 py-2 text-[#222944]/40 dark:text-white/40 bg-transparent hover:bg-[#222944]/5 dark:hover:bg-white/5 transition-colors duration-300">
+                                                                {f}
+                                                            </span>
+                                                        ))}
                                                     </div>
                                                 </div>
 
 
 
                                                 {/* CTA Arrow Button */}
-                                                <div className={`absolute bottom-10 right-10 w-14 h-14 rounded-none border border-white/20 flex items-center justify-center text-white z-30 hover:bg-white dark:bg-[#303A5F] hover:text-[#222944] dark:text-[#BCC5DC] hover:border-white ${isActive 
-                                                    ? 'opacity-100 transition-all duration-500 delay-[400ms]' 
-                                                    : 'opacity-0 transition-none pointer-events-none'}`}>
+                                                <div className={`absolute bottom-10 right-10 w-14 h-14 rounded-none border border-[#222944] dark:border-white/20 flex items-center justify-center text-[#222944] dark:text-white z-30 hover:bg-[#222944] dark:hover:bg-white hover:text-white dark:hover:text-[#222944] transition-all duration-200 ${isActive 
+                                                    ? 'opacity-100' 
+                                                    : 'opacity-0 pointer-events-none'}`}>
                                                     <ChevronRight size={28} />
                                                 </div>
                                             </Link>
