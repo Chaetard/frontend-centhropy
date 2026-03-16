@@ -62,8 +62,8 @@ const Navbar = ({ subtitle = "Unified Data Engine" }) => {
                         menuOpen={menuOpen}
                         className="text-[#222944] dark:text-[#BCC5DC]"
                     />
-                    <div className="hidden md:block h-[34px] w-[1.5px] transition-colors duration-500 bg-[#222944]/20 dark:bg-[#BCC5DC]/20"></div>
-                    <span className="hidden sm:block text-[11px] font-funnel font-bold tracking-[0.25em] transition-colors duration-500 uppercase text-[#222944]/60 dark:text-[#BCC5DC]/80">
+                    <div className="hidden md:block h-[34px] w-[1.5px] transition-colors duration-500 bg-[#222944] dark:bg-[#BCC5DC]/20"></div>
+                    <span className="hidden sm:block text-[11px] font-funnel font-bold tracking-[0.25em] transition-colors duration-500 uppercase text-[#222944] dark:text-[#BCC5DC]/80">
                         {subtitle}
                     </span>
                 </Link>
