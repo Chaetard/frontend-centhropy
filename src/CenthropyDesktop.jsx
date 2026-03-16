@@ -69,7 +69,7 @@ const SphereCanvas = React.memo(({ probeDataRef, hudRef }) => {
         const animate = () => {
             frameId = requestAnimationFrame(animate);
             const time = clock.getElapsedTime();
-            const targetHex = isDarkRef.current ? 0xBCC5DC : 0x1B2136;
+            const targetHex = isDarkRef.current ? 0xBCC5DC : 0x222944;
 
             rings.forEach((ring) => {
                 if (ring.mesh.material.color.getHex() !== targetHex) {

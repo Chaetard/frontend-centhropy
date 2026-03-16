@@ -64,7 +64,7 @@ const SphereCanvasMobile = React.memo(({ probeDataRef, hudRef }) => {
         const animate = () => {
             frameId = requestAnimationFrame(animate);
             const time = clock.getElapsedTime();
-            const targetHex = isDarkRef.current ? 0xBCC5DC : 0x1B2136;
+            const targetHex = isDarkRef.current ? 0xBCC5DC : 0x222944;
 
             for (let i = 0; i < ringCount; i++) {
                 const ring = rings[i];
