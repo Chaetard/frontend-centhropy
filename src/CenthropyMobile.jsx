@@ -294,18 +294,18 @@ const CenthropyMobile = () => {
     ];
 
     const systemModules = [
-        { id: 'SYS.01', t1: 'Cordyceps', t2: 'Protocol', short: 'CP', img: '/Unifyprotocol.jpg', desc: 'Ontología de datos diseñada para descifrar la realidad el potencial de las organizaciones, lo que permite garantizar resultados de alto impacto.' },
-        { id: 'SYS.02', t1: 'Unify Data', t2: 'Center', short: 'DC', img: '/Unifydc.jpg', desc: 'Interfaz de unificación y análisis avanzado de datos, desarrollada para potenciar la toma de decisiones. Unify Agent integrado.' },
-        { id: 'SYS.03', t1: 'Unify', t2: 'Agent', short: 'UA', img: '/Unifyagent3.0.jpg', desc: 'Analista inteligente de última generación, creado para descubrir insights de alto impacto y generar estrategias accionables en lenguaje natural.' },
-        { id: 'SYS.04', t1: 'Unify', t2: 'Team', short: 'UT', img: '/Unifyteam.jpg', desc: 'Equipo humano de élite, especializado y enfocado en garantizar la confiabilidad, eficacia y sostenibilidad del ecosistema Unify.' }
+        { id: 'SYS.01', t1: 'Cordyceps', t2: 'Protocol', short: 'CP', img: '/Unifyprotocol.jpg', desc: 'Ontología de datos creada para descifrar el estado real y potencial oculto de las organizaciones.' },
+        { id: 'SYS.02', t1: 'Unify Data', t2: 'Center', short: 'DC', img: '/Unifydc.jpg', desc: 'Interfaz de análisis avanzado y unificación de datos, desarrollada para potenciar la toma de decisiones. Integración nativa con Unify Agent.' },
+        { id: 'SYS.03', t1: 'Unify', t2: 'Agent', short: 'UA', img: '/Unifyagent3.0.jpg', desc: 'Analista inteligente de última generación, entrenado para descubrir insights de alto impacto y generar estrategias accionables en lenguaje natural.' },
+        { id: 'SYS.04', t1: 'Unify', t2: 'Team', short: 'UT', img: '/Unifyteam.jpg', desc: 'Equipo humano de élite, especializado en garantizar la confiabilidad, eficacia y sostenibilidad del ecosistema Unify.' }
     ];
 
     // Solutions Accordion State
     const [activeSolution, setActiveSolution] = useState(0);
     const solutions = [
-        { id: '03', title: 'Growth Engine', img: '/Unifyagent3.0.jpg', desc: 'Maximizar la conversión, potenciar la rentabilidad y optimizar la toma de decisiones estratégicas en eCommerce, implementanto el ecosistema Unify con el enfoque Data Driven Growth.' },
-        { id: '01', title: 'Unify Data Center', img: '/Unifydc.jpg', desc: 'Interfaz inteligente, desarrollada para unificar datos, análisis y decisiones, enfocada en la optimización y el crecimiento empresarial. UDC es potenciada por la integración nativa de Unify Agent (Agente Inteligente de Análisis de Negocio Avanzado).' },
-        { id: '02', title: 'TI Outsourcing', img: '/Unifyprotocol.jpg', desc: 'Gestión integral de infraestructura de datos. Desde la ingesta, limpieza y transformación, hasta la digitalización, almacenamiento, mantenimiento y seguridad de los datos.' }
+        { id: '03', title: 'Growth Engine', img: '/Unifyagent3.0.jpg', desc: 'Maximizamos su conversión y rentabilidad mediante el ecosistema Unify y nuestra metodología Data-Driven Growth. Implementamos soluciones de precisión para optimizar la toma de decisiones y escalar su modelo de negocio de forma sostenible.' },
+        { id: '01', title: 'Unify Data Center', img: '/Unifydc.jpg', desc: 'Un entorno de alta fidelidad diseñado para la síntesis de datos, analítica prescriptiva y ejecución táctica, orientado a la optimización de activos y la escalabilidad del capital. UDC es propulsado por la integración nativa de Unify Agent: nuestra unidad de inteligencia autónoma para el diagnóstico y la aceleración de decisiones estratégicas.' },
+        { id: '02', title: 'TI Outsourcing', img: '/Unifyprotocol.jpg', desc: 'Desplegamos la arquitectura necesaria para la ingesta, purificación y síntesis de información, garantizando la integridad, soberanía y seguridad del flujo operativo desde su origen hasta su explotación estratégica.' }
     ];
 
     // State for sticky reveal of system nodes
@@ -398,7 +398,7 @@ const CenthropyMobile = () => {
                     </div>
 
                     <div className="flex flex-col font-funnel text-xs text-[#222944] dark:text-[#BCC5DC]">
-                        <div className="flex justify-between border-b border-[#222944]/10 dark:border-[#BCC5DC]/10 py-2">
+                        <div className="flex justify-between border-b border-transparent py-2">
                             <span className="text-[#222944]/40 dark:text-[#BCC5DC]/60 uppercase tracking-widest font-bold text-[10px]">Lat. Core</span>
                             <span className="font-bold tabular-nums text-[12px]">{probeMetrics.lat}</span>
                         </div>
@@ -449,8 +449,8 @@ const CenthropyMobile = () => {
 
                 <div className="flex justify-center mt-8">
                     <svg width="60" height="30" viewBox="0 0 60 30" fill="none" xmlns="http://www.w3.org/2000/svg" className="opacity-80">
-                        <path d="M10 5L30 25L50 5" stroke="black" strokeWidth="1.5" strokeOpacity="0.1" strokeLinecap="square" strokeLinejoin="miter" />
-                        <path d="M10 5L30 25L50 5" stroke="black" strokeWidth="1.5" strokeLinecap="square" strokeLinejoin="miter" className="energy-path" />
+                        <path d="M10 5L30 25L50 5" stroke="currentColor" strokeWidth="1.5" strokeOpacity="0.2" strokeLinecap="square" strokeLinejoin="miter" className="text-[#222944] dark:text-[#BCC5DC]" />
+                        <path d="M10 5L30 25L50 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="square" strokeLinejoin="miter" className="energy-path text-[#222944] dark:text-[#BCC5DC]" />
                     </svg>
                 </div>
 
@@ -459,17 +459,17 @@ const CenthropyMobile = () => {
                         <div
                             key={i}
                             onClick={() => setOpenModule(openModule === i ? null : i)}
-                            className="bg-[#222944] dark:bg-[#303A5F] border border-white/5 p-6 transition-all duration-500 ease-out"
+                            className="bg-[#F5F5F5] dark:bg-[#303A5F] border-none p-6 transition-all duration-500 ease-out"
                         >
                             <div className="flex justify-between items-center">
-                                <span className="text-xl font-black uppercase tracking-tight text-white">{m.w}</span>
+                                <span className="text-xl font-black uppercase tracking-tight text-[#222944] dark:text-white">{m.w}</span>
                                 <ChevronRight
-                                    className={`transition-transform duration-500 ${openModule === i ? 'rotate-90 text-white' : 'rotate-0 text-white/30'}`}
+                                    className={`transition-transform duration-500 ${openModule === i ? 'rotate-90 text-[#222944] dark:text-white' : 'rotate-0 text-[#222944]/30 dark:text-white/30'}`}
                                     size={20}
                                 />
                             </div>
                             <div className={`grid transition-[grid-template-rows] duration-500 ease-out ${openModule === i ? 'grid-rows-[1fr] mt-5' : 'grid-rows-[0fr]'}`}>
-                                <p className="overflow-hidden text-[16px] font-light leading-relaxed text-white/70 tracking-tight">
+                                <p className="overflow-hidden text-[16px] font-light leading-relaxed text-[#222944]/70 dark:text-white/70 tracking-tight">
                                     {m.desc}
                                 </p>
                             </div>
@@ -478,7 +478,7 @@ const CenthropyMobile = () => {
                 </div>
 
                 {/* SECCIÓN ECOSISTEMA UNIFY */}
-                <div className="flex flex-col gap-6 border-t border-white/20 pt-20 -mx-6 px-6 bg-white dark:bg-[#222944]">
+                <div className="flex flex-col gap-6 border-t border-white/20 dark:border-transparent pt-20 -mx-6 px-6 bg-white dark:bg-[#222944]">
                     <div className="flex flex-col mb-6">
                         <div className="w-full h-[1px] bg-[#222944]/15 dark:bg-[#BCC5DC]/15 mb-10" />
                         <h2 className="text-[45px] font-medium tracking-tighter text-[#222944] dark:text-[#BCC5DC] leading-none">Ecosistema Unify</h2>
@@ -490,10 +490,10 @@ const CenthropyMobile = () => {
                                 <div
                                     key={idx}
                                     ref={moduleRefs.current[idx]}
-                                    className="relative w-full bg-[#f5f5f5] dark:bg-[#303A5F] border border-black/[0.05] p-8 flex flex-col overflow-hidden"
+                                    className="relative w-full bg-[#f5f5f5] dark:bg-[#303A5F] border-none dark:border-white/5 p-8 flex flex-col overflow-hidden"
                                 >
                                     {/* ID y Marcador */}
-                                    <div className={`flex justify-between items-center border-b border-[#222944]/10 dark:border-[#BCC5DC]/10 pb-4 mb-8 transition-opacity duration-1000 ${isOpened ? 'opacity-100' : 'opacity-30'}`}>
+                                    <div className={`flex justify-between items-center border-b border-transparent pb-4 mb-8 transition-opacity duration-1000 ${isOpened ? 'opacity-100' : 'opacity-30'}`}>
                                         <span className="text-[10px] font-bold text-[#222944]/40 dark:text-[#BCC5DC]/60 tracking-[0.3em]">{comp.id}</span>
                                         <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#222944]/30 dark:text-[#BCC5DC]/50">{comp.short}</span>
                                     </div>
@@ -503,7 +503,7 @@ const CenthropyMobile = () => {
                                         <img
                                             src={comp.img}
                                             alt={comp.t1}
-                                            className={`w-full h-full object-cover grayscale transition-all duration-1000 ${isOpened ? 'brightness-100 scale-100' : 'brightness-50 scale-110'}`}
+                                            className={`w-full h-full object-cover grayscale dark:invert transition-all duration-1000 ${isOpened ? 'brightness-100 scale-100' : 'brightness-50 scale-110'}`}
                                         />
                                     </div>
 
@@ -527,7 +527,7 @@ const CenthropyMobile = () => {
 
                                     {/* Etiquetas Inferiores */}
                                     <div className="flex flex-col mt-8">
-                                        <div className="w-full border-t border-[#222944]/10 dark:border-[#BCC5DC]/10 pt-4 flex justify-between items-center transition-opacity duration-1000">
+                                        <div className="w-full border-t border-transparent pt-4 flex justify-between items-center transition-opacity duration-1000">
                                             <div className={`flex flex-col transition-all duration-1000 ${isOpened ? 'opacity-100' : 'opacity-30'}`}>
                                                 <span className="text-[9px] font-bold text-[#222944]/40 dark:text-[#BCC5DC]/60 tracking-[0.3em] uppercase">Status // Encrypted</span>
                                             </div>
@@ -543,7 +543,7 @@ const CenthropyMobile = () => {
                 </div>
 
                 {/* SECCIÓN SOLUCIONES */}
-                <div className="flex flex-col gap-6 border-t border-white/20 pt-20 pb-12 -mx-6 px-6 bg-white dark:bg-[#222944]">
+                <div className="flex flex-col gap-6 border-t border-white/20 dark:border-transparent pt-20 pb-12 -mx-6 px-6 bg-white dark:bg-[#222944]">
                     <div className="flex flex-col gap-6">
                         <div className="w-full h-[1px] bg-[#222944]/15 dark:bg-[#BCC5DC]/15 mb-6" />
                         <div className="flex justify-between items-end mb-6">
@@ -583,7 +583,7 @@ const CenthropyMobile = () => {
                                             <img
                                                 src={s.img}
                                                 alt={s.title}
-                                                className="w-full h-full object-cover grayscale brightness-90 active:grayscale-0 transition-all duration-700"
+                                                className="w-full h-full object-cover grayscale invert brightness-90 active:grayscale-0 transition-all duration-700"
                                             />
                                         </div>
 
@@ -612,7 +612,7 @@ const CenthropyMobile = () => {
                             {solutions.map((_, i) => (
                                 <div
                                     key={i}
-                                    className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${scrollIndex === i ? 'bg-black scale-125' : 'bg-[#222944]/10 dark:bg-[#BCC5DC]/10'}`}
+                                    className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${scrollIndex === i ? 'bg-[#303A5F] dark:bg-[#BCC5DC] scale-125' : 'bg-[#222944]/10 dark:bg-[#BCC5DC]/10'}`}
                                 />
                             ))}
                         </div>

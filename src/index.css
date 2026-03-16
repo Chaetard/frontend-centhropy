@@ -5,7 +5,7 @@
 @tailwind utilities;
 
 html {
-  overscroll-behavior-y: auto;
+  overscroll-behavior-y: none;
 }
 
 @layer base {
@@ -13,7 +13,7 @@ html {
     @apply m-0 bg-white dark:bg-[#222944] text-[#222944] dark:text-[#BCC5DC] overflow-x-hidden font-funnel;
     font-family: 'Funnel Display', sans-serif;
     overflow-y: auto;
-    overscroll-behavior-y: auto;
+    overscroll-behavior-y: none;
   }
 }
 
@@ -145,12 +145,12 @@ header {
     opacity: 1;
   }
 
-  25% {
+  45% {
     stroke-dashoffset: -60;
     opacity: 1;
   }
 
-  26%,
+  46%,
   100% {
     stroke-dashoffset: -60;
     opacity: 0;
@@ -160,7 +160,7 @@ header {
 .energy-path {
   stroke-dasharray: 30 150;
   stroke-dashoffset: 30;
-  animation: dash 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  animation: dash 1.3s cubic-bezier(0.4, 0, 0.2, 1) infinite;
 }
 
 @keyframes bounce-slow {

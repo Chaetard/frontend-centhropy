@@ -429,18 +429,18 @@ const CenthropyDesktop = () => {
 
                             <div className="flex justify-center mb-16">
                                 <svg width="60" height="30" viewBox="0 0 60 30" fill="none" xmlns="http://www.w3.org/2000/svg" className="opacity-80">
-                                    <path d="M10 5L30 25L50 5" stroke="black" strokeWidth="1.5" strokeOpacity="0.1" strokeLinecap="round" strokeLinejoin="round" />
-                                    <path d="M10 5L30 25L50 5" stroke="black" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="energy-path" />
+                                    <path d="M10 5L30 25L50 5" stroke="currentColor" strokeWidth="1.5" strokeOpacity="0.2" strokeLinecap="square" strokeLinejoin="miter" className="text-[#222944] dark:text-[#BCC5DC]" />
+                                    <path d="M10 5L30 25L50 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="square" strokeLinejoin="miter" className="energy-path text-[#222944] dark:text-[#BCC5DC]" />
                                 </svg>
                             </div>
 
 
                             <div className="flex flex-col">
                                 {[
-                                    { id: 'SYS.01', t1: 'Cordyceps', t2: 'Protocol', short: 'CP', desc: 'Ontología de datos diseñada para descifrar la realidad el potencial de las organizaciones, lo que permite garantizar resultados de alto impacto.' },
-                                    { id: 'SYS.02', t1: 'Unify Data', t2: 'Center', short: 'DC', desc: 'Interfaz de unificación y análisis avanzado de datos, desarrollada para potenciar la toma de decisiones. Unify Agent integrado.' },
-                                    { id: 'SYS.03', t1: 'Unify', t2: 'Agent', short: 'UA', desc: 'Analista inteligente de última generación, creado para descubrir insights de alto impacto y generar estrategias accionables en lenguaje natural.' },
-                                    { id: 'SYS.04', t1: 'Unify', t2: 'Team', short: 'UT', desc: 'Equipo humano de élite, especializado y enfocado en garantizar la confiabilidad, eficacia y sostenibilidad del ecosistema Unify.' }
+                                    { id: 'SYS.01', t1: 'Cordyceps', t2: 'Protocol', short: 'CP', desc: 'Ontología de datos creada para descifrar el estado real y potencial oculto de las organizaciones.' },
+                                    { id: 'SYS.02', t1: 'Unify Data', t2: 'Center', short: 'DC', desc: 'Interfaz de análisis avanzado y unificación de datos, desarrollada para potenciar la toma de decisiones. Integración nativa con Unify Agent.' },
+                                    { id: 'SYS.03', t1: 'Unify', t2: 'Agent', short: 'UA', desc: 'Analista inteligente de última generación, entrenado para descubrir insights de alto impacto y generar estrategias accionables en lenguaje natural.' },
+                                    { id: 'SYS.04', t1: 'Unify', t2: 'Team', short: 'UT', desc: 'Equipo humano de élite, especializado en garantizar la confiabilidad, eficacia y sostenibilidad del ecosistema Unify.' }
                                 ].map((comp, idx) => (
                                     <div key={idx} className={`flex flex-col md:flex-row items-center ${idx === 0 ? '' : 'border-t border-[#222944]/10 dark:border-[#BCC5DC]/10'} py-16 md:py-32 gap-24 group transition-all duration-500`}>
                                         <div className="w-full md:w-[240px] flex flex-col gap-6">
@@ -499,21 +499,21 @@ const CenthropyDesktop = () => {
                                             id: 'SERV.02',
                                             title: 'TI Outsourcing',
                                             subtitle: 'Digitalización de Datos',
-                                            desc: 'Gestión integral de infraestructura de datos. Desde la ingesta, limpieza y transformación, hasta la digitalización, almacenamiento, mantenimiento y seguridad de los datos.',
+                                            desc: 'Desplegamos la arquitectura necesaria para la ingesta, purificación y síntesis de información, garantizando la integridad, soberanía y seguridad del flujo operativo desde su origen hasta su explotación estratégica.',
                                             features: ['Conexiones e Ingesta', 'Almacenamiento & Backup', 'Gestión de Documentos']
                                         },
                                         {
                                             id: 'SERV.01',
                                             title: 'Unify Data Center',
                                             subtitle: 'Centro de Datos y Decisiones',
-                                            desc: 'Interfaz inteligente, desarrollada para unificar datos, análisis y decisiones, enfocada en la optimización y el crecimiento empresarial. UDC es potenciada por la integración nativa de Unify Agent (Agente Inteligente de Análisis de Negocio Avanzado).',
+                                            desc: 'Un entorno de alta fidelidad diseñado para la síntesis de datos, analítica prescriptiva y ejecución táctica, orientado a la optimización de activos y la escalabilidad del capital. UDC es propulsado por la integración nativa de Unify Agent: nuestra unidad de inteligencia autónoma para el diagnóstico y la aceleración de decisiones estratégicas.',
                                             features: ['Insights to Growth', 'Advanced Analytics', 'Intelligent Agent']
                                         },
                                         {
                                             id: 'SERV.03',
                                             title: 'Growth Engine',
                                             subtitle: 'Intelligent eCommerce',
-                                            desc: 'Maximizar la conversión, potenciar la rentabilidad y optimizar la toma de decisiones estratégicas en eCommerce, implementanto el ecosistema Unify con el enfoque Data Driven Growth.',
+                                            desc: 'Maximizamos su conversión y rentabilidad mediante el ecosistema Unify y nuestra metodología Data-Driven Growth. Implementamos soluciones de precisión para optimizar la toma de decisiones y escalar su modelo de negocio de forma sostenible.',
                                             features: ['Desarrollo & Operación', 'Integración Unify', 'Investigación & Estrategia']
                                         }
                                     ].map((service, sIdx) => {
@@ -529,7 +529,7 @@ const CenthropyDesktop = () => {
                                                     <span className={`text-[10px] font-bold tracking-[0.4em] uppercase transition-all duration-700 ${isActive ? 'text-white/60 translate-x-0' : 'text-[#222944] dark:text-[#303A5F] -translate-x-2'}`}>
                                                         {service.id}
                                                     </span>
-                                                    <div className={`w-1.5 h-1.5 rounded-full bg-white dark:bg-[#BCC5DC] transition-all duration-700 ${isActive ? 'opacity-100 scale-125' : 'opacity-10 scale-50'}`} />
+                                                    <div className={`w-1.5 h-1.5 rounded-full bg-white dark:bg-[#BCC5DC] transition-all duration-700 ${isActive ? 'opacity-100 scale-125' : 'opacity-0 scale-0'}`} />
                                                 </div>
 
                                                 <div className="mt-auto flex flex-col z-10 w-full">
@@ -548,14 +548,16 @@ const CenthropyDesktop = () => {
                                                         {service.title}
                                                     </h4>
 
-                                                    <div className={`flex flex-col transition-all duration-500 ${isActive ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 translate-y-12 pointer-events-none absolute'}`}>
+                                                    <div className={`flex flex-col ${isActive 
+                                                        ? 'opacity-100 translate-y-0 transition-all duration-500 pointer-events-auto' 
+                                                        : 'opacity-0 translate-y-12 transition-none pointer-events-none absolute'}`}>
                                                         <p className={`text-white/70 text-[15px] font-light leading-tight mb-8 max-w-xl transition-all duration-700 delay-[200ms] ${isActive ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
                                                             {service.desc}
                                                         </p>
 
                                                         <div className={`flex flex-wrap gap-3 transition-all duration-700 delay-[300ms] ${isActive ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-                                                            {service.features.map(f => (
-                                                                <span key={f} className="text-[8px] font-bold uppercase tracking-[0.2em] border border-white/10 px-3 py-1.5 text-white/40 bg-white/5 dark:bg-[#222944]/15 hover:bg-white/10 dark:bg-[#222944]/10 transition-colors duration-300">
+                                                             {service.features.map(f => (
+                                                                <span key={f} className="text-[8px] font-bold uppercase tracking-[0.2em] border border-white/10 px-3 py-1.5 text-white/40 bg-transparent hover:bg-white/5 transition-colors duration-300">
                                                                     {f}
                                                                 </span>
                                                             ))}
@@ -566,7 +568,9 @@ const CenthropyDesktop = () => {
 
 
                                                 {/* CTA Arrow Button */}
-                                                <div className={`absolute bottom-10 right-10 w-14 h-14 rounded-none border border-white/20 flex items-center justify-center text-white z-30 transition-all duration-500 hover:bg-white dark:bg-[#303A5F] hover:text-[#222944] dark:text-[#BCC5DC] hover:border-white ${isActive ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
+                                                <div className={`absolute bottom-10 right-10 w-14 h-14 rounded-none border border-white/20 flex items-center justify-center text-white z-30 hover:bg-white dark:bg-[#303A5F] hover:text-[#222944] dark:text-[#BCC5DC] hover:border-white ${isActive 
+                                                    ? 'opacity-100 transition-all duration-500 delay-[400ms]' 
+                                                    : 'opacity-0 transition-none pointer-events-none'}`}>
                                                     <ChevronRight size={28} />
                                                 </div>
                                             </Link>
