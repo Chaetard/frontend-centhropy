@@ -1,11 +1,11 @@
-import React from 'react';
-import useIsMobile from './hooks/useIsMobile';
-import WaitlistDesktop from './WaitlistDesktop';
-import WaitlistMobile from './WaitlistMobile';
+import React, { useEffect } from 'react';
 
 const Waitlist = () => {
-    const isMobile = useIsMobile();
-    return isMobile ? <WaitlistMobile /> : <WaitlistDesktop />;
+    useEffect(() => {
+        window.location.href = "https://app.centhropy.com/waitlist";
+    }, []);
+
+    return null;
 };
 
 export default Waitlist;
