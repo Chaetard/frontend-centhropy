@@ -50,10 +50,10 @@ const BlockSelector = ({ onSelect, onClose, anchorRef }) => {
     return (
         <div
             ref={popupRef}
-            className="absolute left-0 z-[100] mt-1 w-68 bg-white border border-black/10 shadow-xl shadow-black/8 py-1"
+            className="absolute left-0 z-[100] mt-1 w-68 bg-white dark:bg-[#222944] border border-[#222944]/10 dark:border-[#BCC5DC]/10 shadow-xl shadow-black/8 py-1"
             style={{ top: '100%', minWidth: '260px' }}
         >
-            <div className="text-[9px] font-mono text-black/35 uppercase tracking-widest px-3 py-2 border-b border-black/8 mb-1">
+            <div className="text-[9px] font-mono text-[#222944]/35 dark:text-[#BCC5DC]/35 uppercase tracking-widest px-3 py-2 border-b border-[#222944]/8 dark:border-[#BCC5DC]/8 mb-1">
                 Seleccionar bloque
             </div>
             {BLOCK_TYPES.map(bt => (
@@ -62,10 +62,10 @@ const BlockSelector = ({ onSelect, onClose, anchorRef }) => {
                     onMouseDown={(e) => { e.preventDefault(); onSelect(bt.type); onClose(); }}
                     className="w-full flex items-center gap-3 px-3 py-2.5 hover:bg-gray-50 transition-colors text-left group"
                 >
-                    <bt.icon className="w-4 h-4 text-black/30 group-hover:text-black shrink-0 transition-colors" />
+                    <bt.icon className="w-4 h-4 text-[#222944]/30 dark:text-[#BCC5DC]/50 group-hover:text-[#222944] dark:text-[#BCC5DC] shrink-0 transition-colors" />
                     <div>
-                        <div className="text-xs font-medium text-black">{bt.label}</div>
-                        <div className="text-[10px] text-black/40">{bt.desc}</div>
+                        <div className="text-xs font-medium text-[#222944] dark:text-[#BCC5DC]">{bt.label}</div>
+                        <div className="text-[10px] text-[#222944]/40 dark:text-[#BCC5DC]/60">{bt.desc}</div>
                     </div>
                 </button>
             ))}
@@ -83,7 +83,7 @@ const AddBlockButton = ({ onAdd, label = '+ Bloque' }) => {
             <button
                 ref={triggerRef}
                 onClick={() => setOpen(o => !o)}
-                className="flex items-center gap-1 text-[10px] text-black/25 hover:text-black/60 uppercase tracking-widest transition-colors px-1 py-0.5"
+                className="flex items-center gap-1 text-[10px] text-[#222944]/25 dark:text-[#BCC5DC]/45 hover:text-[#222944]/60 dark:text-[#BCC5DC]/80 uppercase tracking-widest transition-colors px-1 py-0.5"
             >
                 <Plus className="w-3 h-3" /> {label}
             </button>
@@ -102,7 +102,7 @@ const AddBlockButton = ({ onAdd, label = '+ Bloque' }) => {
 const Block = ({ block, index, total, onChange, onDelete, onMoveUp, onMoveDown }) => {
     const [imgPreview, setImgPreview] = useState(block.src || '');
 
-    const fieldClass = "w-full bg-transparent outline-none text-black placeholder:text-black/20 resize-none";
+    const fieldClass = "w-full bg-transparent outline-none text-[#222944] dark:text-[#BCC5DC] placeholder:text-[#222944]/20 dark:text-[#BCC5DC]/40 resize-none";
 
     const handleImageUpload = (e) => {
         const file = e.target.files[0];
@@ -121,7 +121,7 @@ const Block = ({ block, index, total, onChange, onDelete, onMoveUp, onMoveDown }
                         onChange={e => onChange({ text: e.target.value })}
                         placeholder="Escribe tu párrafo aquí..."
                         rows={4}
-                        className={`${fieldClass} text-base font-normal leading-relaxed text-black/80`}
+                        className={`${fieldClass} text-base font-normal leading-relaxed text-[#222944]/80 dark:text-[#BCC5DC]`}
                         style={{ minHeight: '80px' }}
                         onInput={e => { e.target.style.height = 'auto'; e.target.style.height = e.target.scrollHeight + 'px'; }}
                     />
@@ -132,7 +132,7 @@ const Block = ({ block, index, total, onChange, onDelete, onMoveUp, onMoveDown }
                         value={block.text}
                         onChange={e => onChange({ text: e.target.value })}
                         placeholder="Subtítulo de sección..."
-                        className={`${fieldClass} text-2xl font-black uppercase tracking-tighter text-black`}
+                        className={`${fieldClass} text-2xl font-black uppercase tracking-tighter text-[#222944] dark:text-[#BCC5DC]`}
                     />
                 );
             case 'heading3':
@@ -141,25 +141,25 @@ const Block = ({ block, index, total, onChange, onDelete, onMoveUp, onMoveDown }
                         value={block.text}
                         onChange={e => onChange({ text: e.target.value })}
                         placeholder="Sub-título..."
-                        className={`${fieldClass} text-lg font-bold uppercase tracking-wide text-black`}
+                        className={`${fieldClass} text-lg font-bold uppercase tracking-wide text-[#222944] dark:text-[#BCC5DC]`}
                     />
                 );
             case 'quote':
                 return (
-                    <div className="border-l-2 border-black/20 pl-6 space-y-2">
+                    <div className="border-l-2 border-[#222944]/20 dark:border-[#BCC5DC]/20 pl-6 space-y-2">
                         <textarea
                             value={block.text}
                             onChange={e => onChange({ text: e.target.value })}
                             placeholder="Escribe la cita aquí..."
                             rows={3}
-                            className={`${fieldClass} text-xl italic font-light text-black/70`}
+                            className={`${fieldClass} text-xl italic font-light text-[#222944]/70 dark:text-[#BCC5DC]/90`}
                             onInput={e => { e.target.style.height = 'auto'; e.target.style.height = e.target.scrollHeight + 'px'; }}
                         />
                         <input
                             value={block.attribution || ''}
                             onChange={e => onChange({ attribution: e.target.value })}
                             placeholder="— Atribución (opcional)"
-                            className={`${fieldClass} text-sm text-black/40`}
+                            className={`${fieldClass} text-sm text-[#222944]/40 dark:text-[#BCC5DC]/60`}
                         />
                     </div>
                 );
@@ -168,19 +168,19 @@ const Block = ({ block, index, total, onChange, onDelete, onMoveUp, onMoveDown }
                     <div className="space-y-3">
                         {imgPreview ? (
                             <div className="relative group/img">
-                                <img src={imgPreview} alt="" className="w-full max-h-64 object-cover border border-black/8" />
+                                <img src={imgPreview} alt="" className="w-full max-h-64 object-cover border border-[#222944]/8 dark:border-[#BCC5DC]/8" />
                                 <button
                                     type="button"
                                     onClick={() => { onChange({ src: '' }); setImgPreview(''); }}
-                                    className="absolute top-2 right-2 bg-white/90 text-black p-1 hover:bg-red-500 hover:text-white transition-colors border border-black/10"
+                                    className="absolute top-2 right-2 bg-white/90 dark:bg-[#222944]/90 text-[#222944] dark:text-[#BCC5DC] p-1 hover:bg-red-500 hover:text-white transition-colors border border-[#222944]/10 dark:border-[#BCC5DC]/10"
                                 >
                                     <X className="w-3 h-3" />
                                 </button>
                             </div>
                         ) : (
-                            <label className="flex flex-col items-center justify-center h-28 border border-dashed border-black/15 hover:border-black/30 hover:bg-gray-50 cursor-pointer transition-colors">
-                                <ImageIcon className="w-5 h-5 text-black/25 mb-1" />
-                                <span className="text-[10px] text-black/30 uppercase tracking-widest">Cargar imagen</span>
+                            <label className="flex flex-col items-center justify-center h-28 border border-dashed border-[#222944]/15 dark:border-[#BCC5DC]/15 hover:border-[#222944]/30 dark:border-[#BCC5DC]/30 hover:bg-gray-50 cursor-pointer transition-colors">
+                                <ImageIcon className="w-5 h-5 text-[#222944]/25 dark:text-[#BCC5DC]/45 mb-1" />
+                                <span className="text-[10px] text-[#222944]/30 dark:text-[#BCC5DC]/50 uppercase tracking-widest">Cargar imagen</span>
                                 <input type="file" className="hidden" accept="image/*" onChange={handleImageUpload} />
                             </label>
                         )}
@@ -189,14 +189,14 @@ const Block = ({ block, index, total, onChange, onDelete, onMoveUp, onMoveDown }
                                 value={block.src}
                                 onChange={e => { onChange({ src: e.target.value }); setImgPreview(e.target.value); }}
                                 placeholder="O pega una URL de imagen..."
-                                className="w-full bg-transparent border-b border-black/12 py-2 outline-none text-xs text-black placeholder:text-black/25 focus:border-black/40"
+                                className="w-full bg-transparent border-b border-[#222944]/12 dark:border-[#BCC5DC]/12 py-2 outline-none text-xs text-[#222944] dark:text-[#BCC5DC] placeholder:text-[#222944]/25 dark:text-[#BCC5DC]/45 focus:border-[#222944]/40 dark:border-[#BCC5DC]/40"
                             />
                         )}
                         <input
                             value={block.caption || ''}
                             onChange={e => onChange({ caption: e.target.value })}
                             placeholder="Caption de la imagen (opcional)..."
-                            className="w-full bg-transparent border-b border-black/8 py-2 outline-none text-xs text-black/45 placeholder:text-black/20 focus:border-black/25"
+                            className="w-full bg-transparent border-b border-[#222944]/8 dark:border-[#BCC5DC]/8 py-2 outline-none text-xs text-[#222944]/45 dark:text-[#BCC5DC]/65 placeholder:text-[#222944]/20 dark:text-[#BCC5DC]/40 focus:border-[#222944]/25 dark:border-[#BCC5DC]/25"
                         />
                     </div>
                 );
@@ -212,7 +212,7 @@ const Block = ({ block, index, total, onChange, onDelete, onMoveUp, onMoveDown }
                             onChange={e => onChange({ text: e.target.value })}
                             placeholder="Escribe el contenido destacado..."
                             rows={3}
-                            className={`${fieldClass} text-sm text-black/75`}
+                            className={`${fieldClass} text-sm text-[#222944]/75 dark:text-[#BCC5DC]/75`}
                             onInput={e => { e.target.style.height = 'auto'; e.target.style.height = e.target.scrollHeight + 'px'; }}
                         />
                     </div>
@@ -222,17 +222,17 @@ const Block = ({ block, index, total, onChange, onDelete, onMoveUp, onMoveDown }
                     <div className="space-y-2">
                         <div className="flex gap-2 mb-2">
                             <button type="button" onClick={() => onChange({ ordered: false })}
-                                className={`text-[9px] font-medium px-2 py-0.5 transition-all ${!block.ordered ? 'bg-black text-white' : 'bg-black/5 text-black/40 hover:bg-black/10'}`}>
+                                className={`text-[9px] font-medium px-2 py-0.5 transition-all ${!block.ordered ? 'bg-black text-white' : 'bg-[#222944]/15 dark:bg-[#BCC5DC]/5 text-[#222944]/40 dark:text-[#BCC5DC]/60 hover:bg-[#222944]/10 dark:bg-[#BCC5DC]/10'}`}>
                                 Bullets
                             </button>
                             <button type="button" onClick={() => onChange({ ordered: true })}
-                                className={`text-[9px] font-medium px-2 py-0.5 transition-all ${block.ordered ? 'bg-black text-white' : 'bg-black/5 text-black/40 hover:bg-black/10'}`}>
+                                className={`text-[9px] font-medium px-2 py-0.5 transition-all ${block.ordered ? 'bg-black text-white' : 'bg-[#222944]/15 dark:bg-[#BCC5DC]/5 text-[#222944]/40 dark:text-[#BCC5DC]/60 hover:bg-[#222944]/10 dark:bg-[#BCC5DC]/10'}`}>
                                 Numerada
                             </button>
                         </div>
                         {(block.items || ['']).map((item, i) => (
                             <div key={i} className="flex items-center gap-3">
-                                <span className="text-black/35 text-sm shrink-0">{block.ordered ? `${i + 1}.` : '•'}</span>
+                                <span className="text-[#222944]/35 dark:text-[#BCC5DC]/35 text-sm shrink-0">{block.ordered ? `${i + 1}.` : '•'}</span>
                                 <input
                                     value={item}
                                     onChange={e => {
@@ -254,23 +254,23 @@ const Block = ({ block, index, total, onChange, onDelete, onMoveUp, onMoveDown }
                                         }
                                     }}
                                     placeholder={`Elemento ${i + 1}...`}
-                                    className="flex-1 bg-transparent outline-none text-black placeholder:text-black/20 text-sm"
+                                    className="flex-1 bg-transparent outline-none text-[#222944] dark:text-[#BCC5DC] placeholder:text-[#222944]/20 dark:text-[#BCC5DC]/40 text-sm"
                                 />
                                 {block.items.length > 1 && (
-                                    <button type="button" onClick={() => onChange({ items: block.items.filter((_, idx) => idx !== i) })} className="text-black/20 hover:text-red-500 transition-colors">
+                                    <button type="button" onClick={() => onChange({ items: block.items.filter((_, idx) => idx !== i) })} className="text-[#222944]/20 dark:text-[#BCC5DC]/40 hover:text-red-500 transition-colors">
                                         <X className="w-3 h-3" />
                                     </button>
                                 )}
                             </div>
                         ))}
                         <button type="button" onClick={() => onChange({ items: [...(block.items || ['']), ''] })}
-                            className="text-[10px] text-black/30 hover:text-black uppercase tracking-widest flex items-center gap-1 mt-1">
+                            className="text-[10px] text-[#222944]/30 dark:text-[#BCC5DC]/50 hover:text-[#222944] dark:text-[#BCC5DC] uppercase tracking-widest flex items-center gap-1 mt-1">
                             <Plus className="w-3 h-3" /> Añadir elemento
                         </button>
                     </div>
                 );
             case 'divider':
-                return <div className="border-t border-black/12 my-2" />;
+                return <div className="border-t border-[#222944]/12 dark:border-[#BCC5DC]/12 my-2" />;
             default:
                 return null;
         }
@@ -279,9 +279,9 @@ const Block = ({ block, index, total, onChange, onDelete, onMoveUp, onMoveDown }
     if (block.type === 'divider') {
         return (
             <div className="group relative py-4">
-                <div className="border-t border-black/12" />
+                <div className="border-t border-[#222944]/12 dark:border-[#BCC5DC]/12" />
                 <button type="button" onClick={onDelete}
-                    className="absolute top-1/2 right-0 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity text-black/20 hover:text-red-500 p-1">
+                    className="absolute top-1/2 right-0 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity text-[#222944]/20 dark:text-[#BCC5DC]/40 hover:text-red-500 p-1">
                     <X className="w-3 h-3" />
                 </button>
             </div>
@@ -292,21 +292,21 @@ const Block = ({ block, index, total, onChange, onDelete, onMoveUp, onMoveDown }
         <div className="group relative">
             {/* Move controls */}
             <div className="absolute -left-9 top-1 flex flex-col gap-0.5 opacity-0 group-hover:opacity-100 transition-opacity">
-                <button type="button" onClick={onMoveUp} disabled={index === 0} className="p-1 text-black/20 hover:text-black disabled:opacity-10 transition-colors">
+                <button type="button" onClick={onMoveUp} disabled={index === 0} className="p-1 text-[#222944]/20 dark:text-[#BCC5DC]/40 hover:text-[#222944] dark:text-[#BCC5DC] disabled:opacity-10 transition-colors">
                     <ChevronUp className="w-3 h-3" />
                 </button>
-                <button type="button" onClick={onMoveDown} disabled={index === total - 1} className="p-1 text-black/20 hover:text-black disabled:opacity-10 transition-colors">
+                <button type="button" onClick={onMoveDown} disabled={index === total - 1} className="p-1 text-[#222944]/20 dark:text-[#BCC5DC]/40 hover:text-[#222944] dark:text-[#BCC5DC] disabled:opacity-10 transition-colors">
                     <ChevronDown className="w-3 h-3" />
                 </button>
             </div>
 
-            <div className="border border-transparent group-hover:border-black/8 transition-all p-3 -mx-3 rounded-sm">
+            <div className="border border-transparent group-hover:border-[#222944]/8 dark:border-[#BCC5DC]/8 transition-all p-3 -mx-3 rounded-sm">
                 {renderInput()}
             </div>
 
             {/* Delete */}
             <button type="button" onClick={onDelete}
-                className="absolute -right-8 top-3 opacity-0 group-hover:opacity-100 transition-opacity text-black/20 hover:text-red-500 p-1">
+                className="absolute -right-8 top-3 opacity-0 group-hover:opacity-100 transition-opacity text-[#222944]/20 dark:text-[#BCC5DC]/40 hover:text-red-500 p-1">
                 <Trash2 className="w-3.5 h-3.5" />
             </button>
         </div>
@@ -322,8 +322,8 @@ const SeoIndicator = ({ ok, text }) => (
 );
 
 // ── REUSABLE FIELD STYLES ─────────────────────────────────────
-const fieldCls = "w-full bg-gray-50 border border-black/10 text-black placeholder:text-black/25 outline-none focus:border-black/40 focus:bg-white transition-colors";
-const labelCls = "text-[10px] text-black/40 uppercase tracking-widest block mb-1";
+const fieldCls = "w-full bg-gray-50 border border-[#222944]/10 dark:border-[#BCC5DC]/10 text-[#222944] dark:text-[#BCC5DC] placeholder:text-[#222944]/25 dark:text-[#BCC5DC]/45 outline-none focus:border-[#222944]/40 dark:border-[#BCC5DC]/40 focus:bg-white dark:bg-[#222944] transition-colors";
+const labelCls = "text-[10px] text-[#222944]/40 dark:text-[#BCC5DC]/60 uppercase tracking-widest block mb-1";
 
 // ─────────────────────────────────────────────────────────────
 // MAIN: POST EDITOR
@@ -433,19 +433,19 @@ const PostEditor = ({ initialData, authors, onSave, onCancel }) => {
     };
 
     // Sidebar & right panel shared label style
-    const sectionTitle = "text-[9px] font-mono text-black/30 uppercase tracking-[0.3em] mb-4 block";
+    const sectionTitle = "text-[9px] font-mono text-[#222944]/30 dark:text-[#BCC5DC]/50 uppercase tracking-[0.3em] mb-4 block";
 
     return (
         <div className="flex flex-col h-screen bg-[#f5f5f3] font-funnel overflow-hidden">
 
             {/* ── TOP BAR ── */}
-            <header className="h-14 border-b border-black/8 flex items-center justify-between px-5 shrink-0 bg-white z-20">
-                <button type="button" onClick={onCancel} className="flex items-center gap-2 text-black/45 hover:text-black transition-colors group">
+            <header className="h-14 border-b border-[#222944]/8 dark:border-[#BCC5DC]/8 flex items-center justify-between px-5 shrink-0 bg-white dark:bg-[#222944] z-20">
+                <button type="button" onClick={onCancel} className="flex items-center gap-2 text-[#222944]/45 dark:text-[#BCC5DC]/65 hover:text-[#222944] dark:text-[#BCC5DC] transition-colors group">
                     <ArrowLeft className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" />
                     <span className="text-xs font-medium">Volver al Panel</span>
                 </button>
 
-                <span className="text-[10px] font-mono text-black/30 uppercase tracking-widest">
+                <span className="text-[10px] font-mono text-[#222944]/30 dark:text-[#BCC5DC]/50 uppercase tracking-widest">
                     {isEditing ? `Editando · ${form.title || '…'}` : 'Nueva Publicación'}
                 </span>
 
@@ -453,14 +453,14 @@ const PostEditor = ({ initialData, authors, onSave, onCancel }) => {
                     <button
                         type="button"
                         onClick={() => handleSubmit('draft')}
-                        className="px-4 py-2 border border-black/15 text-black/60 text-xs font-medium hover:bg-black/5 transition-all"
+                        className="px-4 py-2 border border-[#222944]/15 dark:border-[#BCC5DC]/15 text-[#222944]/60 dark:text-[#BCC5DC]/80 text-xs font-medium hover:bg-[#222944]/15 dark:bg-[#BCC5DC]/5 transition-all"
                     >
                         Guardar Borrador
                     </button>
                     <button
                         type="button"
                         onClick={() => handleSubmit('active')}
-                        className="px-4 py-2 bg-black text-white text-xs font-medium hover:bg-black/80 transition-all flex items-center gap-2 active:scale-95"
+                        className="px-4 py-2 bg-black text-white text-xs font-medium hover:bg-[#222944]/80 dark:bg-[#BCC5DC]/80 transition-all flex items-center gap-2 active:scale-95"
                     >
                         <Upload className="w-3.5 h-3.5" />
                         {isEditing ? 'Actualizar' : 'Publicar'}
@@ -472,7 +472,7 @@ const PostEditor = ({ initialData, authors, onSave, onCancel }) => {
             <div className="flex flex-1 overflow-hidden">
 
                 {/* LEFT: METADATA */}
-                <aside className="w-60 border-r border-black/8 overflow-y-auto bg-white shrink-0">
+                <aside className="w-60 border-r border-[#222944]/8 dark:border-[#BCC5DC]/8 overflow-y-auto bg-white dark:bg-[#222944] shrink-0">
                     <div className="p-5 space-y-5">
                         <span className={sectionTitle}>Metadata</span>
 
@@ -483,18 +483,18 @@ const PostEditor = ({ initialData, authors, onSave, onCancel }) => {
                                 {[
                                     { val: 'active', label: 'Live', color: 'bg-emerald-500' },
                                     { val: 'draft', label: 'Draft', color: 'bg-amber-400' },
-                                    { val: 'inactive', label: 'Off', color: 'bg-black/20' },
+                                    { val: 'inactive', label: 'Off', color: 'bg-[#222944]/20 dark:bg-[#BCC5DC]/20' },
                                 ].map(s => (
                                     <button
                                         key={s.val}
                                         type="button"
                                         onClick={() => updateForm('status', s.val)}
                                         className={`flex items-center gap-1.5 px-2.5 py-1.5 text-[10px] font-medium border transition-all ${form.status === s.val
-                                                ? 'bg-black text-white border-black'
-                                                : 'border-black/10 text-black/45 hover:border-black/30'
+                                                ? 'bg-black text-white border-[#222944] dark:border-[#BCC5DC]'
+                                                : 'border-[#222944]/10 dark:border-[#BCC5DC]/10 text-[#222944]/45 dark:text-[#BCC5DC]/65 hover:border-[#222944]/30 dark:border-[#BCC5DC]/30'
                                             }`}
                                     >
-                                        <span className={`w-1.5 h-1.5 rounded-full ${form.status === s.val ? 'bg-white' : s.color}`} />
+                                        <span className={`w-1.5 h-1.5 rounded-full ${form.status === s.val ? 'bg-white dark:bg-[#222944]' : s.color}`} />
                                         {s.label}
                                     </button>
                                 ))}
@@ -560,9 +560,9 @@ const PostEditor = ({ initialData, authors, onSave, onCancel }) => {
                             <label className={labelCls + ' flex items-center gap-1'}><Hash className="w-3 h-3" />Tags</label>
                             <div className="flex flex-wrap gap-1 mb-1">
                                 {(form.tags || []).map(tag => (
-                                    <span key={tag} className="flex items-center gap-1 px-2 py-0.5 bg-black/5 text-[10px] text-black">
+                                    <span key={tag} className="flex items-center gap-1 px-2 py-0.5 bg-[#222944]/15 dark:bg-[#BCC5DC]/5 text-[10px] text-[#222944] dark:text-[#BCC5DC]">
                                         {tag}
-                                        <button type="button" onClick={() => removeTag(tag)} className="text-black/30 hover:text-black"><X className="w-2.5 h-2.5" /></button>
+                                        <button type="button" onClick={() => removeTag(tag)} className="text-[#222944]/30 dark:text-[#BCC5DC]/50 hover:text-[#222944] dark:text-[#BCC5DC]"><X className="w-2.5 h-2.5" /></button>
                                     </span>
                                 ))}
                             </div>
@@ -572,9 +572,9 @@ const PostEditor = ({ initialData, authors, onSave, onCancel }) => {
                                     onChange={e => setTagInput(e.target.value)}
                                     onKeyDown={e => e.key === 'Enter' && (e.preventDefault(), addTag())}
                                     placeholder="Añadir tag..."
-                                    className="flex-1 bg-gray-50 border-b border-black/10 py-1 text-[11px] text-black outline-none placeholder:text-black/25 focus:border-black/40"
+                                    className="flex-1 bg-gray-50 border-b border-[#222944]/10 dark:border-[#BCC5DC]/10 py-1 text-[11px] text-[#222944] dark:text-[#BCC5DC] outline-none placeholder:text-[#222944]/25 dark:text-[#BCC5DC]/45 focus:border-[#222944]/40 dark:border-[#BCC5DC]/40"
                                 />
-                                <button type="button" onClick={addTag} className="text-black/40 hover:text-black"><Plus className="w-3.5 h-3.5" /></button>
+                                <button type="button" onClick={addTag} className="text-[#222944]/40 dark:text-[#BCC5DC]/60 hover:text-[#222944] dark:text-[#BCC5DC]"><Plus className="w-3.5 h-3.5" /></button>
                             </div>
                         </div>
 
@@ -589,7 +589,7 @@ const PostEditor = ({ initialData, authors, onSave, onCancel }) => {
                                 rows={3}
                                 className={`w-full p-2 text-xs resize-none ${fieldCls}`}
                             />
-                            <div className="text-right text-[9px] text-black/30">{(form.excerpt || '').length}/200</div>
+                            <div className="text-right text-[9px] text-[#222944]/30 dark:text-[#BCC5DC]/50">{(form.excerpt || '').length}/200</div>
                         </div>
 
                         {/* Slug */}
@@ -599,7 +599,7 @@ const PostEditor = ({ initialData, authors, onSave, onCancel }) => {
                                 value={form.slug || ''}
                                 onChange={e => { setSlugManual(true); updateForm('slug', e.target.value); }}
                                 placeholder="url-del-articulo"
-                                className="w-full bg-transparent border-b border-black/10 py-1 text-[11px] text-black/60 font-mono outline-none focus:border-black/40 placeholder:text-black/20"
+                                className="w-full bg-transparent border-b border-[#222944]/10 dark:border-[#BCC5DC]/10 py-1 text-[11px] text-[#222944]/60 dark:text-[#BCC5DC]/80 font-mono outline-none focus:border-[#222944]/40 dark:border-[#BCC5DC]/40 placeholder:text-[#222944]/20 dark:text-[#BCC5DC]/40"
                             />
                         </div>
 
@@ -608,19 +608,19 @@ const PostEditor = ({ initialData, authors, onSave, onCancel }) => {
                             <label className={labelCls}>Imagen de Portada</label>
                             {coverPreview ? (
                                 <div className="relative">
-                                    <img src={coverPreview} alt="" className="w-full aspect-video object-cover border border-black/8" />
+                                    <img src={coverPreview} alt="" className="w-full aspect-video object-cover border border-[#222944]/8 dark:border-[#BCC5DC]/8" />
                                     <button
                                         type="button"
                                         onClick={() => { updateForm('coverImage', ''); setCoverPreview(''); }}
-                                        className="absolute top-1 right-1 bg-white/90 border border-black/10 p-1 hover:bg-red-500 hover:text-white hover:border-red-500 transition-colors"
+                                        className="absolute top-1 right-1 bg-white/90 dark:bg-[#222944]/90 border border-[#222944]/10 dark:border-[#BCC5DC]/10 p-1 hover:bg-red-500 hover:text-white hover:border-red-500 transition-colors"
                                     >
                                         <X className="w-3 h-3" />
                                     </button>
                                 </div>
                             ) : (
-                                <label className="flex flex-col items-center py-4 border border-dashed border-black/12 hover:border-black/25 hover:bg-gray-50 cursor-pointer transition-colors">
-                                    <ImageIcon className="w-4 h-4 text-black/20 mb-1" />
-                                    <span className="text-[9px] text-black/25 uppercase tracking-widest">Cargar portada</span>
+                                <label className="flex flex-col items-center py-4 border border-dashed border-[#222944]/12 dark:border-[#BCC5DC]/12 hover:border-[#222944]/25 dark:border-[#BCC5DC]/25 hover:bg-gray-50 cursor-pointer transition-colors">
+                                    <ImageIcon className="w-4 h-4 text-[#222944]/20 dark:text-[#BCC5DC]/40 mb-1" />
+                                    <span className="text-[9px] text-[#222944]/25 dark:text-[#BCC5DC]/45 uppercase tracking-widest">Cargar portada</span>
                                     <input type="file" className="hidden" accept="image/*" onChange={handleCoverUpload} />
                                 </label>
                             )}
@@ -629,21 +629,21 @@ const PostEditor = ({ initialData, authors, onSave, onCancel }) => {
                                     value={form.coverImage || ''}
                                     onChange={e => { updateForm('coverImage', e.target.value); setCoverPreview(e.target.value); }}
                                     placeholder="O pega una URL..."
-                                    className="w-full bg-gray-50 border-b border-black/10 py-1 text-[11px] text-black outline-none placeholder:text-black/20 focus:border-black/35"
+                                    className="w-full bg-gray-50 border-b border-[#222944]/10 dark:border-[#BCC5DC]/10 py-1 text-[11px] text-[#222944] dark:text-[#BCC5DC] outline-none placeholder:text-[#222944]/20 dark:text-[#BCC5DC]/40 focus:border-[#222944]/35 dark:border-[#BCC5DC]/35"
                                 />
                             )}
                             <input
                                 value={form.coverCaption || ''}
                                 onChange={e => updateForm('coverCaption', e.target.value)}
                                 placeholder="Caption de portada..."
-                                className="w-full bg-transparent border-b border-black/8 py-1 text-[11px] text-black/40 outline-none placeholder:text-black/15"
+                                className="w-full bg-transparent border-b border-[#222944]/8 dark:border-[#BCC5DC]/8 py-1 text-[11px] text-[#222944]/40 dark:text-[#BCC5DC]/60 outline-none placeholder:text-[#222944]/15 dark:text-[#BCC5DC]/30"
                             />
                         </div>
                     </div>
                 </aside>
 
                 {/* CENTER: BLOCK EDITOR */}
-                <main className="flex-1 overflow-y-auto bg-white">
+                <main className="flex-1 overflow-y-auto bg-white dark:bg-[#222944]">
                     <div className="max-w-3xl mx-auto px-14 py-12">
                         {/* Title */}
                         <textarea
@@ -651,10 +651,10 @@ const PostEditor = ({ initialData, authors, onSave, onCancel }) => {
                             onChange={e => handleTitleChange(e.target.value)}
                             placeholder="Título de la publicación..."
                             rows={2}
-                            className="w-full bg-transparent outline-none text-4xl font-black uppercase tracking-tighter text-black placeholder:text-black/15 resize-none mb-2 leading-tight"
+                            className="w-full bg-transparent outline-none text-4xl font-black uppercase tracking-tighter text-[#222944] dark:text-[#BCC5DC] placeholder:text-[#222944]/15 dark:text-[#BCC5DC]/30 resize-none mb-2 leading-tight"
                             onInput={e => { e.target.style.height = 'auto'; e.target.style.height = e.target.scrollHeight + 'px'; }}
                         />
-                        <div className="text-[10px] font-mono text-black/25 mb-10 flex items-center gap-3">
+                        <div className="text-[10px] font-mono text-[#222944]/25 dark:text-[#BCC5DC]/45 mb-10 flex items-center gap-3">
                             <Clock className="w-3 h-3" />
                             <span>{calculateReadTime(form.content)}</span>
                             <span>·</span>
@@ -679,7 +679,7 @@ const PostEditor = ({ initialData, authors, onSave, onCancel }) => {
                                 </div>
                             ))}
                             {form.content.length === 0 && (
-                                <p className="text-sm text-black/25 py-8 text-center border border-dashed border-black/10">
+                                <p className="text-sm text-[#222944]/25 dark:text-[#BCC5DC]/45 py-8 text-center border border-dashed border-[#222944]/10 dark:border-[#BCC5DC]/10">
                                     Pulsa "+ Bloque al inicio" para comenzar
                                 </p>
                             )}
@@ -688,13 +688,13 @@ const PostEditor = ({ initialData, authors, onSave, onCancel }) => {
                 </main>
 
                 {/* RIGHT: SEO PANEL */}
-                <aside className="w-68 border-l border-black/8 overflow-y-auto bg-white shrink-0" style={{ width: '272px' }}>
+                <aside className="w-68 border-l border-[#222944]/8 dark:border-[#BCC5DC]/8 overflow-y-auto bg-white dark:bg-[#222944] shrink-0" style={{ width: '272px' }}>
                     <div className="p-5 space-y-5">
                         <span className={sectionTitle + ' flex items-center gap-2'}><Search className="w-3 h-3" />SEO / GEO</span>
 
                         {/* Analysis */}
-                        <div className="bg-gray-50 border border-black/8 p-3 space-y-2">
-                            <div className="text-[9px] font-mono text-black/35 uppercase tracking-widest mb-2">Análisis</div>
+                        <div className="bg-gray-50 border border-[#222944]/8 dark:border-[#BCC5DC]/8 p-3 space-y-2">
+                            <div className="text-[9px] font-mono text-[#222944]/35 dark:text-[#BCC5DC]/35 uppercase tracking-widest mb-2">Análisis</div>
                             <SeoIndicator ok={seoChecks.metaTitleOk} text={`Meta título (${(form.seo?.metaTitle || '').length}/60)`} />
                             <SeoIndicator ok={seoChecks.metaDescOk} text={`Meta desc (${(form.seo?.metaDescription || '').length}/160)`} />
                             <SeoIndicator ok={seoChecks.keywordInTitle} text="Keyword en meta título" />
@@ -717,7 +717,7 @@ const PostEditor = ({ initialData, authors, onSave, onCancel }) => {
                                 placeholder="Título para buscadores (30-60 chars)"
                                 maxLength={60} rows={2}
                                 className={`w-full p-2 text-xs resize-none ${fieldCls}`} />
-                            <div className="text-right text-[9px] text-black/30">{(form.seo?.metaTitle || '').length}/60</div>
+                            <div className="text-right text-[9px] text-[#222944]/30 dark:text-[#BCC5DC]/50">{(form.seo?.metaTitle || '').length}/60</div>
                         </div>
 
                         {/* Meta Description */}
@@ -727,7 +727,7 @@ const PostEditor = ({ initialData, authors, onSave, onCancel }) => {
                                 placeholder="Descripción para resultados de búsqueda (80-160 chars)"
                                 maxLength={160} rows={4}
                                 className={`w-full p-2 text-xs resize-none ${fieldCls}`} />
-                            <div className="text-right text-[9px] text-black/30">{(form.seo?.metaDescription || '').length}/160</div>
+                            <div className="text-right text-[9px] text-[#222944]/30 dark:text-[#BCC5DC]/50">{(form.seo?.metaDescription || '').length}/160</div>
                         </div>
 
                         {/* Canonical URL */}
@@ -772,9 +772,9 @@ const PostEditor = ({ initialData, authors, onSave, onCancel }) => {
                             <button
                                 type="button"
                                 onClick={() => updateSeo('noIndex', !form.seo?.noIndex)}
-                                className={`w-10 h-5 relative transition-colors shrink-0 ${form.seo?.noIndex ? 'bg-red-500' : 'bg-black/10'}`}
+                                className={`w-10 h-5 relative transition-colors shrink-0 ${form.seo?.noIndex ? 'bg-red-500' : 'bg-[#222944]/10 dark:bg-[#BCC5DC]/10'}`}
                             >
-                                <span className={`absolute top-[3px] w-3.5 h-3.5 bg-white border border-black/10 transition-all ${form.seo?.noIndex ? 'left-[22px]' : 'left-[3px]'}`} />
+                                <span className={`absolute top-[3px] w-3.5 h-3.5 bg-white dark:bg-[#222944] border border-[#222944]/10 dark:border-[#BCC5DC]/10 transition-all ${form.seo?.noIndex ? 'left-[22px]' : 'left-[3px]'}`} />
                             </button>
                         </div>
                     </div>

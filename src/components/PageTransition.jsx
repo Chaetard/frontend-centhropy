@@ -64,7 +64,7 @@ const PageTransition = ({ stage }) => {
                 width: '100vw',
                 height: '100vh',
                 zIndex: 2147483647,
-                backgroundColor: '#ffffff',
+                backgroundColor: document.documentElement.classList.contains('dark') ? '#222944' : '#ffffff',
                 transform: `translateX(${translateX})`,
                 transition: translateX === '0vw'
                     ? 'none'
@@ -73,7 +73,7 @@ const PageTransition = ({ stage }) => {
                 alignItems: 'center',
                 justifyContent: 'center',
                 willChange: 'transform',
-                pointerEvents: 'all'
+                pointerEvents: translateX === '0vw' ? 'all' : 'none'
             }}
         >
             <div style={{
@@ -90,7 +90,7 @@ const PageTransition = ({ stage }) => {
                         left: 0,
                         height: '100%',
                         width: `${progress}%`,
-                        backgroundColor: '#000000',
+                        backgroundColor: document.documentElement.classList.contains('dark') ? '#BCC5DC' : '#000000',
                         transition: 'width 400ms cubic-bezier(0.165, 0.84, 0.44, 1)',
                     }}
                 />

@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 
 const LoginRedirect = () => {
     useEffect(() => {
-        window.location.href = 'https://app.centhropy.com';
+        // window.location.href = 'https://app.centhropy.com';
     }, []);
 
     return (

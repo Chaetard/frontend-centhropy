@@ -122,13 +122,13 @@ const WaitlistMobile = () => {
     };
 
     return (
-        <div className="font-funnel bg-white text-black selection:bg-black selection:text-white min-h-screen flex flex-col items-center p-6 pt-32 pb-24 overflow-x-hidden relative">
+        <div className="font-funnel bg-white dark:bg-[#222944] text-[#222944] dark:text-[#BCC5DC] selection:bg-black selection:text-white min-h-screen flex flex-col items-center p-6 pt-32 pb-24 overflow-x-hidden relative">
             <style>{shimmerStyle}</style>
 
             {/* Logo at the top */}
             <div className="absolute top-10 left-6 z-20">
                 <Link to="/" className="hover:opacity-70 transition-opacity block">
-                    <Logo className="text-black scale-90 origin-left" />
+                    <Logo className="text-[#222944] dark:text-[#BCC5DC] scale-90 origin-left" />
                 </Link>
             </div>
 
@@ -138,34 +138,34 @@ const WaitlistMobile = () => {
                     onClick={() => setIsInfoOpen(!isInfoOpen)}
                     className="focus:outline-none"
                 >
-                    <InfoSquareIcon className={`w-6 h-6 transition-colors ${isInfoOpen ? 'text-black' : 'text-gray-300'}`} />
+                    <InfoSquareIcon className={`w-6 h-6 transition-colors ${isInfoOpen ? 'text-[#222944] dark:text-[#BCC5DC]' : 'text-gray-300'}`} />
                 </button>
 
                 {/* Tactical Info Card - Smaller for mobile */}
-                <div className={`absolute top-10 right-0 w-64 bg-white border border-black p-5 transition-all duration-300 z-30 pointer-events-none ${isInfoOpen ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2 pointer-events-none'}`}>
-                    <div className="mb-3 flex justify-between items-center border-b border-black/10 pb-2">
-                        <span className="text-[9px] font-mono font-bold tracking-[0.2em] uppercase text-black">EXCLUSIVITY_PROTOCOL</span>
-                        <span className="text-[9px] font-mono text-black/30">[01]</span>
+                <div className={`absolute top-10 right-0 w-64 bg-white dark:bg-[#222944] border border-[#222944] dark:border-[#BCC5DC] p-5 transition-all duration-300 z-30 pointer-events-none ${isInfoOpen ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2 pointer-events-none'}`}>
+                    <div className="mb-3 flex justify-between items-center border-b border-[#222944]/10 dark:border-[#BCC5DC]/10 pb-2">
+                        <span className="text-[9px] font-mono font-bold tracking-[0.2em] uppercase text-[#222944] dark:text-[#BCC5DC]">EXCLUSIVITY_PROTOCOL</span>
+                        <span className="text-[9px] font-mono text-[#222944]/30 dark:text-[#BCC5DC]/50">[01]</span>
                     </div>
                     <p className="text-[10px] font-mono leading-relaxed text-gray-600 uppercase tracking-wider text-justify">
                         Nuestra lista de espera actúa como filtro de integridad y control de calidad para asegurar una respuesta operativa de alta precisión y personalizada para cada entidad admitida.
                     </p>
-                    <div className="mt-4 pt-2 border-t border-black/5">
-                        <span className="text-[8px] font-mono italic text-black/40">Exclusividad funcional autogestionada.</span>
+                    <div className="mt-4 pt-2 border-t border-[#222944]/15 dark:border-[#BCC5DC]/5">
+                        <span className="text-[8px] font-mono italic text-[#222944]/40 dark:text-[#BCC5DC]/60">Exclusividad funcional autogestionada.</span>
                     </div>
                 </div>
             </div>
 
             <div className="w-full max-w-md animate-in fade-in slide-in-from-bottom-8 duration-1000 fill-mode-both">
 
-                <form className="space-y-10 bg-white" autoComplete="off" onSubmit={(e) => e.preventDefault()}>
+                <form className="space-y-10 bg-white dark:bg-[#222944]" autoComplete="off" onSubmit={(e) => e.preventDefault()}>
                     {/* Full Name */}
                     <div className="group relative">
                         <label className="text-[10px] font-mono uppercase tracking-[0.2em] text-gray-400 block mb-1">
                             Nombre y Apellido
                         </label>
                         <input type="text" placeholder="Ej. Alex Mercer" name="fullName" value={formData.fullName} onChange={handleInputChange}
-                            className="w-full bg-transparent border-b border-black/10 py-3 text-lg font-medium rounded-none outline-none focus:border-black transition-all placeholder:text-black/20 text-black" />
+                            className="w-full bg-transparent border-b border-[#222944]/10 dark:border-[#BCC5DC]/10 py-3 text-lg font-medium rounded-none outline-none focus:border-[#222944] dark:border-[#BCC5DC] transition-all placeholder:text-[#222944]/20 dark:text-[#BCC5DC]/40 text-[#222944] dark:text-[#BCC5DC]" />
                     </div>
 
                     {/* Email */}
@@ -174,7 +174,7 @@ const WaitlistMobile = () => {
                             Correo de Contacto
                         </label>
                         <input type="email" placeholder="contact@domain.com" name="email" value={formData.email} onChange={handleInputChange}
-                            className="w-full bg-transparent border-b border-black/10 py-3 text-lg font-medium rounded-none outline-none focus:border-black transition-all placeholder:text-black/20 text-black" />
+                            className="w-full bg-transparent border-b border-[#222944]/10 dark:border-[#BCC5DC]/10 py-3 text-lg font-medium rounded-none outline-none focus:border-[#222944] dark:border-[#BCC5DC] transition-all placeholder:text-[#222944]/20 dark:text-[#BCC5DC]/40 text-[#222944] dark:text-[#BCC5DC]" />
                     </div>
 
                     {/* Organization */}
@@ -183,7 +183,7 @@ const WaitlistMobile = () => {
                             Organización
                         </label>
                         <input type="text" placeholder="Centhropy Inc." name="orgName" value={formData.orgName} onChange={handleInputChange}
-                            className="w-full bg-transparent border-b border-black/10 py-3 text-lg font-medium rounded-none outline-none focus:border-black transition-all placeholder:text-black/20 text-black" />
+                            className="w-full bg-transparent border-b border-[#222944]/10 dark:border-[#BCC5DC]/10 py-3 text-lg font-medium rounded-none outline-none focus:border-[#222944] dark:border-[#BCC5DC] transition-all placeholder:text-[#222944]/20 dark:text-[#BCC5DC]/40 text-[#222944] dark:text-[#BCC5DC]" />
                     </div>
 
                     {/* Country Custom Dropdown */}
@@ -193,17 +193,17 @@ const WaitlistMobile = () => {
                         </label>
                         <div
                             onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                            className={`w-full border-b border-black/10 py-3 text-lg font-medium cursor-pointer flex justify-between items-center transition-all ${isDropdownOpen ? 'border-black' : ''}`}
+                            className={`w-full border-b border-[#222944]/10 dark:border-[#BCC5DC]/10 py-3 text-lg font-medium cursor-pointer flex justify-between items-center transition-all ${isDropdownOpen ? 'border-[#222944] dark:border-[#BCC5DC]' : ''}`}
                         >
-                            <span className={selectedCountry ? "text-black" : "text-black/20 font-light"}>
+                            <span className={selectedCountry ? "text-[#222944] dark:text-[#BCC5DC]" : "text-[#222944]/20 dark:text-[#BCC5DC]/40 font-light"}>
                                 {selectedCountry ? selectedCountry.name : "Seleccionar..."}
                             </span>
-                            <ChevronRight className={`w-4 h-4 transition-transform duration-300 text-black/20 ${isDropdownOpen ? 'rotate-[-90deg]' : 'rotate-90'}`} />
+                            <ChevronRight className={`w-4 h-4 transition-transform duration-300 text-[#222944]/20 dark:text-[#BCC5DC]/40 ${isDropdownOpen ? 'rotate-[-90deg]' : 'rotate-90'}`} />
                         </div>
 
                         {/* Dropdown Menu */}
                         {isDropdownOpen && (
-                            <div className="absolute top-[calc(100%+1px)] left-0 w-full bg-black z-50 animate-in fade-in slide-in-from-top-2 duration-200 overflow-y-auto max-h-60 border border-white/10 [scrollbar-width:thin] [scrollbar-color:rgba(255,255,255,0.2)_transparent] [&::-webkit-scrollbar]:w-1 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-white/20 [&::-webkit-scrollbar-thumb]:rounded-none">
+                            <div className="absolute top-[calc(100%+1px)] left-0 w-full bg-black z-50 animate-in fade-in slide-in-from-top-2 duration-200 overflow-y-auto max-h-60 border border-white/10 [scrollbar-width:thin] [scrollbar-color:rgba(255,255,255,0.2)_transparent] [&::-webkit-scrollbar]:w-1 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-white/20 dark:bg-[#222944]/20 [&::-webkit-scrollbar-thumb]:rounded-none">
                                 <div className="flex flex-col">
                                     {countries.map((c) => (
                                         <div
@@ -212,7 +212,7 @@ const WaitlistMobile = () => {
                                                 setSelectedCountry(c);
                                                 setIsDropdownOpen(false);
                                             }}
-                                            className="px-5 py-3 text-[10px] font-mono uppercase tracking-widest text-white/60 active:text-white active:bg-white/10 cursor-pointer transition-all border-b border-white/5 last:border-0"
+                                            className="px-5 py-3 text-[10px] font-mono uppercase tracking-widest text-white/60 active:text-white active:bg-white/10 dark:bg-[#222944]/10 cursor-pointer transition-all border-b border-white/5 last:border-0"
                                         >
                                             {c.name}
                                         </div>
@@ -228,7 +228,7 @@ const WaitlistMobile = () => {
                             Sector Específico
                         </label>
                         <input type="text" placeholder="Fintech / AI" name="sector" value={formData.sector} onChange={handleInputChange}
-                            className="w-full bg-transparent border-b border-black/10 py-3 text-lg font-medium rounded-none outline-none focus:border-black transition-all placeholder:text-black/20 text-black" />
+                            className="w-full bg-transparent border-b border-[#222944]/10 dark:border-[#BCC5DC]/10 py-3 text-lg font-medium rounded-none outline-none focus:border-[#222944] dark:border-[#BCC5DC] transition-all placeholder:text-[#222944]/20 dark:text-[#BCC5DC]/40 text-[#222944] dark:text-[#BCC5DC]" />
                     </div>
 
                     {/* Solution Custom Dropdown (Multi-select) */}
@@ -238,12 +238,12 @@ const WaitlistMobile = () => {
                         </label>
                         <div
                             onClick={() => setIsSolutionsOpen(!isSolutionsOpen)}
-                            className={`w-full border-b border-black/10 py-3 text-lg font-medium cursor-pointer flex justify-between items-center transition-all ${isSolutionsOpen ? 'border-black' : ''}`}
+                            className={`w-full border-b border-[#222944]/10 dark:border-[#BCC5DC]/10 py-3 text-lg font-medium cursor-pointer flex justify-between items-center transition-all ${isSolutionsOpen ? 'border-[#222944] dark:border-[#BCC5DC]' : ''}`}
                         >
-                            <span className={selectedSolutions.length > 0 ? "text-black text-sm" : "text-black/20 font-light"}>
+                            <span className={selectedSolutions.length > 0 ? "text-[#222944] dark:text-[#BCC5DC] text-sm" : "text-[#222944]/20 dark:text-[#BCC5DC]/40 font-light"}>
                                 {selectedSolutions.length > 0 ? selectedSolutions.join(", ") : "Seleccionar..."}
                             </span>
-                            <ChevronRight className={`w-4 h-4 transition-transform duration-300 text-black/20 ${isSolutionsOpen ? 'rotate-[-90deg]' : 'rotate-90'}`} />
+                            <ChevronRight className={`w-4 h-4 transition-transform duration-300 text-[#222944]/20 dark:text-[#BCC5DC]/40 ${isSolutionsOpen ? 'rotate-[-90deg]' : 'rotate-90'}`} />
                         </div>
 
                         {/* Dropdown Menu */}
@@ -254,11 +254,11 @@ const WaitlistMobile = () => {
                                         <div
                                             key={opt}
                                             onClick={() => toggleSolution(opt)}
-                                            className="px-5 py-3 text-[10px] font-mono uppercase tracking-widest text-white/60 active:text-white active:bg-white/10 cursor-pointer transition-all border-b border-white/5 last:border-0 flex items-center justify-between"
+                                            className="px-5 py-3 text-[10px] font-mono uppercase tracking-widest text-white/60 active:text-white active:bg-white/10 dark:bg-[#222944]/10 cursor-pointer transition-all border-b border-white/5 last:border-0 flex items-center justify-between"
                                         >
                                             <span>{opt}</span>
                                             {selectedSolutions.includes(opt) && (
-                                                <div className="w-1.5 h-1.5 bg-white rounded-full" />
+                                                <div className="w-1.5 h-1.5 bg-white dark:bg-[#222944] rounded-full" />
                                             )}
                                         </div>
                                     ))}
@@ -278,7 +278,7 @@ const WaitlistMobile = () => {
                             name="orgContext"
                             value={formData.orgContext}
                             onChange={handleInputChange}
-                            className="w-full bg-transparent border border-black/10 p-4 text-sm font-extralight rounded-none outline-none focus:border-black transition-all placeholder:text-black/20 text-black resize-none leading-relaxed"
+                            className="w-full bg-transparent border border-[#222944]/10 dark:border-[#BCC5DC]/10 p-4 text-sm font-extralight rounded-none outline-none focus:border-[#222944] dark:border-[#BCC5DC] transition-all placeholder:text-[#222944]/20 dark:text-[#BCC5DC]/40 text-[#222944] dark:text-[#BCC5DC] resize-none leading-relaxed"
                         ></textarea>
                     </div>
 
@@ -289,7 +289,7 @@ const WaitlistMobile = () => {
                             disabled={!isFormValid}
                             className={`w-full py-5 font-black uppercase tracking-[0.3em] text-xs transition-all rounded-none flex items-center justify-center gap-3 active:scale-[0.98] ${isFormValid
                                 ? "bg-black text-white hover:bg-gray-900"
-                                : "bg-transparent border border-black text-black cursor-not-allowed opacity-50"
+                                : "bg-transparent border border-[#222944] dark:border-[#BCC5DC] text-[#222944] dark:text-[#BCC5DC] cursor-not-allowed opacity-50"
                                 }`}
                         >
                             <span>Ingresar</span>
@@ -303,8 +303,8 @@ const WaitlistMobile = () => {
             </div>
 
             {/* Bottom Footer Section - Mobile Version */}
-            <div className="mt-20 w-full flex flex-col items-center gap-8 text-[8px] font-mono text-black/20 tracking-[0.2em] uppercase pb-8">
-                <Link to="/" className="text-black font-bold border-b border-black/20 pb-0.5 mb-2">VOLVER A HOME</Link>
+            <div className="mt-20 w-full flex flex-col items-center gap-8 text-[8px] font-mono text-[#222944]/20 dark:text-[#BCC5DC]/40 tracking-[0.2em] uppercase pb-8">
+                <Link to="/" className="text-[#222944] dark:text-[#BCC5DC] font-bold border-b border-[#222944]/20 dark:border-[#BCC5DC]/20 pb-0.5 mb-2">VOLVER A HOME</Link>
                 <div className="flex justify-between w-full px-4">
                     <span>Authenticity_Guaranteed</span>
                     <span>v.04</span>

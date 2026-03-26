@@ -1,17 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1379.3 446" style="enable-background:new 0 0 1379.3 446;" xml:space="preserve">
-<style type="text/css">
-	.st0{fill:#222944;}
-	.st1{fill:#FFFFFF;}
-    /* We don't use media queries here because they might not work consistently in <img> tags.
-       Instead, we'll handle the color switch in the React component by removing the filter for this specific logo
-       and defining the colors we want directly in the SVG, or using two versions.
-       Actually, I will revert to solid colors and handle the rest in React. */
-</style>
 <g>
-    <!-- Background rectangle -->
-    <rect x="100.4" y="86.6" class="st0" width="666.6" height="272.9"/>
-    <g class="st1">
+    <!-- Background rectangle in White -->
+    <rect x="100.4" y="86.6" fill="#FFFFFF" width="666.6" height="272.9"/>
+    <!-- Letters in Card Background Color #303A5F -->
+    <g fill="#303A5F">
         <path d="M200.7,237v47.7h-25.5V161.3h25.5v51.9h49.2v-51.9h25.5v123.4h-25.5V237H200.7z"/>
         <path d="M321.6,195.3v89.4H296v-89.4H321.6z M321.4,173.7c0-6.9-5.6-12.4-12.4-12.4s-12.4,5.6-12.4,12.4 c0,6.9,5.6,12.4,12.4,12.4S321.4,180.6,321.4,173.7z"/>
         <path d="M366.9,250.7v34h-25.5V161.4h25.5v65.5h12.5l21.4-31.6h30.7l-30,43.6l31.9,45.8h-30.7l-23.3-34H366.9z"/>
@@ -20,8 +13,8 @@
         <path d="M617.2,246v-53.4h25.5v49c0,15.9,5.1,21.1,19.2,21.1c14.3,0,19.2-5.3,19.2-21.1v-49h25.5V246 c0,29.4-17.4,40.5-44.8,40.5C634.8,286.5,617.2,275.4,617.2,246z"/>
         <rect x="452.2" y="161.4" width="57.7" height="20.1"/>
     </g>
-    <!-- Symbols on the right -->
-    <g class="st0">
+    <!-- Symbols on the right in White -->
+    <g fill="#FFFFFF">
         <path d="M861.7,258.8v-97.5l24.6,6.6v29.9c23.8-2.9,47-8.3,69.5-16.3l9.3,21.6c-27.4,9.2-53.7,15-78.8,17.4v32.6 c0,3.4,0.6,5.8,1.8,7c1.2,1.3,3.2,1.9,6,1.9h71l-3.4,22.7h-72.6c-8.4,0-15.1-2.2-20.1-6.6C864.2,273.8,861.7,267.3,861.7,258.8z"/>
         <path d="M995.2,273v-22.5h85.4v-48.2h-85.2v-22.7h110.2v105.2h-24.9V273H995.2z"/>
         <path d="M1130,269.8c9.4-8.7,16.3-18.4,20.6-28.9c4.4-10.6,6.6-22.6,6.6-36.3v-33.9l24.6,6.6v27.3c0,31.7-10.7,58.1-32.1,79.5 L1130,269.8z M1195.8,263.7v-99.5l24.8,6.6v81.4c16.6-11.3,31.2-25.2,43.8-41.6l14.5,18.9c-9.7,12.8-21.3,24.2-34.8,34.3 c-13.5,10.1-25,17.1-34.5,21l-8.3-7.9C1197.8,273.4,1195.8,268.6,1195.8,263.7z"/>
