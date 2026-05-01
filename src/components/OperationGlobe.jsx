@@ -156,7 +156,7 @@ const OperationMap = () => {
                     </div>
 
                     {/* Solid World Map */}
-                    <div className="w-[calc(100%+40px)] -mx-5 md:w-full md:mx-0 relative overflow-hidden flex justify-center pointer-events-none md:pointer-events-auto">
+                    <div className="w-[calc(100%+40px)] -mx-5 md:w-full md:mx-0 relative overflow-hidden flex justify-center pointer-events-none md:pointer-events-auto translate-x-[2%] md:translate-x-0">
                         <ComposableMap
                             projection="geoNaturalEarth1"
                             projectionConfig={

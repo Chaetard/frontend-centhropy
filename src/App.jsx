@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense, lazy } from "react";
 import {
   BrowserRouter as Router,
   Routes,
@@ -6,19 +6,20 @@ import {
   useLocation,
 } from "react-router-dom";
 import CenthropyApp from "./CenthropyApp";
-import Newsroom from "./Newsroom";
-import ImpactStudies from "./ImpactStudies";
-import BlogPost from "./BlogPost";
-import Waitlist from "./Waitlist";
-import LoginRedirect from "./LoginRedirect";
-import CorporateAnnouncements from "./CorporateAnnouncements";
 import PageTransition from "./components/PageTransition";
-import AdminLogin from "./editorial/AdminLogin";
-import EditorialPanel from "./editorial/EditorialPanel";
-import Documentation from "./Documentation";
-import DocumentationConstruction from "./DocumentationConstruction";
-import NotFound from "./NotFound";
-import GrowthEngine from "./GrowthEngine";
+
+// Lazy load secondary route components — only loaded when navigated to
+const Newsroom = lazy(() => import("./Newsroom"));
+const ImpactStudies = lazy(() => import("./ImpactStudies"));
+const BlogPost = lazy(() => import("./BlogPost"));
+const Waitlist = lazy(() => import("./Waitlist"));
+const LoginRedirect = lazy(() => import("./LoginRedirect"));
+const CorporateAnnouncements = lazy(() => import("./CorporateAnnouncements"));
+const AdminLogin = lazy(() => import("./editorial/AdminLogin"));
+const EditorialPanel = lazy(() => import("./editorial/EditorialPanel"));
+const DocumentationConstruction = lazy(() => import("./DocumentationConstruction"));
+const NotFound = lazy(() => import("./NotFound"));
+const GrowthEngine = lazy(() => import("./GrowthEngine"));
 
 const App = () => {
   return (
@@ -74,24 +75,26 @@ const PageTransitionWrapper = () => {
           visibility: transitionStage === "covering" ? "hidden" : "visible",
         }}
       >
-        <Routes location={displayLocation}>
-          <Route path="/" element={<CenthropyApp />} />
-          <Route path="/newsroom" element={<Newsroom />} />
-          <Route path="/impact-studies" element={<ImpactStudies />} />
-          <Route path="/blog/:id" element={<BlogPost />} />
-          <Route path="/waitlist" element={<Waitlist />} />
-          <Route path="/login" element={<LoginRedirect />} />
-          <Route path="/announcements" element={<CorporateAnnouncements />} />
-          <Route path="/docs" element={<DocumentationConstruction />} />
-          <Route path="/growthengine" element={<GrowthEngine />} />
-          {/* Stealth Editorial Routes */}
-          <Route path="/terminal-x92-core" element={<AdminLogin />} />
-          <Route
-            path="/terminal-x92-core/dashboard"
-            element={<EditorialPanel />}
-          />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+        <Suspense fallback={null}>
+          <Routes location={displayLocation}>
+            <Route path="/" element={<CenthropyApp />} />
+            <Route path="/newsroom" element={<Newsroom />} />
+            <Route path="/impact-studies" element={<ImpactStudies />} />
+            <Route path="/blog/:id" element={<BlogPost />} />
+            <Route path="/waitlist" element={<Waitlist />} />
+            <Route path="/login" element={<LoginRedirect />} />
+            <Route path="/announcements" element={<CorporateAnnouncements />} />
+            <Route path="/docs" element={<DocumentationConstruction />} />
+            <Route path="/growthengine" element={<GrowthEngine />} />
+            {/* Stealth Editorial Routes */}
+            <Route path="/terminal-x92-core" element={<AdminLogin />} />
+            <Route
+              path="/terminal-x92-core/dashboard"
+              element={<EditorialPanel />}
+            />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </Suspense>
       </div>
     </>
   );

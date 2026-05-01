@@ -98,11 +98,22 @@ const duplicatedTestimonials = [...testimonials, ...testimonials];
 
 const OrganizationsCarousel = () => {
     const isDarkMode = useIsDarkMode();
+    const [isMobileCarousel, setIsMobileCarousel] = React.useState(() => typeof window !== 'undefined' ? window.innerWidth < 768 : false);
+    
+    React.useEffect(() => {
+        const handleResize = () => setIsMobileCarousel(window.innerWidth < 768);
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
+    const cardWidth = isMobileCarousel ? 350 : 450;
+    const totalWidth = (testimonials.length * cardWidth) + (testimonials.length * 2);
+    const duration = isMobileCarousel ? 80 : 140;
     
     return (
         <section className="pt-10 md:mt-32 pb-16 bg-white dark:bg-[#1B2136] overflow-hidden w-full">
             <div className="max-w-[1800px] mx-auto px-5 md:px-10 mb-8">
-                <div className="w-full h-[1px] bg-[#222944]/15 dark:bg-[#BCC5DC]/15 mb-10" />
+                <div className="w-full h-[1px] bg-[#222944]/15 dark:bg-[#BCC5DC]/15 mb-6 md:mb-10" />
                 <h2 className="text-[36px] md:text-[56px] font-light tracking-tighter text-[#222944] dark:text-[#BCC5DC] leading-none">
                     Organizaciones
                 </h2>
@@ -112,13 +123,13 @@ const OrganizationsCarousel = () => {
                 <motion.div
                     className="flex"
                     animate={{
-                        x: [0, -((testimonials.length * (window.innerWidth < 768 ? 350 : 450)) + (testimonials.length * 2))]
+                        x: [0, -totalWidth]
                     }}
                     transition={{
                         x: {
                             repeat: Infinity,
                             repeatType: "loop",
-                            duration: window.innerWidth < 768 ? 80 : 140,
+                            duration: duration,
                             ease: "linear",
                         },
                     }}

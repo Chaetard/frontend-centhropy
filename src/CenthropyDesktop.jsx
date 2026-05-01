@@ -13,10 +13,27 @@ const SphereCanvas = React.memo(({ probeDataRef, hudRef }) => {
     const containerRef = useRef(null);
     const isDark = useIsDarkMode();
     const isDarkRef = useRef(isDark);
+    const isActiveRef = useRef(true);
 
     useEffect(() => {
         isDarkRef.current = isDark;
     }, [isDark]);
+
+    // Pause sphere when tab is hidden or user scrolled past hero
+    useEffect(() => {
+        const handleVisibility = () => {
+            isActiveRef.current = !document.hidden && window.scrollY < window.innerHeight * 2;
+        };
+        const handleScroll = () => {
+            isActiveRef.current = !document.hidden && window.scrollY < window.innerHeight * 2;
+        };
+        document.addEventListener('visibilitychange', handleVisibility);
+        window.addEventListener('scroll', handleScroll, { passive: true });
+        return () => {
+            document.removeEventListener('visibilitychange', handleVisibility);
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
 
     useEffect(() => {
         if (!containerRef.current) return;
@@ -70,6 +87,7 @@ const SphereCanvas = React.memo(({ probeDataRef, hudRef }) => {
         let frameId;
         const animate = () => {
             frameId = requestAnimationFrame(animate);
+            if (!isActiveRef.current) return;
             const time = clock.getElapsedTime();
             const targetHex = isDarkRef.current ? 0xBCC5DC : 0x222944;
 
@@ -175,22 +193,20 @@ const solutionsData = [
     }
 ];
 const SolutionCard = ({ solution, idx, scrollYProgress }) => {
-    // Card 1 base = -0.04, Card 2 base = 0.32
-    // These are carefully timed so animations COMPLETE before next card covers
-    const base = idx === 0 ? -0.04 : 0.32;
+    const base = idx === 0 ? -0.04 : 0.33;
 
     // Title slides from left — POSITION ONLY
-    const titleX = useTransform(scrollYProgress, [base, base + 0.06], [-1500, 0]);
+    const titleX = useTransform(scrollYProgress, [base, base + 0.10], [-1500, 0]);
 
     // Description slides from right — POSITION ONLY
-    const descX = useTransform(scrollYProgress, [base + 0.02, base + 0.08], [1500, 0]);
+    const descX = useTransform(scrollYProgress, [base + 0.04, base + 0.12], [1500, 0]);
 
     // CTA button slides from right with delay
-    const btnX = useTransform(scrollYProgress, [base + 0.08, base + 0.12], [300, 0]);
+    const btnX = useTransform(scrollYProgress, [base + 0.10, base + 0.16], [300, 0]);
 
     // Bento cards rise from below — POSITION ONLY, staggered
-    const bentoY1 = useTransform(scrollYProgress, [base + 0.04, base + 0.12], [800, 0]);
-    const bentoY2 = useTransform(scrollYProgress, [base + 0.06, base + 0.14], [800, 0]);
+    const bentoY1 = useTransform(scrollYProgress, [base + 0.06, base + 0.16], [800, 0]);
+    const bentoY2 = useTransform(scrollYProgress, [base + 0.08, base + 0.18], [800, 0]);
 
     // BARC Study expansion state
     const [isStudyExpanded, setIsStudyExpanded] = useState(false);
@@ -903,18 +919,18 @@ const SolutionsSection = React.memo(({ children }) => {
     });
 
     return (
-        <div ref={wrapperRef} className="relative w-full z-20 pointer-events-none" style={{ height: '1500vh', willChange: 'transform' }}>
+        <div ref={wrapperRef} className="relative w-full z-20 pointer-events-none" style={{ height: '900vh', willChange: 'transform' }}>
             {/* Card 1 */}
             <SolutionCard solution={solutionsData[0]} idx={0} scrollYProgress={scrollYProgress} />
 
-            {/* 400vh spacer — gives card 1 animations time to complete before card 2 covers it */}
-            <div className="h-[400vh] pointer-events-none" />
+            {/* 200vh spacer — gives card 1 animations time to complete before card 2 covers it */}
+            <div className="h-[200vh] pointer-events-none" />
 
             {/* Card 2 */}
             <SolutionCard solution={solutionsData[1]} idx={1} scrollYProgress={scrollYProgress} />
 
-            {/* 400vh spacer — gives card 2 animations time to complete before children covers it */}
-            <div className="h-[400vh] pointer-events-none" />
+            {/* 200vh spacer — gives card 2 animations time to complete before children covers it */}
+            <div className="h-[200vh] pointer-events-none" />
 
             {/* Rest of page slides over card 2 */}
             <div className="sticky top-0 w-full bg-white dark:bg-[#1B2136] pointer-events-auto" style={{ zIndex: 30, transform: 'translateZ(0)', willChange: 'transform' }}>
@@ -974,12 +990,14 @@ const CenthropyDesktop = () => {
         }
     ];
 
-    // Scroll Inertia Effect (Responsive & Aggressive)
-    const [scrollInertia, setScrollInertia] = useState(0);
-    const [introInertia, setIntroInertia] = useState(0);
+    // Scroll Inertia Effect — ref-based DOM updates (eliminates ~120 re-renders/s)
     const scrollPos = useRef(0);
     const inertiaRef = useRef(0);
     const frameIdRef = useRef(null);
+    const scrollInertiaVal = useRef(0);
+    const introInertiaVal = useRef(0);
+    const introLineRefs = useRef([]);
+    const scrollTitleRefs = useRef([]);
 
     useEffect(() => {
         scrollPos.current = window.pageYOffset;
@@ -995,8 +1013,17 @@ const CenthropyDesktop = () => {
         const updateInertia = () => {
             inertiaRef.current *= 0.96;
             if (Math.abs(inertiaRef.current) < 0.01) inertiaRef.current = 0;
-            setScrollInertia(prev => prev + (inertiaRef.current - prev) * 0.1);
-            setIntroInertia(prev => prev + (inertiaRef.current - prev) * 0.025);
+            scrollInertiaVal.current += (inertiaRef.current - scrollInertiaVal.current) * 0.1;
+            introInertiaVal.current += (inertiaRef.current - introInertiaVal.current) * 0.025;
+
+            // Direct DOM updates — no React re-renders
+            introLineRefs.current.forEach((el, i) => {
+                if (el) el.style.transform = `translateY(${-introInertiaVal.current * (3.5 + i * 1.5)}px)`;
+            });
+            scrollTitleRefs.current.forEach((el) => {
+                if (el) el.style.transform = `translateY(${-scrollInertiaVal.current * 0.4}px)`;
+            });
+
             frameIdRef.current = requestAnimationFrame(updateInertia);
         };
 
@@ -1035,7 +1062,7 @@ const CenthropyDesktop = () => {
                 secBit: Math.random() > 0.99 ? "ENCRYPTING" : "SECURED",
                 meshNet: Math.random() > 0.97 ? "OPTIMIZING" : "SYNCED"
             }));
-        }, 80);
+        }, 250);
 
         return () => clearInterval(interval);
     }, []);
@@ -1174,10 +1201,8 @@ const CenthropyDesktop = () => {
                                     ].map((line, i) => (
                                         <span
                                             key={i}
+                                            ref={el => introLineRefs.current[i] = el}
                                             className="block aria-hidden:true will-change-transform"
-                                            style={{
-                                                transform: `translateY(${-introInertia * (3.5 + i * 1.5)}px)`
-                                            }}
                                         >
                                             {line}
                                         </span>
@@ -1232,8 +1257,8 @@ const CenthropyDesktop = () => {
 
                                         <div className="w-full md:w-[500px] text-left md:text-right">
                                             <div
+                                                ref={el => scrollTitleRefs.current[idx] = el}
                                                 className="will-change-transform"
-                                                style={{ transform: `translateY(${-scrollInertia * 0.4}px)` }}
                                             >
                                                 <h4 className="text-5xl md:text-[85px] font-normal tracking-tighter leading-[0.8] text-[#222944] dark:text-[#BCC5DC] transition-transform duration-700 group-hover:translate-x-[-20px]">
                                                     {comp.t1}{comp.t2 ? ` ${comp.t2}` : ''}

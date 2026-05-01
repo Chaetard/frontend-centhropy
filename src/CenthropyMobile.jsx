@@ -13,10 +13,27 @@ const SphereCanvasMobile = React.memo(({ probeDataRef, hudRef }) => {
     const containerRef = useRef(null);
     const isDark = useIsDarkMode();
     const isDarkRef = useRef(isDark);
+    const isActiveRef = useRef(true);
 
     useEffect(() => {
         isDarkRef.current = isDark;
     }, [isDark]);
+
+    // Pause sphere when tab is hidden or user scrolled past hero
+    useEffect(() => {
+        const handleVisibility = () => {
+            isActiveRef.current = !document.hidden && window.scrollY < window.innerHeight * 2;
+        };
+        const handleScroll = () => {
+            isActiveRef.current = !document.hidden && window.scrollY < window.innerHeight * 2;
+        };
+        document.addEventListener('visibilitychange', handleVisibility);
+        window.addEventListener('scroll', handleScroll, { passive: true });
+        return () => {
+            document.removeEventListener('visibilitychange', handleVisibility);
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
 
     useEffect(() => {
         if (!containerRef.current) return;
@@ -64,6 +81,7 @@ const SphereCanvasMobile = React.memo(({ probeDataRef, hudRef }) => {
         let frameId;
         const animate = () => {
             frameId = requestAnimationFrame(animate);
+            if (!isActiveRef.current) return;
             const time = clock.getElapsedTime();
             const targetHex = isDarkRef.current ? 0xBCC5DC : 0x222944;
 
@@ -311,7 +329,7 @@ const CenthropyMobile = () => {
                 progress: (40 + Math.sin(time * 1.5) * 30).toFixed(0) + "%",
                 timer: `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}:${String(now.getSeconds()).padStart(2, '0')}`
             }));
-        }, 100);
+        }, 250);
 
         return () => clearInterval(interval);
     }, []);
@@ -684,7 +702,7 @@ const CenthropyMobile = () => {
                     </div>
                     <div className="flex flex-col">
                         {solutionsMobileData.map((sol, idx) => (
-                            <div key={idx} className="flex flex-col pt-10 pb-16 px-6 border-b border-[#222944]/5 dark:border-[#BCC5DC]/5 last:border-b-0 border-t-0 border-x-0">
+                            <div key={idx} className="flex flex-col pt-10 pb-16 px-6 border-t-0 border-x-0">
 
                                 {/* 1. Full Bleed Title & Tagline */}
                                 <div className="mb-8">
