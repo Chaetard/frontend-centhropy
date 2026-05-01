@@ -57,7 +57,7 @@ const OperationMap = () => {
     };
 
     const getXOffset = (city) => {
-        return getAnchor(city) === 'end' ? (isMobile ? -12 : -8) : (isMobile ? 12 : 8);
+        return getAnchor(city) === 'end' ? (isMobile ? -24 : -8) : (isMobile ? 24 : 8);
     };
 
     const mapContent = (
@@ -85,7 +85,7 @@ const OperationMap = () => {
                 <Marker key={point.name} coordinates={[point.lng, point.lat]}>
                     {/* Core solid dot */}
                     <motion.circle
-                        r={isMobile ? 2.5 : 3}
+                        r={isMobile ? 4 : 3}
                         className="fill-[#30385F] dark:fill-[#BCC5DC]"
                         initial={{ scale: 0, opacity: 0 }}
                         animate={isVisible ? { scale: 1, opacity: 1 } : {}}
@@ -98,7 +98,7 @@ const OperationMap = () => {
                         y={isMobile ? 3 : 4}
                         className="fill-[#222944] dark:fill-white pointer-events-none"
                         style={{
-                            fontSize: isMobile ? 16 : 9,
+                            fontSize: isMobile ? 32 : 9,
                             fontWeight: 400,
                             letterSpacing: '0.06em',
                         }}
