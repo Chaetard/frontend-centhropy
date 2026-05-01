@@ -97,9 +97,9 @@ const OperationMap = () => {
                         x={getXOffset(point.city)}
                         y={isMobile ? 3 : 4}
                         className="fill-[#222944] dark:fill-white pointer-events-none"
+                        fontSize={isMobile ? 32 : 9}
                         style={{
-                            fontSize: isMobile ? 32 : 9,
-                            fontWeight: 400,
+                            fontWeight: isMobile ? 600 : 400,
                             letterSpacing: '0.06em',
                         }}
                         initial={{ opacity: 0 }}
