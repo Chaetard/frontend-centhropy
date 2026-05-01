@@ -53,7 +53,7 @@ const Navbar = () => {
             <div
                 className="absolute inset-0 bg-white/80 dark:bg-[#1B2136]/80 backdrop-blur-[12px]"
                 style={{ 
-                    zIndex: 10000,
+                    zIndex: 10002,
                     transform: 'translate3d(0,0,0)',
                     backfaceVisibility: 'hidden',
                     WebkitBackfaceVisibility: 'hidden'
@@ -88,7 +88,7 @@ const Navbar = () => {
 
                     <a
                         href="https://app.centhropy.com/login"
-                        className="text-[20px] font-funnel font-bold tracking-normal transition-colors duration-500 pointer-events-auto text-[#222944] dark:text-[#BCC5DC]"
+                        className="text-[20px] font-funnel font-normal tracking-normal transition-colors duration-500 pointer-events-auto text-[#222944] dark:text-[#BCC5DC]"
                     >
                         Unify
                     </a>
@@ -96,7 +96,7 @@ const Navbar = () => {
             </div>
 
             {/* FULL SCREEN MENU OVERLAY */}
-            <div className={`px-5 md:px-10 pt-24 pb-12 transition-opacity duration-300 ease-out will-change-opacity ${isMobile ? 'overflow-y-auto' : 'overflow-hidden'} no-scrollbar bg-white/90 dark:bg-[#1B2136]/90 backdrop-blur-[24px] ${menuOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
+            <div className={`px-5 md:px-10 pt-44 md:pt-24 pb-12 transition-opacity duration-300 ease-out will-change-opacity ${isMobile ? 'overflow-y-auto' : 'overflow-hidden'} no-scrollbar bg-white dark:bg-[#1B2136] ${menuOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
                 }`} style={{ height: '100vh', position: 'fixed', top: 0, left: 0, right: 0, zIndex: 10001 }}>
 
                 {isMobile ? (
