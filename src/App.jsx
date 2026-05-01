@@ -18,6 +18,7 @@ import EditorialPanel from "./editorial/EditorialPanel";
 import Documentation from "./Documentation";
 import DocumentationConstruction from "./DocumentationConstruction";
 import NotFound from "./NotFound";
+import GrowthEngine from "./GrowthEngine";
 
 const App = () => {
   return (
@@ -82,6 +83,7 @@ const PageTransitionWrapper = () => {
           <Route path="/login" element={<LoginRedirect />} />
           <Route path="/announcements" element={<CorporateAnnouncements />} />
           <Route path="/docs" element={<DocumentationConstruction />} />
+          <Route path="/growthengine" element={<GrowthEngine />} />
           {/* Stealth Editorial Routes */}
           <Route path="/terminal-x92-core" element={<AdminLogin />} />
           <Route
