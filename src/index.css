@@ -53,14 +53,12 @@ header {
 }
 
 .tactical-card {
-  border-left: 1.5px solid #222944;
   background: rgba(255, 255, 255, 0.7);
   backdrop-filter: blur(8px);
   /* Restored glassmorphism */
 }
 
 .dark .tactical-card {
-  border-left: 1.5px solid #BCC5DC;
   background: rgba(34, 41, 68, 0.7); /* #222944 at 70% opacity */
 }
 
@@ -292,4 +290,32 @@ header {
 
 .rotate-face-3 {
   transform: rotateX(270deg);
+}
+
+/* SHIMMER TEXT EFFECT */
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.shimmer-text {
+  background: linear-gradient(90deg, #222944 20%, #7b86aa 50%, #222944 80%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 5s linear infinite;
+}
+
+.dark .shimmer-text {
+  background: linear-gradient(90deg, #BCC5DC 20%, #ffffff 50%, #BCC5DC 80%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }

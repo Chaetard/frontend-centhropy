@@ -1,9 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
-import { ChevronRight, ChevronLeft } from 'lucide-react';
+import { ChevronRight, ChevronLeft, ArrowRight, Plus, Minus, ArrowUpRight, CornerDownRight, X } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { motion, AnimatePresence, useInView } from 'framer-motion';
 import Navbar from './components/Navbar';
-import ConnectorsSection from './components/ConnectorsSection';
+import OperationGlobe from './components/OperationGlobe';
 import OrganizationsCarousel from './components/OrganizationsCarousel';
 import { useIsDarkMode } from './hooks/useIsDarkMode';
 
@@ -148,46 +149,146 @@ const SphereCanvasMobile = React.memo(({ probeDataRef, hudRef }) => {
 const CenthropyMobile = () => {
     const hudRef = useRef(null);
     const probeDataRef = useRef({ phi: Math.PI * 0.5, theta: Math.PI * 0.5 });
-    const solutionsScrollRef = useRef(null);
-    const [scrollIndex, setScrollIndex] = useState(0);
 
-    const scrollSolutions = (direction) => {
-        if (solutionsScrollRef.current) {
-            const container = solutionsScrollRef.current;
-            const width = container.offsetWidth;
-            const totalItems = solutions.length;
-
-            // Calculate current index based on scroll position
-            const currentIndex = Math.round(container.scrollLeft / width);
-
-            let nextIndex;
-            if (direction === 'left') {
-                nextIndex = currentIndex - 1;
-                if (nextIndex < 0) nextIndex = totalItems - 1;
-            } else {
-                nextIndex = currentIndex + 1;
-                if (nextIndex >= totalItems) nextIndex = 0;
-            }
-
-            container.scrollTo({
-                left: nextIndex * width,
-                behavior: 'smooth'
-            });
-        }
-    };
-
-    const handleCarouselScroll = (e) => {
-        const scrollLeft = e.target.scrollLeft;
-        const width = e.target.offsetWidth;
-        if (width > 0) {
-            const newIndex = Math.round(scrollLeft / width);
-            if (newIndex !== scrollIndex) {
-                setScrollIndex(newIndex);
-            }
-        }
-    };
 
     const [openModule, setOpenModule] = useState(0);
+
+    // Unify Chart expansion — precision-timed card-stretch choreography
+    const unifyCardRef = useRef(null);
+    const isUnifyChartInView = useInView(unifyCardRef, { once: true, margin: "0px 0px -15% 0px" });
+    const [unifyBarsVisible, setUnifyBarsVisible] = useState(true);
+    const [isCollapseReturn, setIsCollapseReturn] = useState(false);
+    const showUnifyBars = unifyBarsVisible && isUnifyChartInView;
+    const [isUnifyStudyExpanded, setIsUnifyStudyExpanded] = useState(false);
+    const [unifyCardOrigin, setUnifyCardOrigin] = useState(null);
+
+    const handleUnifyChartExpand = () => {
+        if (unifyCardRef.current) {
+            const rect = unifyCardRef.current.getBoundingClientRect();
+            setUnifyCardOrigin({ top: rect.top, left: rect.left, width: rect.width, height: rect.height });
+        }
+        setIsCollapseReturn(false);
+        setUnifyBarsVisible(false);
+        // Tiny delay so bars start fading before overlay appears
+        setTimeout(() => setIsUnifyStudyExpanded(true), 80);
+    };
+
+    const handleUnifyChartCollapse = () => {
+        setIsUnifyStudyExpanded(false);
+        // Mark as collapse return so bars use fast (0-delay) animation
+        setIsCollapseReturn(true);
+        // Fire bars immediately — they animate in sync with the overlay shrinking
+        setUnifyBarsVisible(true);
+        setTimeout(() => {
+            setUnifyCardOrigin(null);
+            setIsCollapseReturn(false);
+        }, 600);
+    };
+
+    // Unify Actions (GOS) expansion
+    const gosCardRef = useRef(null);
+    const [gosFeaturesVisible, setGosFeaturesVisible] = useState(true);
+    const [isGosExpanded, setIsGosExpanded] = useState(false);
+    const [gosCardOrigin, setGosCardOrigin] = useState(null);
+
+    const handleGosExpand = () => {
+        if (gosCardRef.current) {
+            const rect = gosCardRef.current.getBoundingClientRect();
+            setGosCardOrigin({ top: rect.top, left: rect.left, width: rect.width, height: rect.height });
+        }
+        setGosFeaturesVisible(false);
+        setTimeout(() => setIsGosExpanded(true), 150);
+    };
+
+    const handleGosCollapse = () => {
+        setIsGosExpanded(false);
+        setGosFeaturesVisible(true);
+        setTimeout(() => {
+            setGosCardOrigin(null);
+        }, 550);
+    };
+
+    // Apollo Chart expansion — mirrors Unify card-stretch choreography
+    const apolloCardRef = useRef(null);
+    const isApolloChartInView = useInView(apolloCardRef, { once: true, margin: "0px 0px -15% 0px" });
+    const [apolloDotsVisible, setApolloDotsVisible] = useState(true);
+    const [isApolloCollapseReturn, setIsApolloCollapseReturn] = useState(false);
+    const showApolloDots = apolloDotsVisible && isApolloChartInView;
+    const [isApolloChartExpanded, setIsApolloChartExpanded] = useState(false);
+    const [apolloCardOrigin, setApolloCardOrigin] = useState(null);
+    const apolloScrollRef = useRef(null);
+
+    const handleApolloChartExpand = () => {
+        if (apolloCardRef.current) {
+            const rect = apolloCardRef.current.getBoundingClientRect();
+            setApolloCardOrigin({ top: rect.top, left: rect.left, width: rect.width, height: rect.height });
+        }
+        setIsApolloCollapseReturn(false);
+        setApolloDotsVisible(false);
+        // Wait for dots to visibly dissolve before overlay stretches in
+        setTimeout(() => setIsApolloChartExpanded(true), 350);
+    };
+
+    const handleApolloChartCollapse = () => {
+        // Scroll back to top so exit animations are visible
+        if (apolloScrollRef.current) {
+            apolloScrollRef.current.scrollTo({ top: 0, behavior: 'instant' });
+        }
+        setIsApolloChartExpanded(false);
+        setIsApolloCollapseReturn(true);
+        // Delay dot re-entry so overlay has time to shrink and reveal the card
+        setTimeout(() => {
+            setApolloDotsVisible(true);
+        }, 200);
+        setTimeout(() => {
+            setApolloCardOrigin(null);
+            setIsApolloCollapseReturn(false);
+        }, 900);
+    };
+
+    // Apollo Actions (Solución Integral) expansion — mirrors GOS pattern
+    const apolloActionsCardRef = useRef(null);
+    const [apolloActionsFeaturesVisible, setApolloActionsFeaturesVisible] = useState(true);
+    const [isApolloActionsExpanded, setIsApolloActionsExpanded] = useState(false);
+    const [apolloActionsCardOrigin, setApolloActionsCardOrigin] = useState(null);
+
+    const apolloActions = [
+        { id: 'a1', name: 'Unify DC Serverless', action: 'Apollo Protocol funciona con el motor análisis y decisiones (Unify DC). El procesamiento de datos en Unify DC permite detectar, en tiempo real, oportunidades de rentabilidad ocultas, alertar sobre riesgos de margen, optimización de precios e inventario y generar estrategias accionables enfocadas en el crecimiento y la expansión de resultados.' },
+        { id: 'a2', name: 'Canal Digital de Conversión Inteligente', action: 'El equipo técnico asignado desarrolla y gestiona en su totalidad la infraestructura eCommerce de las organizaciones. Se garantiza que cada SKU esté posicionado con precisión quirúrgica en la tienda online (descripciones de alto impacto, variantes lógicas y precios sincronizados) para transformar el tráfico en transacciones efectivas.' },
+        { id: 'a3', name: 'Inventario Inteligente (Ingeniería de Liquidez)', action: 'Mediante la vigilancia continua del stock, el protocolo activa mecanismos de defensa (reposición) o de ataque (liquidación) antes de que el problema afecte el balance. Se asegura que el inventario fluya a su máxima velocidad, maximizando el retorno sobre el capital invertido en mercancía.' },
+        { id: 'a4', name: 'Escalabilidad de Adquisición (Paid Media)', action: 'Ejecución de ingeniería publicitaria en Meta y Google Ads centrada en impulsar ventas y rentabilidad. El protocolo elimina el riesgo de "quema de presupuesto" mediante la optimización técnica potenciada por análisis continuos en Unify Data Center, asegurando que la expansión de la pauta sea una consecuencia directa del éxito matemático y lógico.' },
+        { id: 'a5', name: 'Maximización de Valor por Transacción', action: 'Extracción del máximo beneficio posible de cada visitante, elevando el ticket promedio de forma sistemática. Despliegue de tácticas de choque (Flash Sales, Bundles inteligentes y Recuperación de Carritos) que fuerzan la conversión en momentos críticos.' },
+        { id: 'a6', name: 'Dominio Estratégico y Verdad Matemática', action: 'Certeza absoluta en la toma de decisiones y eliminación total de las "suposiciones" en el centro de mando. Procesamiento de datos a través del núcleo Unify para detectar oportunidades de rentabilidad ocultas y alertar sobre riesgos de margen en tiempo real.' },
+        { id: 'a7', name: 'Sistematización, Control y Transparencia', action: 'Roadmaps enfocados hacia el dominio del mercado, con planes de acción ejecutables. Entrega sistemática de inteligencia operativa y protocolos de acción específicos. Cada reporte es un documento de ingeniería que dicta el siguiente paso para ganar cuota de mercado.' },
+        { id: 'a8', name: 'Blindaje Técnico y Estabilidad All—Time', action: 'Paz mental operativa. Una infraestructura blindada, segura y disponible "All—Time". Gestión de la seguridad, actualizaciones y estabilidad del ecosistema digital. El protocolo garantiza que la tienda sea un activo de alta disponibilidad.' },
+    ];
+
+    const handleApolloActionsExpand = () => {
+        if (apolloActionsCardRef.current) {
+            const rect = apolloActionsCardRef.current.getBoundingClientRect();
+            setApolloActionsCardOrigin({ top: rect.top, left: rect.left, width: rect.width, height: rect.height });
+        }
+        setApolloActionsFeaturesVisible(false);
+        setTimeout(() => setIsApolloActionsExpanded(true), 150);
+    };
+
+    const handleApolloActionsCollapse = () => {
+        setIsApolloActionsExpanded(false);
+        setApolloActionsFeaturesVisible(true);
+        setTimeout(() => {
+            setApolloActionsCardOrigin(null);
+        }, 550);
+    };
+
+    // Lock body scroll when study overlay is expanded
+    useEffect(() => {
+        if (isUnifyStudyExpanded || isGosExpanded || isApolloChartExpanded || isApolloActionsExpanded) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = '';
+        }
+        return () => { document.body.style.overflow = ''; };
+    }, [isUnifyStudyExpanded, isGosExpanded, isApolloChartExpanded, isApolloActionsExpanded]);
     const [probeMetrics, setProbeMetrics] = useState({
         lat: '0.00° N', lon: '0.00° E',
         roi: '28.6%', margin: '41.0%',
@@ -286,66 +387,166 @@ const CenthropyMobile = () => {
     }, []);
 
     const modules = [
-        { w: 'Control', desc: 'Elevar el control organizacional, centralizando y unificando: Datos, Análisis y Decisiones.' },
-        { w: 'Optimización', desc: 'Impulsar la optimización de procesos, recursos y estrategias de negocio de alto impacto, en tiempo real.' },
-        { w: 'Escalabilidad', desc: 'Detectar continuamente, oportunidades de expansión, apertura de mercados, líneas de negocio y diversificación de recursos.' },
-        { w: 'Crecimiento', desc: 'Generar en las organizaciones el potencial de multiplicar resultados, impulsar ventas y aumentar ganancias.' },
-        { w: 'Rentabilidad', desc: 'Potenciar la capacidad empresarial de cumplir y superar sus propios objetivos de rentabilización y sostenibilidad financiera.' }
+        { w: 'Control', desc: 'Establecimiento de una autoridad centralizada mediante la síntesis de flujos de datos multicanal, unificando la arquitectura de análisis y decisión en un núcleo técnico único que elimina la fragmentación informativa y el sesgo operativo.' },
+        { w: 'Optimización', desc: 'Perfeccionamiento dinámico de procesos y recursos críticos, permitiendo el ajuste de estrategias de negocio en tiempo real para maximizar el rendimiento operativo y eliminar cualquier fricción técnica en la cadena de valor comercial.' },
+        { w: 'Escalabilidad', desc: 'Detección sistemática de vectores de expansión y apertura de mercados mediante el análisis continuo de la capacidad estructural de los activos, permitiendo la diversificación de recursos y la integración de nuevas líneas de negocio con alta eficiencia.' },
+        { w: 'Crecimiento', desc: 'Activación del potencial multiplicador de la organización, impulsando el volumen de transacciones y la aceleración de ingresos a través de una ingeniería comercial diseñada para escalar los resultados de manera exponencial y predecible.' },
+        { w: 'Rentabilidad', desc: 'Maximización de la capacidad empresarial para capturar valor neto, blindando la sostenibilidad financiera y superando sistemáticamente los umbrales de beneficio establecidos mediante una gestión científica del margen y el retorno operativo.' }
     ];
 
     const systemModules = [
-        { id: 'SYS.01', t1: 'Cordyceps', t2: 'Protocol', short: 'CP', img: '/Unifyprotocol.jpg', desc: 'Ontología de datos creada para descifrar el estado real y potencial oculto de las organizaciones.' },
-        { id: 'SYS.02', t1: 'Unify Data', t2: 'Center', short: 'DC', img: '/Unifydc.jpg', desc: 'Interfaz de análisis avanzado y unificación de datos, desarrollada para potenciar la toma de decisiones. Integración nativa con Unify Agent.' },
-        { id: 'SYS.03', t1: 'Unify', t2: 'Agent', short: 'UA', img: '/Unifyagent3.0.jpg', desc: 'Analista inteligente de última generación, entrenado para descubrir insights de alto impacto y generar estrategias accionables en lenguaje natural.' },
-        { id: 'SYS.04', t1: 'Unify', t2: 'Team', short: 'UT', img: '/Unifyteam.jpg', desc: 'Equipo humano de élite, especializado en garantizar la confiabilidad, eficacia y sostenibilidad del ecosistema Unify.' }
+        { id: 'SYS.01', t1: 'Cordyceps', t2: '', short: 'CP', img: '/Unifyprotocol.jpg', desc: 'Protocolo ontológico diseñado para descifrar el estado real y potencial de la organización, desplegando métodos científicos para codificar repositorios centralizados de analítica avanzada.' },
+        { id: 'SYS.02', t1: 'Unify', t2: '', short: 'DC', img: '/Unifydc.jpg', desc: 'Núcleo de unificación de datos AI—Driven con funciones de gobernanaza de decisiones para organizaciones de alto valor. Integración total con Optimus 2.0.' },
+        { id: 'SYS.03', t1: 'Optimus', t2: '2.0', short: 'UA', img: '/Unifyagent3.0.jpg', desc: 'Copiloto de razonamiento avanzado, entrenado para para la explotación de activos de datos centralizados por Cordyceps. Optimus 2.0 agiliza la toma decisiones, descubriendo insights de alto valor y generando estrategias accionables en lenguaje humano.' },
+        { id: 'SYS.04', t1: 'Unify', t2: 'Team', short: 'UT', img: '/Unifyteam.jpg', desc: 'Equipo de élite especializado y enfocado en garantizar la confiabilidad, eficacia y sostenibilidad de todo el ecosistema de Centhropy.' }
     ];
 
-    // Solutions Accordion State
-    const [activeSolution, setActiveSolution] = useState(0);
-    const solutions = [
-        { id: '03', title: 'Growth Engine', img: '/Unifyagent3.0.jpg', desc: 'Maximizamos su conversión y rentabilidad mediante el ecosistema Unify y nuestra metodología Data-Driven Growth. Implementamos soluciones de precisión para optimizar la toma de decisiones y escalar su modelo de negocio de forma sostenible.' },
-        { id: '01', title: 'Unify Data Center', img: '/Unifydc.jpg', desc: 'Un entorno de alta fidelidad diseñado para la síntesis de datos, analítica prescriptiva y ejecución táctica, orientado a la optimización de activos y la escalabilidad del capital. UDC es propulsado por la integración nativa de Unify Agent: nuestra unidad de inteligencia autónoma para el diagnóstico y la aceleración de decisiones estratégicas.' },
-        { id: '02', title: 'TI Outsourcing', img: '/Unifyprotocol.jpg', desc: 'Desplegamos la arquitectura necesaria para la ingesta, purificación y síntesis de información, garantizando la integridad, soberanía y seguridad del flujo operativo desde su origen hasta su explotación estratégica.' }
-    ];
-
-    // State for sticky reveal of system nodes
-    const [openedNodes, setOpenedNodes] = useState(new Array(systemModules.length).fill(false));
-
-    const moduleRefs = useRef(systemModules.map(() => React.createRef()));
-
-    // Removed old reveal logic for sectionRef and activeIndex
-    // const sectionRef = useRef(null);
-    // const [activeIndex, setActiveIndex] = useState(0);
-
-    useEffect(() => {
-        const observerOptions = {
-            // Umbral más exigente para asegurar que la tarjeta esté bien encuadrada
-            threshold: 0.4,
-            // Matamos el 55% inferior del viewport: la tarjeta debe subir hasta
-            // la zona media-superior para activarse y que el usuario vea el despliegue.
-            rootMargin: '0px 0px -55% 0px'
-        };
-
-        const observers = moduleRefs.current.map((ref, idx) => {
-            const observer = new IntersectionObserver(([entry]) => {
-                if (entry.isIntersecting) {
-                    setOpenedNodes(prev => {
-                        const next = [...prev];
-                        next[idx] = true;
-                        return next;
-                    });
+    const systemActions = [
+        {
+            level: 'NIVEL 1',
+            title: 'Análisis Descriptivo',
+            objective: 'Elimina la ceguera operativa y consolida el dominio en la toma de decisiones estratégica de la organización.',
+            actions: [
+                {
+                    id: '1a',
+                    name: 'Auditoría Operativa',
+                    action: 'Centralización de silos (Shopify, Meta Ads, ERP, Bancos) en una única interfaz de alta fidelidad.',
+                    result: 'Un "Mapa Global" en tiempo real que refleja el estado exacto del negocio.'
+                },
+                {
+                    id: '1b',
+                    name: 'Verdad Única',
+                    action: 'Estandarización de métricas bajo una ontología única centralizada.',
+                    result: 'Eliminación de discrepancias entre departamentos; todos operan bajo la misma cifra oficial.'
+                },
+                {
+                    id: '1c',
+                    name: 'Monitoreo de Activos',
+                    action: 'Seguimiento granular de presupuestos y flujo de inventario.',
+                    result: 'Visibilidad total sobre el ciclo de vida del capital invertido en tiempo real.'
                 }
-            }, observerOptions);
+            ]
+        },
+        {
+            level: 'NIVEL 2',
+            title: 'Análisis Diagnóstico',
+            objective: 'Descubrir razones causales del comportamiento del negocio mediante la inegniería forense de datos.',
+            actions: [
+                {
+                    id: '2a',
+                    name: 'Detección de Anomalías',
+                    action: 'Identificación instantánea de desviaciones fuera de la norma (caídas de conversión, picos de costo, rupturas de stock).',
+                    result: 'Alertas tempranas que señalan exactamente dónde se rompió la cadena de valor.'
+                },
+                {
+                    id: '2b',
+                    name: 'Rastreo Forense',
+                    action: 'Navegación multidimensional desde el KPI global hasta la transacción individual en segundos.',
+                    result: 'Identificación de la causa raíz de una pérdida o ineficiencia, minimizando suposiciones.'
+                },
+                {
+                    id: '2c',
+                    name: 'Auditoría Lógica UCoT',
+                    action: 'Visualización del hilo de razonamiento que Optimus utilizó para clasificar un evento.',
+                    result: 'Transparencia total sobre por qué el sistema detectó un patrón, reforzando la confianza.'
+                }
+            ]
+        },
+        {
+            level: 'NIVEL 3',
+            title: 'Análisis Predictivo',
+            objective: 'Proyecciones estratégicas que permiten anticipar escenarios de alto impacto para la organización.',
+            actions: [
+                {
+                    id: '3a',
+                    name: 'Trayectorias de Crecimiento',
+                    action: 'Inferencia de tendencias futuras basadas en modelos de Vertex AI aplicados a tu data histórica.',
+                    result: 'Proyecciones de ingresos y demanda con un alto nivel de confianza comercial.'
+                },
+                {
+                    id: '3b',
+                    name: 'Simulador de Riesgo',
+                    action: 'Modelado de eventos de estrés (ej. escenario con alto CPM).',
+                    result: 'Evaluación de la resiliencia del negocio ante crisis externas antes de que ocurran.'
+                },
+                {
+                    id: '3c',
+                    name: 'Insights de Oportunidades',
+                    action: 'Identificación de nichos o productos con potencial de escalabilidad desaprovechado.',
+                    result: 'Priorización de inversiones en áreas con la mayor probabilidad de retorno a corto plazo.'
+                }
+            ]
+        },
+        {
+            level: 'NIVEL 4',
+            title: 'Análisis Prescriptivo',
+            objective: 'Intervención directa de Optimus 2.0 en la generación de estrategias accionables bajo filtros de seguridad y control de riesgos.',
+            actions: [
+                {
+                    id: '4a',
+                    name: 'Protocolos Directos',
+                    action: 'Generación de planes de ejecución paso a paso para resolver problemas o capturar oportunidades.',
+                    result: 'Reducción del tiempo de respuesta; se pasa de "analizar" a "actuar" con guía técnica.'
+                },
+                {
+                    id: '4b',
+                    name: 'Blindaje de Margen',
+                    action: 'Ajuste dinámico sugerido de precios o presupuestos de pauta para proteger rentabilidad.',
+                    result: 'Maximización de beneficios operativos sin requerir intervención humana constante.'
+                },
+                {
+                    id: '4c',
+                    name: 'Asignación de Capital',
+                    action: 'Recomendación técnica de dónde mover presupuesto para optimizar el crecimiento neto.',
+                    result: 'Eficiencia máxima, asegurando que cada dólar se coloque con impacto.'
+                }
+            ]
+        }
+    ];
 
-            const current = ref.current;
-            if (current) observer.observe(current);
-            return observer;
-        });
+    const [expandedActionId, setExpandedActionId] = useState(null);
+    const solutionsMobileData = [
+        {
+            id: 'SERV.01',
+            title: 'Unify Data Center',
+            short: 'UDC',
+            tagline: 'Plataforma de análisis avanzado para decisiones.',
+            desc: 'Centro de análisis y unificación de datos para la toma de decisiones estratégicas, impulsado por AI-Data de última generación. Interfaz dirigida a CEOs y CFOs.',
+            metrics: [
+                { value: '2.3X', desc: 'Las empresas con análisis unificado toman decisiones estratégicas 2.3 veces más rápido.' },
+                { value: '645%', desc: 'De ROI reportado debido al aumento en ingresos según Nucleus Research.' }
+            ],
+            features: ['Insights de Crecimiento', 'Diagnóstico de Fugas', 'Generación de Estrategias'],
+            actionsTitle: "Sistema Operativo de Crecimiento — GOS",
+            actions: [
+                { id: '1a', name: 'Auditoría Operativa', action: 'Centralización de silos en una única interfaz de alta fidelidad.' },
+                { id: '1b', name: 'Verdad Única', action: 'Estandarización de métricas bajo una ontología única centralizada.' },
+                { id: '2a', name: 'Modelado Predictivo', action: 'Detección proactiva de anomalías y fugas de capital ocultas en el entorno.' },
+                { id: '3a', name: 'Optimus 2.0', action: 'Agente avanzado para consulta de datos y exploración técnica.' }
+            ]
+        },
+        {
+            id: 'SERV.02',
+            title: 'Apollo Protocol',
+            short: 'AP',
+            tagline: 'Solución de eCommerce inteligente para rentabilidad.',
+            desc: 'Infraestructura de eCommerce diseñada para blindar la conversión y optimizar el crecimiento. Ejecución gestionada bajo la gobernanza técnica de Centhropy.',
+            metrics: [
+                { value: '20—30%', desc: 'Índice de elevación (LIFT) de rentabilidad real o incremento de captación.' },
+                { value: '> 2:1', desc: 'Garantía de ratio: cada dólar invertido en pauta genera al menos el doble.' }
+            ],
+            features: ['Integración Total de Unify', 'Desarrollo & Operación', 'Investigación & Estrategia'],
+            actionsTitle: "Solución Integral Gestionada",
+            actions: [
+                { id: 'p1', name: 'Unify Ingestion', action: 'Implementación del ecosistema para recolección absoluta de datos y unificación del Business Manager, Shopify y pasarelas.' },
+                { id: 'p2', name: 'Liquidación de Inventario', action: 'Liquidación acelerada aplicando análisis predictivo para despachar stock viejo sin castigar la rentabilidad en masa.' },
+                { id: 'p3', name: 'Conversion Rate', action: 'Reestructuración técnica de embudos UI/UX en la tienda para potenciar porcentajes de conversión orgánica y pagada.' },
+                { id: 'p4', name: 'Escalamiento Agresivo', action: 'Configuración y despliegue del presupuesto con modelado multi-touch de atribución garantizando el LTV a 30 días.' }
+            ]
+        }
+    ];
 
-        return () => {
-            observers.forEach(obs => obs.disconnect());
-        };
-    }, []);
+
 
     return (
         <div className="font-funnel no-select w-full bg-white dark:bg-[#1B2136] text-[#222944] dark:text-[#BCC5DC] min-h-screen relative">
@@ -353,7 +554,7 @@ const CenthropyMobile = () => {
             <SphereCanvasMobile probeDataRef={probeDataRef} hudRef={hudRef} />
 
             {/* HEADER */}
-            <Navbar subtitle="Unified Data Engine" />
+            <Navbar />
 
             {/* FLOATING PROBE HUD (MOBILE) */}
             <div
@@ -423,16 +624,13 @@ const CenthropyMobile = () => {
             </div>
 
             {/* MAIN CONTENT AREA */}
-            <main className="relative z-20 bg-white dark:bg-[#222944] pt-20 pb-24 px-6 flex flex-col gap-8">
+            <main className="relative z-20 bg-white dark:bg-[#1B2136] pt-20 pb-24 px-6 flex flex-col gap-8">
                 <div className="flex flex-col gap-6 text-center items-center w-full">
                     <h2 className="text-[8vw] min-[380px]:text-[32px] font-medium tracking-tight leading-[1.2] text-[#222944] dark:text-[#BCC5DC] text-center flex flex-col gap-0 w-full">
                         {[
-                            "Ecosistema creado",
-                            "para potenciar, en",
-                            "tiempo real, la",
-                            "toma de decisiones",
-                            "en organizaciones",
-                            "de alto valor."
+                            "Soberanía analítica, dominio",
+                            "de datos y toma de decisiones",
+                            "potenciadas con AI—Driven"
                         ].map((line, i) => (
                             <span
                                 key={i}
@@ -454,180 +652,691 @@ const CenthropyMobile = () => {
                     </svg>
                 </div>
 
-                <div className="flex flex-col gap-4 mt-12">
-                    {modules.map((m, i) => (
-                        <div
-                            key={i}
-                            onClick={() => setOpenModule(openModule === i ? null : i)}
-                            className="bg-[#F5F5F5] dark:bg-[#303A5F] border-none p-6 transition-all duration-500 ease-out"
-                        >
-                            <div className="flex justify-between items-center">
-                                <span className="text-xl font-black uppercase tracking-tight text-[#222944] dark:text-white">{m.w}</span>
-                                <ChevronRight
-                                    className={`transition-transform duration-500 ${openModule === i ? 'rotate-90 text-[#222944] dark:text-white' : 'rotate-0 text-[#222944]/30 dark:text-white/30'}`}
-                                    size={20}
-                                />
+
+
+                {/* SECCIÓN ECOSISTEMA UNIFY */}
+                <div className="flex flex-col pt-4 pb-8 -mx-6 bg-white dark:bg-[#1B2136]">
+                    {systemModules.map((comp, idx) => (
+                        <div key={idx} className={`flex flex-col py-10 px-6 ${idx !== systemModules.length - 1 ? 'border-b border-[#222944]/5 dark:border-[#BCC5DC]/5' : ''}`}>
+                            <div className="flex justify-between items-start mb-6">
+                                <h3 className="text-[60px] font-normal text-[#222944] dark:text-[#BCC5DC] tracking-tighter leading-none whitespace-nowrap">
+                                    {comp.t1}{comp.t2 ? ` ${comp.t2}` : ''}
+                                </h3>
+                                <span className="text-[14px] font-light text-[#222944]/40 dark:text-[#BCC5DC]/50 pt-3">
+                                    /0.{idx + 1}
+                                </span>
                             </div>
-                            <div className={`grid transition-[grid-template-rows] duration-500 ease-out ${openModule === i ? 'grid-rows-[1fr] mt-5' : 'grid-rows-[0fr]'}`}>
-                                <p className="overflow-hidden text-[16px] font-light leading-relaxed text-[#222944]/70 dark:text-white/70 tracking-tight">
-                                    {m.desc}
+                            <div className="flex flex-col gap-2">
+                                <p className="text-[17px] font-light text-[#222944]/70 dark:text-[#BCC5DC]/70 leading-relaxed tracking-tight">
+                                    {comp.desc}
                                 </p>
                             </div>
                         </div>
                     ))}
                 </div>
 
-                {/* SECCIÓN ECOSISTEMA UNIFY */}
-                <div className="flex flex-col gap-6 border-t border-white/20 dark:border-transparent pt-20 -mx-6 px-6 bg-white dark:bg-[#222944]">
-                    <div className="flex flex-col mb-6">
-                        <div className="w-full h-[1px] bg-[#222944]/15 dark:bg-[#BCC5DC]/15 mb-10" />
-                        <h2 className="text-[45px] font-medium tracking-tighter text-[#222944] dark:text-[#BCC5DC] leading-none">Ecosistema Unify</h2>
-                    </div>
-                    <div className="flex flex-col gap-12">
-                        {systemModules.map((comp, idx) => {
-                            const isOpened = openedNodes[idx];
-                            return (
-                                <div
-                                    key={idx}
-                                    ref={moduleRefs.current[idx]}
-                                    className="relative w-full bg-[#f5f5f5] dark:bg-[#303A5F] border-none dark:border-white/5 p-8 flex flex-col overflow-hidden"
-                                >
-                                    {/* ID y Marcador */}
-                                    <div className={`flex justify-between items-center border-b border-transparent pb-4 mb-8 transition-opacity duration-1000 ${isOpened ? 'opacity-100' : 'opacity-30'}`}>
-                                        <span className="text-[10px] font-bold text-[#222944]/40 dark:text-[#BCC5DC]/60 tracking-[0.3em]">{comp.id}</span>
-                                        <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#222944]/30 dark:text-[#BCC5DC]/50">{comp.short}</span>
-                                    </div>
-
-                                    {/* Imagen Superior */}
-                                    <div className="relative w-full aspect-[16/9] overflow-hidden bg-white/50 dark:bg-[#222944]/150">
-                                        <img
-                                            src={comp.img}
-                                            alt={comp.t1}
-                                            className={`w-full h-full object-cover grayscale dark:invert transition-all duration-1000 ${isOpened ? 'brightness-100 scale-100' : 'brightness-50 scale-110'}`}
-                                        />
-                                    </div>
-
-                                    {/* Contenido que emerge */}
-                                    <div
-                                        className={`grid transition-[grid-template-rows,opacity,transform] duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] ${isOpened ? 'grid-rows-[1fr] opacity-100 translate-y-0' : 'grid-rows-[0fr] opacity-0 translate-y-[-20px]'}`}
-                                    >
-                                        <div className="overflow-hidden">
-                                            <div className="pt-10 flex flex-col gap-8">
-                                                <h4 className="text-[42px] font-black tracking-tighter uppercase leading-[0.85] text-[#222944] dark:text-[#BCC5DC]">
-                                                    {comp.t1} <br />
-                                                    {comp.t2}
-                                                </h4>
-
-                                                <p className="text-[17px] font-light leading-relaxed text-[#222944]/70 dark:text-[#BCC5DC]/90">
-                                                    {comp.desc}
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    {/* Etiquetas Inferiores */}
-                                    <div className="flex flex-col mt-8">
-                                        <div className="w-full border-t border-transparent pt-4 flex justify-between items-center transition-opacity duration-1000">
-                                            <div className={`flex flex-col transition-all duration-1000 ${isOpened ? 'opacity-100' : 'opacity-30'}`}>
-                                                <span className="text-[9px] font-bold text-[#222944]/40 dark:text-[#BCC5DC]/60 tracking-[0.3em] uppercase">Status // Encrypted</span>
-                                            </div>
-                                            <div className={`flex flex-col transition-all duration-1000 ${isOpened ? 'opacity-100' : 'opacity-30'}`}>
-                                                <span className="text-[9px] font-bold text-[#222944]/30 dark:text-[#BCC5DC]/50 tracking-[0.2em] uppercase">Verified System</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            );
-                        })}
-                    </div>
-                </div>
-
                 {/* SECCIÓN SOLUCIONES */}
-                <div className="flex flex-col gap-6 border-t border-white/20 dark:border-transparent pt-20 pb-12 -mx-6 px-6 bg-white dark:bg-[#222944]">
-                    <div className="flex flex-col gap-6">
-                        <div className="w-full h-[1px] bg-[#222944]/15 dark:bg-[#BCC5DC]/15 mb-6" />
-                        <div className="flex justify-between items-end mb-6">
-                            <h2 className="text-[45px] font-medium tracking-tighter text-[#222944] dark:text-[#BCC5DC] leading-none m-0">Soluciones</h2>
-                            <div className="flex gap-4">
-                                <button
-                                    onClick={() => scrollSolutions('left')}
-                                    className="w-[43px] h-[43px] border border-[#222944] dark:border-[#BCC5DC] flex items-center justify-center active:bg-black transition-all duration-300 group/btn"
-                                    aria-label="Anterior"
-                                >
-                                    <ChevronLeft size={22} className="text-[#222944] dark:text-[#BCC5DC] group-active/btn:text-white" />
-                                </button>
-                                <button
-                                    onClick={() => scrollSolutions('right')}
-                                    className="w-[43px] h-[43px] border border-[#222944] dark:border-[#BCC5DC] flex items-center justify-center active:bg-black transition-all duration-300 group/btn"
-                                    aria-label="Siguiente"
-                                >
-                                    <ChevronRight size={22} className="text-[#222944] dark:text-[#BCC5DC] group-active/btn:text-white" />
-                                </button>
-                            </div>
-                        </div>
+                <div className="flex flex-col pt-20 pb-12 -mx-6 bg-white dark:bg-[#1B2136]">
+                    <div className="flex flex-col px-6">
+                        <div className="w-full h-[1px] bg-[#222944]/15 dark:bg-[#BCC5DC]/15 mb-2" />
                     </div>
-                    <div className="relative group">
-                        <div
-                            ref={solutionsScrollRef}
-                            onScroll={handleCarouselScroll}
-                            className="flex overflow-x-auto snap-x snap-mandatory gap-0 no-scrollbar -mx-6 pb-6"
-                        >
-                            {solutions.map((s, idx) => (
-                                <div key={idx} className="w-screen flex-shrink-0 snap-center px-6">
-                                    <div className="bg-[#f5f5f5] dark:bg-[#303A5F] border border-white/5 p-8 flex flex-col gap-8 min-h-[500px] h-full">
-                                        <h3 className="text-3xl font-black uppercase tracking-tighter text-[#222944] dark:text-white leading-none">
-                                            {s.title}
-                                        </h3>
+                    <div className="flex flex-col">
+                        {solutionsMobileData.map((sol, idx) => (
+                            <div key={idx} className="flex flex-col pt-10 pb-16 px-6 border-b border-[#222944]/5 dark:border-[#BCC5DC]/5 last:border-b-0 border-t-0 border-x-0">
 
-                                        <div className="w-full aspect-video overflow-hidden bg-white/10 dark:bg-[#222944]/10 shrink-0">
-                                            <img
-                                                src={s.img}
-                                                alt={s.title}
-                                                className="w-full h-full object-cover grayscale dark:invert brightness-90 active:grayscale-0 transition-all duration-700"
-                                            />
+                                {/* 1. Full Bleed Title & Tagline */}
+                                <div className="mb-8">
+                                    <h3 className="text-[44px] font-light text-[#222944] dark:text-[#BCC5DC] tracking-tighter leading-[1.0] mb-4">
+                                        {sol.title}
+                                    </h3>
+
+                                </div>
+
+                                {/* 2. Exact Desktop Social Proof */}
+                                <div className="flex flex-row items-center gap-6 mb-8">
+                                    <div className="flex -space-x-4">
+                                        <div className="w-12 h-12 rounded-full border-[1px] border-[#222944]/30 dark:border-[#BCC5DC]/30 relative z-0 flex items-center justify-center p-1">
+                                            <div className="w-full h-full rounded-full border-[1px] border-[#222944]/40 dark:border-[#BCC5DC]/40 pattern-concentric" />
                                         </div>
-
-                                        <div className="flex flex-col gap-6 flex-grow justify-between">
-                                            <p className="text-[12px] font-light leading-relaxed text-[#222944]/70 dark:text-white/70">
-                                                {s.desc}
-                                            </p>
-
-                                            <div className="mt-4 flex justify-end">
-                                                <Link
-                                                    to="/waitlist"
-                                                    className="inline-flex items-center gap-2 group p-2 -mr-2 active:opacity-50 transition-opacity"
-                                                >
-                                                    <span className="text-[11px] font-bold uppercase tracking-[0.4em] text-[#222944] dark:text-white">Conectar</span>
-                                                    <ChevronRight size={18} className="text-[#222944] dark:text-white group-active:translate-x-1 transition-transform" />
-                                                </Link>
-                                            </div>
+                                        <div className="w-12 h-12 rounded-full bg-[#222944]/5 dark:bg-[#BCC5DC]/5 relative z-10 border border-white dark:border-[#1B2136] backdrop-blur-sm" />
+                                        <div className="w-12 h-12 rounded-full bg-[#222944] dark:bg-[#BCC5DC] flex items-center justify-center relative z-20 border-2 border-white dark:border-[#1B2136] shadow-md">
+                                            <ArrowRight strokeWidth={2} className="w-4 h-4 text-white dark:text-[#222944] -rotate-45" />
+                                        </div>
+                                    </div>
+                                    <div className="flex flex-row gap-5 items-center">
+                                        <div className="flex flex-col">
+                                            <span className="text-[28px] font-light tracking-tighter text-[#222944] dark:text-[#BCC5DC] leading-none mb-0.5">
+                                                {idx === 0 ? '+750' : '+450'}
+                                            </span>
+                                            <span className="text-[8px] font-bold uppercase tracking-widest text-[#222944]/40 dark:text-[#BCC5DC]/40">
+                                                CONECTORES
+                                            </span>
+                                        </div>
+                                        <div className="flex flex-col">
+                                            <span className="text-[28px] font-light tracking-tighter text-[#222944] dark:text-[#BCC5DC] leading-none mb-0.5">
+                                                {idx === 0 ? '1645' : '98%'}
+                                            </span>
+                                            <span className="text-[8px] font-bold uppercase tracking-widest text-[#222944]/40 dark:text-[#BCC5DC]/40">
+                                                Data Points
+                                            </span>
                                         </div>
                                     </div>
                                 </div>
-                            ))}
-                        </div>
 
-                        {/* Dots de Navegación (Activos) */}
-                        <div className="flex justify-center gap-2.5 mt-4 pb-12">
-                            {solutions.map((_, i) => (
-                                <div
-                                    key={i}
-                                    className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${scrollIndex === i ? 'bg-[#303A5F] dark:bg-[#BCC5DC] scale-125' : 'bg-[#222944]/10 dark:bg-[#BCC5DC]/10'}`}
-                                />
-                            ))}
-                        </div>
+                                {/* 3. Contextual Details */}
+                                <div className="mb-10 w-full sm:w-[85%] pr-4">
+                                    <p className="text-[17px] font-light leading-relaxed text-[#222944]/70 dark:text-[#BCC5DC]/70">
+                                        {sol.desc}
+                                    </p>
+                                </div>
+
+                                {/* 4. Full-Bleed Bento Cards (Desktop Replica) */}
+                                <div className="flex flex-col mt-4 gap-[2px]">
+                                    {idx === 0 ? (
+                                        <>
+                                            {/* Tarjeta B: Statistics (TOP for Unify) — Stretch-to-fullscreen */}
+
+                                            {/* Collapsed card — always in DOM, hidden via visibility when overlay is active */}
+                                            <div
+                                                ref={unifyCardRef}
+                                                className="bg-[#F3F5F7] dark:bg-[#303A5F] p-6 flex flex-col overflow-hidden relative -mx-6 h-[460px]"
+                                                style={{ visibility: isUnifyStudyExpanded ? 'hidden' : 'visible' }}
+                                            >
+                                                <button onClick={handleUnifyChartExpand} className="absolute top-5 right-5 group cursor-pointer pointer-events-auto z-10">
+                                                    <ArrowUpRight strokeWidth={1} className="w-6 h-6 text-[#222944] dark:text-[#BCC5DC] transition-all duration-300 group-hover:-translate-y-1 group-hover:translate-x-1" />
+                                                </button>
+                                                <motion.div className="mb-6 mt-1" animate={{ opacity: showUnifyBars ? 1 : 0, y: showUnifyBars ? 0 : -12 }} transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1], delay: showUnifyBars ? (isCollapseReturn ? 0.1 : 0.15) : 0 }}>
+                                                    <span className="text-[36px] font-light tracking-tight text-[#222944] dark:text-[#BCC5DC] leading-[1.1] block">
+                                                        +23—30% <br />
+                                                        en Ingresos
+                                                    </span>
+                                                </motion.div>
+                                                <div className="flex-1 flex gap-1.5 items-end min-h-0 relative">
+                                                    {[
+                                                        { top: 30, bottom: 9, v: '45%' },
+                                                        { top: 34, bottom: 10, v: '52%' },
+                                                        { top: 43, bottom: 13, v: '68%' },
+                                                        { top: 38, bottom: 12, v: '62%' },
+                                                        { top: 55, bottom: 13, v: '78%' },
+                                                        { top: 49, bottom: 15, v: '72%' },
+                                                        { top: 60, bottom: 13, v: '85%' },
+                                                        { top: 53, bottom: 12, v: '76%' },
+                                                        { top: 64, bottom: 13, v: '90%' },
+                                                        { top: 56, bottom: 14, v: '88%' },
+                                                        { top: 70, bottom: 12, v: '96%' },
+                                                        { top: 68, bottom: 15, v: '95%' },
+                                                    ].map((d, i) => (
+                                                        <div key={i} className="flex-1 flex flex-col h-full">
+                                                            <div className="flex-1 w-full relative flex flex-col justify-end">
+                                                                <motion.span
+                                                                    className="absolute left-1/2 -translate-x-1/2 text-[8px] font-medium text-[#222944]/45 dark:text-[#BCC5DC]/80 whitespace-nowrap"
+                                                                    style={{ bottom: `calc(${d.top + d.bottom}% + 8px)` }}
+                                                                    animate={{ opacity: showUnifyBars ? 1 : 0, y: showUnifyBars ? 0 : 10 }}
+                                                                    transition={{ duration: 0.3, delay: showUnifyBars ? (isCollapseReturn ? 0.35 + i * 0.025 : 0.8 + i * 0.04) : (11 - i) * 0.015, ease: [0.34, 1.56, 0.64, 1] }}
+                                                                >
+                                                                    {d.v}
+                                                                </motion.span>
+                                                                <motion.div
+                                                                    className="w-full bg-[#30385F]/20 dark:bg-[#BCC5DC]/[0.18]"
+                                                                    animate={{ height: showUnifyBars ? `${d.bottom}%` : '0%' }}
+                                                                    transition={{ duration: 0.32, delay: showUnifyBars ? (isCollapseReturn ? 0.15 + i * 0.025 : 0.4 + i * 0.04) : (11 - i) * 0.015, ease: [0.25, 0.1, 0.25, 1] }}
+                                                                />
+                                                                <motion.div
+                                                                    className="w-full bg-[#30385F]/90 dark:bg-[#BCC5DC]"
+                                                                    animate={{ height: showUnifyBars ? `${d.top}%` : '0%' }}
+                                                                    transition={{ duration: 0.35, delay: showUnifyBars ? (isCollapseReturn ? 0.17 + i * 0.025 : 0.5 + i * 0.04) : (11 - i) * 0.015, ease: [0.25, 0.1, 0.25, 1] }}
+                                                                />
+                                                            </div>
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            </div>
+
+                                            {/* Expanded card — stretches from original rect to fullscreen */}
+                                            <AnimatePresence>
+                                                {isUnifyStudyExpanded && (
+                                                    <motion.div
+                                                        className="fixed z-[100] bg-[#F3F5F7] dark:bg-[#303A5F] overflow-hidden pointer-events-auto"
+                                                        initial={{
+                                                            top: unifyCardOrigin?.top ?? 400,
+                                                            left: unifyCardOrigin?.left ?? 0,
+                                                            width: unifyCardOrigin?.width ?? '100%',
+                                                            height: unifyCardOrigin?.height ?? 460,
+                                                        }}
+                                                        animate={{
+                                                            top: 60,
+                                                            left: 0,
+                                                            width: '100vw',
+                                                            height: 'calc(100dvh - 60px)',
+                                                            transition: { duration: 0.45, ease: [0.76, 0, 0.24, 1] }
+                                                        }}
+                                                        exit={{
+                                                            top: unifyCardOrigin?.top ?? 400,
+                                                            left: unifyCardOrigin?.left ?? 0,
+                                                            width: unifyCardOrigin?.width ?? '100%',
+                                                            height: unifyCardOrigin?.height ?? 460,
+                                                            transition: { duration: 0.4, ease: [0.76, 0, 0.24, 1] }
+                                                        }}
+                                                    >
+                                                        <div className="w-full h-full overflow-y-auto overscroll-contain pt-14 px-6 pb-0 flex flex-col">
+                                                            <div className="flex-1 flex flex-col min-h-full pb-16">
+                                                            {/* Close Button */}
+                                                            <motion.button
+                                                                onClick={handleUnifyChartCollapse}
+                                                                className="absolute top-8 right-6 group cursor-pointer z-10"
+                                                                initial={{ opacity: 0 }}
+                                                                animate={{ opacity: 1, transition: { duration: 0.2, delay: 0.3 } }}
+                                                                exit={{ opacity: 0, transition: { duration: 0.12, delay: 0 } }}
+                                                            >
+                                                                <X strokeWidth={1} className="w-6 h-6 text-[#222944] dark:text-[#BCC5DC]" />
+                                                            </motion.button>
+
+                                                            {/* Headline — slide-up reveal / slide-up exit */}
+                                                            <div className="mb-6 max-w-[600px]">
+                                                                <div className="overflow-hidden mb-4">
+                                                                    <motion.div
+                                                                        initial={{ y: '110%' }}
+                                                                        animate={{ y: '0%', transition: { duration: 0.45, delay: 0.2, ease: [0.76, 0, 0.24, 1] } }}
+                                                                        exit={{ y: '-110%', transition: { duration: 0.22, delay: 0, ease: [0.76, 0, 0.24, 1] } }}
+                                                                    >
+                                                                        <span className="text-[28px] font-light tracking-tight text-[#222944] dark:text-white leading-[1.15] block">
+                                                                            La unificación de datos y los sistemas AI—Data facultan a las organizaciones con ventajas medibles y escalables
+                                                                        </span>
+                                                                    </motion.div>
+                                                                </div>
+
+                                                                <div className="overflow-hidden">
+                                                                    <motion.div
+                                                                        initial={{ y: '110%' }}
+                                                                        animate={{ y: '0%', transition: { duration: 0.45, delay: 0.25, ease: [0.76, 0, 0.24, 1] } }}
+                                                                        exit={{ y: '-110%', transition: { duration: 0.22, delay: 0.03, ease: [0.76, 0, 0.24, 1] } }}
+                                                                    >
+                                                                        <p className="text-[14px] font-light leading-[1.6] text-[#222944]/60 dark:text-white/80">
+                                                                            El 87% de Retailers han logrado capturar mayores ingresos. Con el 97% del mercado global escalando su inversión técnica en IA, la prioridad en el sector es precisa: transformar el inventario y la demanda en activos predecibles para garantizar el dominio sobre el campo comercial.
+                                                                        </p>
+                                                                    </motion.div>
+                                                                </div>
+                                                            </div>
+
+                                                            {/* Metrics Grid — 2×2 on mobile */}
+                                                            <div className="grid grid-cols-2 gap-[1px] bg-[#222944]/10 dark:bg-[#BCC5DC]/10 mt-auto">
+                                                                {[
+                                                                    { value: '2.3X', desc: 'Las empresas con análisis unificado toman decisiones estratégicas 2.3 veces más rápido que sus competidores.' },
+                                                                    { value: '24%', desc: 'Data to Insights reportó que las empresas que adoptaron AI—Data presentaron un aumento del 23% en ingresos y un 24% en beneficios.' },
+                                                                    { value: '$1.4M', desc: 'Ahorro anual promedio reportado por empresas medianas que centralizan su ecosistema de datos.' },
+                                                                    { value: '645%', desc: 'Estudios de Nucleus Research documentan implementaciones que alcanzan un 645% de ROI, logrando recuperar la inversión total en apenas 1.9 meses.' },
+                                                                ].map((metric, i) => (
+                                                                    <div key={i} className="bg-[#F3F5F7] dark:bg-[#303A5F]">
+                                                                        <motion.div
+                                                                            className="p-5 flex flex-col justify-start h-full"
+                                                                            initial={{ y: 30, opacity: 0 }}
+                                                                            animate={{ y: 0, opacity: 1, transition: { duration: 0.4, delay: 0.32 + i * 0.06, ease: [0.76, 0, 0.24, 1] } }}
+                                                                            exit={{ y: 20, opacity: 0, transition: { duration: 0.18, delay: (3 - i) * 0.025, ease: [0.4, 0, 0.2, 1] } }}
+                                                                        >
+                                                                            <div className="mb-3">
+                                                                                <span className="text-[28px] font-light tracking-[-0.04em] text-[#222944] dark:text-white/80 leading-[1.1] block">
+                                                                                    {metric.value}
+                                                                                </span>
+                                                                            </div>
+                                                                            <p className="text-[12px] font-light leading-relaxed text-[#222944]/60 dark:text-white/80">
+                                                                                {metric.desc}
+                                                                            </p>
+                                                                        </motion.div>
+                                                                    </div>
+                                                                ))}
+                                                            </div>
+                                                            </div>
+                                                        </div>
+                                                    </motion.div>
+                                                )}
+                                            </AnimatePresence>
+
+                                            {/* Tarjeta C: Actions (BOTTOM for Unify) */}
+                                            <div ref={gosCardRef} className="bg-[#F3F5F7] dark:bg-[#303A5F] p-6 lg:p-8 flex flex-col justify-between overflow-hidden relative -mx-6 h-[280px]">
+                                                <button onClick={handleGosExpand} className="absolute top-5 right-5 group cursor-pointer pointer-events-auto z-10 text-[#222944] dark:text-[#BCC5DC]">
+                                                    <ArrowUpRight strokeWidth={1} className="w-6 h-6 transition-all duration-300 group-hover:-translate-y-1 group-hover:translate-x-1" />
+                                                </button>
+                                                <motion.div animate={{ opacity: gosFeaturesVisible ? 1 : 0, y: gosFeaturesVisible ? 0 : -8 }} transition={{ duration: 0.25, ease: [0.4, 0, 0.2, 1], delay: gosFeaturesVisible ? 0.15 : 0 }}>
+                                                    <span className="text-[24px] font-normal leading-[1.2] text-[#222944] dark:text-[#BCC5DC] mb-3 block">
+                                                        Sistema Operativo de <br />
+                                                        Crecimiento — GOS
+                                                    </span>
+                                                </motion.div>
+                                                <div className="flex flex-col gap-3.5 relative mb-3">
+                                                    {sol.features.map((f, i) => (
+                                                        <motion.div key={f} className="flex items-center gap-2.5" animate={{ x: gosFeaturesVisible ? 0 : -15, opacity: gosFeaturesVisible ? 1 : 0 }} transition={{ duration: 0.25, ease: [0.4, 0, 0.2, 1], delay: gosFeaturesVisible ? 0.3 + i * 0.05 : (sol.features.length - 1 - i) * 0.02 }}>
+                                                            <CornerDownRight className="w-4 h-4 text-[#222944]/40 dark:text-[#BCC5DC]/40" />
+                                                            <span className="text-[19px] font-light text-[#222944]/70 dark:text-[#BCC5DC]/70 leading-none">
+                                                                {f}
+                                                            </span>
+                                                        </motion.div>
+                                                    ))}
+                                                </div>
+
+                                                <AnimatePresence>
+                                                    {isGosExpanded && (
+                                                        <motion.div
+                                                            className="fixed z-[100] bg-[#F3F5F7] dark:bg-[#303A5F] overflow-hidden pointer-events-auto"
+                                                            initial={{
+                                                                top: gosCardOrigin?.top ?? 400,
+                                                                left: gosCardOrigin?.left ?? 0,
+                                                                width: gosCardOrigin?.width ?? '100%',
+                                                                height: gosCardOrigin?.height ?? 280,
+                                                            }}
+                                                            animate={{
+                                                                top: 60,
+                                                                left: 0,
+                                                                width: '100vw',
+                                                                height: 'calc(100dvh - 60px)',
+                                                                transition: { duration: 0.45, ease: [0.76, 0, 0.24, 1] }
+                                                            }}
+                                                            exit={{
+                                                                top: gosCardOrigin?.top ?? 400,
+                                                                left: gosCardOrigin?.left ?? 0,
+                                                                width: gosCardOrigin?.width ?? '100%',
+                                                                height: gosCardOrigin?.height ?? 280,
+                                                                opacity: 0,
+                                                                transition: { duration: 0.4, delay: 0.12, ease: [0.76, 0, 0.24, 1] }
+                                                            }}
+                                                        >
+                                                            <div className="w-full h-full overflow-y-auto overscroll-contain pt-14 px-6 pb-16">
+                                                                <motion.button
+                                                                    onClick={handleGosCollapse}
+                                                                    className="absolute top-8 right-6 group cursor-pointer z-10"
+                                                                    initial={{ opacity: 0 }}
+                                                                    animate={{ opacity: 1, transition: { duration: 0.2, delay: 0.3 } }}
+                                                                    exit={{ opacity: 0, transition: { duration: 0.12, delay: 0 } }}
+                                                                >
+                                                                    <X strokeWidth={1} className="w-6 h-6 text-[#222944] dark:text-[#BCC5DC]" />
+                                                                </motion.button>
+
+                                                                <div className="mb-10 max-w-[600px]">
+                                                                    <div className="overflow-hidden mb-2">
+                                                                        <motion.div
+                                                                            initial={{ y: '110%' }}
+                                                                            animate={{ y: '0%', transition: { duration: 0.45, delay: 0.2, ease: [0.76, 0, 0.24, 1] } }}
+                                                                            exit={{ y: '-110%', transition: { duration: 0.22, delay: 0, ease: [0.76, 0, 0.24, 1] } }}
+                                                                        >
+                                                                            <span className="text-[28px] font-normal tracking-tight text-[#222944] dark:text-white leading-[1.15] block">
+                                                                                Unify: Sistema Operativo <br />
+                                                                                de Crecimiento — GOS
+                                                                            </span>
+                                                                        </motion.div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div className="flex flex-col gap-8">
+                                                                    {systemActions.map((level, i) => (
+                                                                        <motion.div
+                                                                            key={i}
+                                                                            className="border-t border-[#222944]/10 dark:border-[#BCC5DC]/10 pt-6"
+                                                                            initial={{ y: 30, opacity: 0 }}
+                                                                            animate={{ y: 0, opacity: 1, transition: { duration: 0.4, delay: 0.32 + i * 0.06, ease: [0.76, 0, 0.24, 1] } }}
+                                                                            exit={{ y: 20, opacity: 0, transition: { duration: 0.18, delay: (systemActions.length - 1 - i) * 0.025, ease: [0.4, 0, 0.2, 1] } }}
+                                                                        >
+                                                                            <div className="mb-4">
+                                                                                <span className="text-[20px] font-normal text-[#222944] dark:text-white block mb-2">
+                                                                                    {level.title}
+                                                                                </span>
+                                                                                <p className="text-[14px] font-light leading-relaxed text-[#222944]/70 dark:text-white/80">
+                                                                                    {level.objective}
+                                                                                </p>
+                                                                            </div>
+                                                                            <div className="flex flex-col gap-4">
+                                                                                {level.actions.map((action, j) => {
+                                                                                    const isExpanded = expandedActionId === action.id;
+                                                                                    return (
+                                                                                        <div
+                                                                                            key={j}
+                                                                                            className="bg-[#222944]/5 dark:bg-[#3E4B7A] flex flex-col cursor-pointer transition-colors"
+                                                                                            onClick={() => setExpandedActionId(isExpanded ? null : action.id)}
+                                                                                        >
+                                                                                            <div className="px-4 py-4 flex items-center justify-between">
+                                                                                                <span className="text-[15px] font-medium text-[#222944] dark:text-white">
+                                                                                                    {action.name}
+                                                                                                </span>
+                                                                                                <div className="text-[#222944]/40 dark:text-[#BCC5DC]/40">
+                                                                                                    {isExpanded ? <Minus className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <AnimatePresence initial={false}>
+                                                                                                {isExpanded && (
+                                                                                                    <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }} className="overflow-hidden">
+                                                                                                        <div className="px-4 pb-4 flex flex-col gap-2">
+                                                                                                            <p className="text-[13px] font-light leading-relaxed text-[#222944]/80 dark:text-white/90">
+                                                                                                                {action.action}
+                                                                                                            </p>
+                                                                                                            <div className="mt-1 pt-2 border-t border-[#222944]/10 dark:border-white/10">
+                                                                                                                <span className="text-[12px] font-light text-[#222944]/70 dark:text-white/80">
+                                                                                                                    <span className="font-medium mr-1 text-[#222944] dark:text-white">Resultado:</span>{action.result}
+                                                                                                                </span>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    </motion.div>
+                                                                                                )}
+                                                                                            </AnimatePresence>
+                                                                                        </div>
+                                                                                    );
+                                                                                })}
+                                                                            </div>
+                                                                        </motion.div>
+                                                                    ))}
+                                                                </div>
+                                                            </div>
+                                                        </motion.div>
+                                                    )}
+                                                </AnimatePresence>
+                                            </div>
+                                        </>
+                                    ) : (
+                                        <>
+                                            {/* Tarjeta B: Statistics (TOP for Apollo) — Stretch-to-fullscreen */}
+
+                                            {/* Collapsed card — always in DOM, hidden via visibility when overlay is active */}
+                                            <div
+                                                ref={apolloCardRef}
+                                                className="bg-[#F3F5F7] dark:bg-[#303A5F] p-6 flex flex-col overflow-hidden relative -mx-6 h-[460px]"
+                                                style={{ visibility: isApolloChartExpanded ? 'hidden' : 'visible' }}
+                                            >
+                                                <button onClick={handleApolloChartExpand} className="absolute top-5 right-5 group cursor-pointer pointer-events-auto z-10">
+                                                    <ArrowUpRight strokeWidth={1} className="w-6 h-6 text-[#222944] dark:text-[#BCC5DC] transition-all duration-300 group-hover:-translate-y-1 group-hover:translate-x-1" />
+                                                </button>
+                                                <motion.div className="mb-6 mt-1" animate={{ opacity: showApolloDots ? 1 : 0, y: showApolloDots ? 0 : -12 }} transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1], delay: showApolloDots ? (isApolloCollapseReturn ? 0.1 : 0.15) : 0 }}>
+                                                    <span className="text-[36px] font-light tracking-tight text-[#222944] dark:text-[#BCC5DC] leading-[1.1] block">
+                                                        18—20% de <br />
+                                                        Crecimiento
+                                                    </span>
+                                                </motion.div>
+                                                <div className="flex-1 w-full relative flex flex-col min-h-0 mt-2">
+                                                    <div className="flex-1 relative w-full h-full">
+                                                        <div className="absolute inset-0 flex gap-[3px] items-end w-full h-full pb-2">
+                                                            {[9, 9, 10, 10, 11, 11, 11, 10, 10, 10, 9, 9, 9, 9, 9, 10, 10, 10, 11, 11, 12, 12, 13, 13, 14, 14, 15, 15, 16, 16, 17, 17, 18, 19, 19, 20].map((activeDots, colIndex) => (
+                                                                <div key={colIndex} className="flex-1 flex flex-col-reverse justify-start gap-[2px] items-center">
+                                                                    {[...Array(20)].map((_, rowIndex) => {
+                                                                        const isActive = rowIndex < activeDots;
+                                                                        const totalCols = 36;
+                                                                        // Entry on first load: columns left→right, dots bottom→top
+                                                                        // Entry on collapse-return: visible stagger so user sees construction
+                                                                        const entryDelay = isApolloCollapseReturn
+                                                                            ? 0.05 + (colIndex * 0.025) + (rowIndex * 0.015)
+                                                                            : 0.2 + (colIndex * 0.02) + (rowIndex * 0.012);
+                                                                        // Exit: columns right→left, dots top→bottom — visible dissolve
+                                                                        const exitDelay = (totalCols - 1 - colIndex) * 0.015 + (activeDots - 1 - Math.min(rowIndex, activeDots - 1)) * 0.008;
+                                                                        return (
+                                                                            <motion.div
+                                                                                key={rowIndex}
+                                                                                className={`w-full aspect-square rounded-none ${isActive ? 'bg-[#30385F]/90 dark:bg-[#BCC5DC]' : 'bg-transparent'}`}
+                                                                                initial={{ opacity: 0 }}
+                                                                                animate={{ opacity: showApolloDots ? 1 : 0 }}
+                                                                                transition={{ duration: 0.15, delay: showApolloDots ? entryDelay : exitDelay, ease: 'easeOut' }}
+                                                                            />
+                                                                        );
+                                                                    })}
+                                                                </div>
+                                                            ))}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            {/* Expanded card — stretches from original rect to fullscreen */}
+                                            <AnimatePresence>
+                                                {isApolloChartExpanded && (
+                                                    <motion.div
+                                                        className="fixed z-[100] bg-[#F3F5F7] dark:bg-[#303A5F] overflow-hidden pointer-events-auto"
+                                                        initial={{
+                                                            top: apolloCardOrigin?.top ?? 400,
+                                                            left: apolloCardOrigin?.left ?? 0,
+                                                            width: apolloCardOrigin?.width ?? '100%',
+                                                            height: apolloCardOrigin?.height ?? 460,
+                                                        }}
+                                                        animate={{
+                                                            top: 60,
+                                                            left: 0,
+                                                            width: '100vw',
+                                                            height: 'calc(100dvh - 60px)',
+                                                            transition: { duration: 0.45, ease: [0.76, 0, 0.24, 1] }
+                                                        }}
+                                                        exit={{
+                                                            top: apolloCardOrigin?.top ?? 400,
+                                                            left: apolloCardOrigin?.left ?? 0,
+                                                            width: apolloCardOrigin?.width ?? '100%',
+                                                            height: apolloCardOrigin?.height ?? 460,
+                                                            transition: { duration: 0.4, ease: [0.76, 0, 0.24, 1] }
+                                                        }}
+                                                    >
+                                                        <div ref={apolloScrollRef} className="w-full h-full overflow-y-auto overscroll-contain pt-14 px-6 pb-0 flex flex-col">
+                                                            <div className="flex-1 flex flex-col min-h-full pb-16">
+                                                            {/* Close Button */}
+                                                            <motion.button
+                                                                onClick={handleApolloChartCollapse}
+                                                                className="absolute top-8 right-6 group cursor-pointer z-10"
+                                                                initial={{ opacity: 0 }}
+                                                                animate={{ opacity: 1, transition: { duration: 0.2, delay: 0.3 } }}
+                                                                exit={{ opacity: 0, transition: { duration: 0.12, delay: 0 } }}
+                                                            >
+                                                                <X strokeWidth={1} className="w-6 h-6 text-[#222944] dark:text-[#BCC5DC]" />
+                                                            </motion.button>
+
+                                                            {/* Headline — slide-up reveal / slide-up exit */}
+                                                            <div className="mb-6 max-w-[600px]">
+                                                                <div className="overflow-hidden mb-4">
+                                                                    <motion.div
+                                                                        initial={{ y: '110%' }}
+                                                                        animate={{ y: '0%', transition: { duration: 0.45, delay: 0.2, ease: [0.76, 0, 0.24, 1] } }}
+                                                                        exit={{ y: '-110%', transition: { duration: 0.22, delay: 0, ease: [0.76, 0, 0.24, 1] } }}
+                                                                    >
+                                                                        <span className="text-[28px] font-light tracking-tight text-[#222944] dark:text-white leading-[1.15] block">
+                                                                            Optimización garantizada en <br />
+                                                                            métricas de crecimiento
+                                                                        </span>
+                                                                    </motion.div>
+                                                                </div>
+
+                                                                <div className="overflow-hidden">
+                                                                    <motion.div
+                                                                        initial={{ y: '110%' }}
+                                                                        animate={{ y: '0%', transition: { duration: 0.45, delay: 0.25, ease: [0.76, 0, 0.24, 1] } }}
+                                                                        exit={{ y: '-110%', transition: { duration: 0.22, delay: 0.03, ease: [0.76, 0, 0.24, 1] } }}
+                                                                    >
+                                                                        <p className="text-[14px] font-light leading-[1.6] text-[#222944]/60 dark:text-white/80">
+                                                                            Consolidamos una estructura de crecimiento que transforma la complejidad técnica en una ventaja institucional absoluta y medible, mediante la implementación de protocolos cuidadosamente diseñados. Centhropy asume la carga estratégica y operativa de Apollo Protocol para blindar la generación de resultados.
+                                                                        </p>
+                                                                    </motion.div>
+                                                                </div>
+                                                            </div>
+                                                            <div className="mt-8" />
+
+                                                            {/* Metrics Grid — 2×2 on mobile */}
+                                                            <div className="grid grid-cols-2 gap-[1px] bg-[#222944]/10 dark:bg-[#BCC5DC]/10 mt-auto">
+                                                                {[
+                                                                    { value: '20—30%', desc: 'Expansión directa de rentabilidad real después de inversión y costos operativos de Apollo Protocol.' },
+                                                                    { value: '+40%', desc: 'Liberación de flujo de caja mediante estrategias de optimización y liquidación técnica de stock de baja rotación.' },
+                                                                    { value: '+50%', desc: 'Transferencia total de inteligencia y gestión, adquiriendo mayor agilidad operativa.' },
+                                                                    { value: '> 2:1', desc: 'Garantía de que cada dólar invertido en pauta genera al menos 2 veces su valor en el tiempo.' },
+                                                                ].map((metric, i) => (
+                                                                    <div key={i} className="bg-[#F3F5F7] dark:bg-[#303A5F]">
+                                                                        <motion.div
+                                                                            className="p-5 flex flex-col justify-start h-full"
+                                                                            initial={{ y: 30, opacity: 0 }}
+                                                                            animate={{ y: 0, opacity: 1, transition: { duration: 0.4, delay: 0.32 + i * 0.06, ease: [0.76, 0, 0.24, 1] } }}
+                                                                            exit={{ y: 20, opacity: 0, transition: { duration: 0.18, delay: (3 - i) * 0.025, ease: [0.4, 0, 0.2, 1] } }}
+                                                                        >
+                                                                            <div className="mb-3">
+                                                                                <span className="text-[28px] font-light tracking-[-0.04em] text-[#222944] dark:text-white/80 leading-[1.1] block">
+                                                                                    {metric.value}
+                                                                                </span>
+                                                                            </div>
+                                                                            <p className="text-[12px] font-light leading-relaxed text-[#222944]/60 dark:text-white/80">
+                                                                                {metric.desc}
+                                                                            </p>
+                                                                        </motion.div>
+                                                                    </div>
+                                                                ))}
+                                                            </div>
+                                                            </div>
+                                                        </div>
+                                                    </motion.div>
+                                                )}
+                                            </AnimatePresence>
+
+                                            {/* Tarjeta C: Actions (BOTTOM for Apollo) — Expandable */}
+                                            <div ref={apolloActionsCardRef} className="bg-[#F3F5F7] dark:bg-[#303A5F] p-6 lg:p-8 flex flex-col justify-between overflow-hidden relative -mx-6 h-[280px]">
+                                                <button onClick={handleApolloActionsExpand} className="absolute top-5 right-5 group cursor-pointer pointer-events-auto z-10 text-[#222944] dark:text-[#BCC5DC]">
+                                                    <ArrowUpRight strokeWidth={1} className="w-6 h-6 transition-all duration-300 group-hover:-translate-y-1 group-hover:translate-x-1" />
+                                                </button>
+                                                <motion.div animate={{ opacity: apolloActionsFeaturesVisible ? 1 : 0, y: apolloActionsFeaturesVisible ? 0 : -8 }} transition={{ duration: 0.25, ease: [0.4, 0, 0.2, 1], delay: apolloActionsFeaturesVisible ? 0.15 : 0 }}>
+                                                    <span className="text-[24px] font-normal leading-[1.2] text-[#222944] dark:text-[#BCC5DC] mb-3 block">
+                                                        Solución Gestionada <br />
+                                                        por Centhropy
+                                                    </span>
+                                                </motion.div>
+                                                <div className="flex flex-col gap-3.5 relative mb-3">
+                                                    {sol.features.map((f, i) => (
+                                                        <motion.div key={f} className="flex items-center gap-2.5" animate={{ x: apolloActionsFeaturesVisible ? 0 : -15, opacity: apolloActionsFeaturesVisible ? 1 : 0 }} transition={{ duration: 0.25, ease: [0.4, 0, 0.2, 1], delay: apolloActionsFeaturesVisible ? 0.3 + i * 0.05 : (sol.features.length - 1 - i) * 0.02 }}>
+                                                            <CornerDownRight className="w-4 h-4 text-[#222944]/40 dark:text-[#BCC5DC]/40" />
+                                                            <span className="text-[19px] font-light text-[#222944]/70 dark:text-[#BCC5DC]/70 leading-none">
+                                                                {f}
+                                                            </span>
+                                                        </motion.div>
+                                                    ))}
+                                                </div>
+
+                                                <AnimatePresence>
+                                                    {isApolloActionsExpanded && (
+                                                        <motion.div
+                                                            className="fixed z-[100] bg-[#F3F5F7] dark:bg-[#303A5F] overflow-hidden pointer-events-auto"
+                                                            initial={{
+                                                                top: apolloActionsCardOrigin?.top ?? 400,
+                                                                left: apolloActionsCardOrigin?.left ?? 0,
+                                                                width: apolloActionsCardOrigin?.width ?? '100%',
+                                                                height: apolloActionsCardOrigin?.height ?? 280,
+                                                            }}
+                                                            animate={{
+                                                                top: 60,
+                                                                left: 0,
+                                                                width: '100vw',
+                                                                height: 'calc(100dvh - 60px)',
+                                                                transition: { duration: 0.45, ease: [0.76, 0, 0.24, 1] }
+                                                            }}
+                                                            exit={{
+                                                                top: apolloActionsCardOrigin?.top ?? 400,
+                                                                left: apolloActionsCardOrigin?.left ?? 0,
+                                                                width: apolloActionsCardOrigin?.width ?? '100%',
+                                                                height: apolloActionsCardOrigin?.height ?? 280,
+                                                                opacity: 0,
+                                                                transition: { duration: 0.4, delay: 0.12, ease: [0.76, 0, 0.24, 1] }
+                                                            }}
+                                                        >
+                                                            <div className="w-full h-full overflow-y-auto overscroll-contain pt-14 px-6 pb-16">
+                                                                <motion.button
+                                                                    onClick={handleApolloActionsCollapse}
+                                                                    className="absolute top-8 right-6 group cursor-pointer z-10"
+                                                                    initial={{ opacity: 0 }}
+                                                                    animate={{ opacity: 1, transition: { duration: 0.2, delay: 0.3 } }}
+                                                                    exit={{ opacity: 0, transition: { duration: 0.12, delay: 0 } }}
+                                                                >
+                                                                    <X strokeWidth={1} className="w-6 h-6 text-[#222944] dark:text-[#BCC5DC]" />
+                                                                </motion.button>
+
+                                                                <div className="mb-10 max-w-[600px]">
+                                                                    <div className="overflow-hidden mb-2">
+                                                                        <motion.div
+                                                                            initial={{ y: '110%' }}
+                                                                            animate={{ y: '0%', transition: { duration: 0.45, delay: 0.2, ease: [0.76, 0, 0.24, 1] } }}
+                                                                            exit={{ y: '-110%', transition: { duration: 0.22, delay: 0, ease: [0.76, 0, 0.24, 1] } }}
+                                                                        >
+                                                                            <span className="text-[28px] font-normal tracking-tight text-[#222944] dark:text-white leading-[1.15] block">
+                                                                                Solución Gestionada <br />
+                                                                                por Centhropy
+                                                                            </span>
+                                                                        </motion.div>
+                                                                    </div>
+                                                                    <div className="overflow-hidden">
+                                                                        <motion.div
+                                                                            initial={{ y: '110%' }}
+                                                                            animate={{ y: '0%', transition: { duration: 0.45, delay: 0.25, ease: [0.76, 0, 0.24, 1] } }}
+                                                                            exit={{ y: '-110%', transition: { duration: 0.22, delay: 0.03, ease: [0.76, 0, 0.24, 1] } }}
+                                                                        >
+                                                                            <p className="text-[14px] font-light leading-[1.6] text-[#222944]/60 dark:text-white/80">
+                                                                                Conectar Apollo Protocol significa desplegar una capacidad de ejecución táctica gestionada por Centhropy. Transformamos la complejidad de los datos en un vector de crecimiento garantizado, operando la infraestructura técnica para que su organización lidere con agilidad en el mercado y capture oportunidades de rentabilidad.
+                                                                            </p>
+                                                                        </motion.div>
+                                                                    </div>
+                                                                </div>
+
+                                                                {/* Componentes y Procesos Integrados */}
+                                                                <div className="mb-6">
+                                                                    <motion.span
+                                                                        className="text-[11px] font-bold uppercase tracking-widest text-[#222944] dark:text-[#AABBDD] block"
+                                                                        initial={{ opacity: 0, y: 10 }}
+                                                                        animate={{ opacity: 1, y: 0, transition: { duration: 0.4, delay: 0.3, ease: [0.76, 0, 0.24, 1] } }}
+                                                                        exit={{ opacity: 0, y: -10, transition: { duration: 0.18 } }}
+                                                                    >
+                                                                        Componentes y Procesos Integrados
+                                                                    </motion.span>
+                                                                </div>
+
+                                                                <div className="flex flex-col gap-4">
+                                                                    {apolloActions.map((action, i) => {
+                                                                        const isExpanded = expandedActionId === action.id;
+                                                                        return (
+                                                                            <motion.div
+                                                                                key={action.id}
+                                                                                initial={{ y: 30, opacity: 0 }}
+                                                                                animate={{ y: 0, opacity: 1, transition: { duration: 0.4, delay: 0.32 + i * 0.05, ease: [0.76, 0, 0.24, 1] } }}
+                                                                                exit={{ y: 20, opacity: 0, transition: { duration: 0.18, delay: (apolloActions.length - 1 - i) * 0.02, ease: [0.4, 0, 0.2, 1] } }}
+                                                                            >
+                                                                                <div
+                                                                                    className="bg-[#222944]/5 dark:bg-[#3E4B7A] flex flex-col cursor-pointer transition-colors"
+                                                                                    onClick={() => setExpandedActionId(isExpanded ? null : action.id)}
+                                                                                >
+                                                                                    <div className="px-4 py-4 flex items-center justify-between">
+                                                                                        <span className="text-[15px] font-medium text-[#222944] dark:text-white">
+                                                                                            {action.name}
+                                                                                        </span>
+                                                                                        <div className="text-[#222944]/40 dark:text-[#BCC5DC]/40">
+                                                                                            {isExpanded ? <Minus className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <AnimatePresence initial={false}>
+                                                                                        {isExpanded && (
+                                                                                            <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }} className="overflow-hidden">
+                                                                                                <div className="px-4 pb-4 flex flex-col gap-2">
+                                                                                                    <p className="text-[13px] font-light leading-relaxed text-[#222944]/80 dark:text-white/90">
+                                                                                                        {action.action}
+                                                                                                    </p>
+                                                                                                </div>
+                                                                                            </motion.div>
+                                                                                        )}
+                                                                                    </AnimatePresence>
+                                                                                </div>
+                                                                            </motion.div>
+                                                                        );
+                                                                    })}
+                                                                </div>
+                                                            </div>
+                                                        </motion.div>
+                                                    )}
+                                                </AnimatePresence>
+                                            </div>
+                                        </>
+                                    )}
+                                </div>
+                            </div>
+                        ))}
                     </div>
                 </div>
 
-                <div className="bg-white dark:bg-[#222944] px-6 -mx-6">
-                    <ConnectorsSection />
+                <div className="bg-white dark:bg-[#1B2136] -mx-6">
+                    <OperationGlobe />
                 </div>
 
-                <div className="bg-white dark:bg-[#222944] -mx-6">
+                <div className="bg-white dark:bg-[#1B2136] -mx-6">
                     <OrganizationsCarousel />
                 </div>
 
-                <div className="bg-white dark:bg-[#222944] text-[#222944] dark:text-[#BCC5DC] -mx-6 px-6 pt-20 pb-20">
+                <div className="bg-white dark:bg-[#1B2136] text-[#222944] dark:text-[#BCC5DC] -mx-6 px-6 pt-20 pb-20">
                     <div className="w-full h-[1px] bg-[#222944]/15 dark:bg-[#BCC5DC]/15 mb-10" />
                     <div className="flex flex-row justify-between items-center">
                         <h4 className="text-[12vw] min-[400px]:text-[45px] font-medium tracking-tighter text-[#222944] dark:text-[#BCC5DC] leading-none m-0">

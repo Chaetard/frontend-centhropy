@@ -120,7 +120,7 @@ const Newsroom = () => {
             </Helmet>
 
             <div className="font-funnel no-select w-full bg-white dark:bg-[#222944] text-[#222944] dark:text-[#BCC5DC] min-h-screen relative overflow-x-hidden">
-                <Navbar subtitle="Sala de Prensa" />
+                <Navbar />
 
                 <main className="pt-[140px] md:pt-[200px] px-5 md:px-10 max-w-[1800px] mx-auto">
 

@@ -4,7 +4,7 @@ import Logo from './Logo';
 import useIsMobile from '../hooks/useIsMobile';
 import { useEditorial } from '../hooks/useEditorial';
 
-const Navbar = ({ subtitle = "Unified Data Engine" }) => {
+const Navbar = () => {
     const { posts, slots } = useEditorial();
     const [menuOpen, setMenuOpen] = useState(false);
     const isMobile = useIsMobile();
@@ -46,26 +46,27 @@ const Navbar = ({ subtitle = "Unified Data Engine" }) => {
 
 
     return (
-        <header className="fixed top-0 left-0 right-0 h-[72px] md:h-[84px] bg-white/80 dark:bg-[#1B2136]/80 backdrop-blur-[12px]"
+        <header className="fixed top-0 left-0 right-0 h-[72px] md:h-[84px]"
             style={{ zIndex: 10000 }}>
 
-            {/* INTERNAL NAVBAR BACKGROUND (SOLID ON OPEN) */}
+            {/* STATIC GLASSMORPHISM LAYER WITH HARDWARE ACCELERATION - Prevents Chrome blur dropping */}
             <div
-                className={`absolute top-0 left-0 right-0 h-[72px] md:h-[84px] bg-white dark:bg-[#1B2136] transition-opacity duration-300 ${menuOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
-                style={{ zIndex: 10002 }}
+                className="absolute inset-0 bg-white/80 dark:bg-[#1B2136]/80 backdrop-blur-[12px]"
+                style={{ 
+                    zIndex: 10000,
+                    transform: 'translate3d(0,0,0)',
+                    backfaceVisibility: 'hidden',
+                    WebkitBackfaceVisibility: 'hidden'
+                }}
             />
 
             {/* TOP BAR — always visible, never moves */}
             <div className="flex justify-between items-center w-full max-w-[1800px] mx-auto px-5 md:px-10 h-[72px] md:h-[84px] shrink-0 relative" style={{ zIndex: 10003 }}>
-                <Link to="/" className="flex items-center gap-6 pointer-events-auto" onClick={() => setMenuOpen(false)}>
+                <Link to="/" className="flex items-center pointer-events-auto" onClick={() => setMenuOpen(false)}>
                     <Logo
                         menuOpen={menuOpen}
                         className="text-[#222944] dark:text-[#BCC5DC]"
                     />
-                    <div className="hidden md:block h-[34px] w-[1.5px] transition-colors duration-500 bg-[#222944] dark:bg-[#BCC5DC]/20"></div>
-                    <span className="hidden sm:block text-[11px] font-funnel font-bold tracking-[0.25em] transition-colors duration-500 uppercase text-[#222944] dark:text-[#BCC5DC]/80">
-                        {subtitle}
-                    </span>
                 </Link>
                 <div className="flex items-center gap-6 md:gap-8">
                     <button
@@ -87,15 +88,15 @@ const Navbar = ({ subtitle = "Unified Data Engine" }) => {
 
                     <a
                         href="https://app.centhropy.com/login"
-                        className="text-[11px] font-funnel font-bold tracking-[0.25em] transition-colors duration-500 uppercase pointer-events-auto text-[#222944] dark:text-[#BCC5DC]"
+                        className="text-[20px] font-funnel font-bold tracking-normal transition-colors duration-500 pointer-events-auto text-[#222944] dark:text-[#BCC5DC]"
                     >
-                        Ingresar
+                        Unify
                     </a>
                 </div>
             </div>
 
             {/* FULL SCREEN MENU OVERLAY */}
-            <div className={`px-5 md:px-10 pt-24 pb-12 transition-all duration-300 ease-out ${isMobile ? 'overflow-y-auto' : 'overflow-hidden'} no-scrollbar bg-white dark:bg-[#1B2136] ${menuOpen ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'
+            <div className={`px-5 md:px-10 pt-24 pb-12 transition-opacity duration-300 ease-out will-change-opacity ${isMobile ? 'overflow-y-auto' : 'overflow-hidden'} no-scrollbar bg-white dark:bg-[#1B2136] ${menuOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
                 }`} style={{ height: '100vh', position: 'fixed', top: 0, left: 0, right: 0, zIndex: 10001 }}>
 
                 {isMobile ? (

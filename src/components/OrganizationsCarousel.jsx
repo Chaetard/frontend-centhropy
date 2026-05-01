@@ -45,84 +45,52 @@ const hikoruLightDataUrl = `data:image/svg+xml;base64,${typeof window !== 'undef
 const testimonials = [
     {
         id: 1,
-        author: "Juan Pérez",
-        role: "CEO, QualityState",
-        location: "Santiago, Chile",
-        quote: "Su capacidad para centralizar nuestra data ha sido el motor de nuestro crecimiento este año.",
-        companyLogo: "/customers/01_qualitystate_1.svg",
-        avatar: "https://i.pravatar.cc/150?u=11"
+        author: "Jorge Solano",
+        role: "Director de Finanzas",
+        quote: "Centhropy permite materializar nuevos sistemas de negocio; nuestro modelo y su tecnología han hecho sinergia de inmediato.",
+        companyLogo: "/customers/07_bestok_9.svg"
     },
     {
         id: 2,
-        author: "Maria García",
-        role: "CTO, Firekitch",
-        location: "Madrid, España",
-        quote: "La integración fue impecable. Ahora tomamos decisiones basadas en realidades, no en intuiciones.",
-        companyLogo: "/customers/02_firekitch_2.svg",
-        avatar: "https://i.pravatar.cc/150?u=22"
+        author: "Eglee Rodríguez",
+        role: "Dirección Administrativa",
+        quote: "Nuestro enfoque es alcanzar el crecimiento sostenido en las empresas, y Unify es una herramienta perfecta para lograrlo.",
+        companyLogo: "/customers/01_qualitystate_1.svg"
     },
     {
         id: 3,
-        author: "Carlos Ruiz",
-        role: "Director de Operaciones, CityWork",
-        location: "Bogotá, Colombia",
-        quote: "Unify transformó la forma en que gestionamos nuestros locales. Una herramienta indispensable.",
-        companyLogo: "/customers/03_citywork_3.svg",
-        avatar: "https://i.pravatar.cc/150?u=33"
+        author: "Mariangel Flores",
+        role: "Directora Creativa",
+        quote: "Con el stack tecnológico de Centhropy, podremos continuar innovando y consolidando nuestro ecosistema digital para la industria de alimentos.",
+        companyLogo: "/customers/02_firekitch_2.svg"
     },
     {
         id: 4,
-        author: "Roberto Méndez",
-        role: "Lead Engineer, ECS",
-        location: "Miami, USA",
-        quote: "Robustez y precisión militar. Justo lo que nuestra infraestructura necesitaba para escalar.",
-        companyLogo: "/customers/09_ecs_4.svg",
-        avatar: "https://i.pravatar.cc/150?u=44"
+        author: "Yoletty Rodríguez",
+        role: "Fundadora",
+        quote: "En Citiwork creemos que la metodología es tan importante como la tecnología y en Centhropy entienden esto a la perfección.",
+        companyLogo: "/customers/03_citywork_3.svg"
     },
     {
         id: 5,
-        author: "Kenji Tanaka",
-        role: "Founder, Hikoru",
-        location: "Tokyo, Japan",
-        quote: "Hemos reducido en un 40% el tiempo de análisis de datos gracias a la automatización de Unify.",
-        companyLogo: "/customers/05_hikoru_5.svg",
-        avatar: "https://i.pravatar.cc/150?u=55"
+        author: "Luis Castillo",
+        role: "CEO",
+        quote: "Unify Agent es como tener a un analista senior disponible 24/7. Nuestra toma de decisiones es más efectiva.",
+        companyLogo: "/customers/08_awua_8.svg"
     },
     {
         id: 6,
-        author: "Sofía López",
-        role: "Marketing VP, Pangea",
-        location: "Mexico City, Mexico",
-        quote: "La visión 360 de nuestros clientes que nos da el Unify Data Center es simplemente asombrosa.",
-        companyLogo: "/customers/06_pangea_6.svg",
-        avatar: "https://i.pravatar.cc/150?u=66"
+        author: "David Arteaga",
+        role: "CEO & CTO",
+        quote: "Con la integración de Unify en nuestro SGE, hemos logrado incrementar nuestra propuesta de valor. Esta es una alianza con un impacto real.",
+        companyLogo: "/customers/04_realgestion_7.svg"
     },
     {
         id: 7,
-        author: "Elena Santos",
-        role: "Gerente Digital, RealGestión",
-        location: "Lima, Perú",
-        quote: "El soporte técnico y la flexibilidad de los conectores personalizados son de otro nivel.",
-        companyLogo: "/customers/04_realgestion_7.svg",
-        avatar: "https://i.pravatar.cc/150?u=77"
-    },
-    {
-        id: 8,
-        author: "Laura Bernal",
-        role: "Directora de Sostenibilidad, Awua",
-        location: "Barcelona, España",
-        quote: "Sostenibilidad y datos de la mano. Unify nos ayuda a medir lo que realmente importa.",
-        companyLogo: "/customers/08_awua_8.svg",
-        avatar: "https://i.pravatar.cc/150?u=88"
-    },
-    {
-        id: 9,
-        author: "David Moore",
-        role: "Head of Data, BestOk",
-        location: "London, UK",
-        quote: "Unify Agent es como tener a un analista senior disponible 24/7. Nuestra eficiencia se ha disparado.",
-        companyLogo: "/customers/07_bestok_9.svg",
-        avatar: "https://i.pravatar.cc/150?u=99"
+        author: "Jonas Villegas",
+        role: "Director Creativo",
+        quote: "La solución \"Growth Engine\" de Centhropy nos ha permitido comenzar a construir nuestro sueño de llegar a todos los hogares.",
+        companyLogo: "/customers/05_hikoru_5.svg"
     }
 ];
 
@@ -132,10 +100,10 @@ const OrganizationsCarousel = () => {
     const isDarkMode = useIsDarkMode();
     
     return (
-        <section className="pt-10 pb-24 bg-white dark:bg-[#222944] overflow-hidden w-full">
+        <section className="pt-10 md:mt-32 pb-16 bg-white dark:bg-[#1B2136] overflow-hidden w-full">
             <div className="max-w-[1800px] mx-auto px-5 md:px-10 mb-8">
                 <div className="w-full h-[1px] bg-[#222944]/15 dark:bg-[#BCC5DC]/15 mb-10" />
-                <h2 className="text-[45px] md:text-[70px] font-medium tracking-tighter text-[#222944] dark:text-[#BCC5DC] leading-none">
+                <h2 className="text-[36px] md:text-[56px] font-light tracking-tighter text-[#222944] dark:text-[#BCC5DC] leading-none">
                     Organizaciones
                 </h2>
             </div>
@@ -144,19 +112,19 @@ const OrganizationsCarousel = () => {
                 <motion.div
                     className="flex"
                     animate={{
-                        x: [0, -((testimonials.length * 450) + (testimonials.length * 32))]
+                        x: [0, -((testimonials.length * (window.innerWidth < 768 ? 350 : 450)) + (testimonials.length * 2))]
                     }}
                     transition={{
                         x: {
                             repeat: Infinity,
                             repeatType: "loop",
-                            duration: 140,
+                            duration: window.innerWidth < 768 ? 80 : 140,
                             ease: "linear",
                         },
                     }}
                 >
                     {duplicatedTestimonials.map((item, idx) => {
-                        const isHikoru = item.id === 5 || item.author.includes("Kenji");
+                        const isHikoru = item.id === 7 || item.author.includes("Jonas");
                         
                         // Use inlined logos for Hikoru to avoid any path/cache issues
                         let currentLogoSrc = item.companyLogo;
@@ -167,14 +135,16 @@ const OrganizationsCarousel = () => {
                         return (
                             <div
                                 key={`${item.id}-${idx}`}
-                                className="w-[350px] md:w-[450px] shrink-0 mx-4 bg-[#f8f9fa] dark:bg-[#303A5F] p-10 flex flex-col justify-between"
+                                className="w-[350px] md:w-[450px] shrink-0 mx-[1px] bg-[#F3F5F7] dark:bg-[#303A5F] p-10 pb-11 flex flex-col justify-between"
                                 style={{ minHeight: '550px' }}
                             >
                                 <div className="flex justify-between items-start mb-12">
-                                    <div className="w-14 h-14 rounded-full overflow-hidden border border-[#222944]/15 dark:border-[#BCC5DC]/10">
-                                        <img src={item.avatar} alt={item.author} className="w-full h-full object-cover grayscale" />
+                                    <div className="w-14 h-14 rounded-full overflow-hidden flex items-center justify-center bg-[#222944]/5 dark:bg-[#BCC5DC]/5">
+                                        <svg className="w-8 h-8 text-[#222944]/30 dark:text-[#BCC5DC]/30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M12 12C14.21 12 16 10.21 16 8C16 5.79 14.21 4 12 4C9.79 4 8 5.79 8 8C8 10.21 9.79 12 12 12ZM12 14C9.33 14 4 15.34 4 18V20H20V18C20 16.66 14.67 14 12 14Z" fill="currentColor"/>
+                                        </svg>
                                     </div>
-                                    <div className="bg-transparent px-6 py-4 rounded-none border border-transparent flex items-center justify-center min-w-[150px] h-[65px]">
+                                    <div className="bg-transparent pl-6 pr-0 py-4 rounded-none border border-transparent flex items-center justify-end min-w-[150px] h-[65px]">
                                         <img
                                             src={currentLogoSrc}
                                             alt={`${item.author} Company Logo`}
@@ -195,7 +165,7 @@ const OrganizationsCarousel = () => {
 
                                 <div className="flex-1 flex flex-col justify-center">
                                     <span className="text-6xl text-[#222944]/20 dark:text-[#BCC5DC]/40 mb-6 font-funnel leading-none font-black italic">“</span>
-                                    <p className="text-2xl md:text-3xl font-medium text-[#222944] dark:text-[#BCC5DC] leading-tight mb-8">
+                                    <p className="text-xl md:text-[26px] font-medium text-[#222944] dark:text-[#BCC5DC] leading-tight mb-8">
                                         {item.quote}
                                     </p>
                                 </div>
@@ -203,8 +173,7 @@ const OrganizationsCarousel = () => {
                                 <div className="pt-8">
                                     <h4 className="text-lg font-black text-[#222944] dark:text-[#BCC5DC] uppercase tracking-tight mb-1">{item.author}</h4>
                                     <p className="text-[11px] font-bold text-[#222944]/50 dark:text-[#BCC5DC]/70 uppercase tracking-widest leading-[1.3]">
-                                        {item.role} <br />
-                                        {item.location}
+                                        {item.role}
                                     </p>
                                 </div>
                             </div>
@@ -216,4 +185,4 @@ const OrganizationsCarousel = () => {
     );
 };
 
-export default OrganizationsCarousel;
+export default React.memo(OrganizationsCarousel);
