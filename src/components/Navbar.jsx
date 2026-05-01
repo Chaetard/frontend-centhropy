@@ -96,7 +96,7 @@ const Navbar = () => {
             </div>
 
             {/* FULL SCREEN MENU OVERLAY */}
-            <div className={`px-5 md:px-10 pt-24 pb-12 transition-opacity duration-300 ease-out will-change-opacity ${isMobile ? 'overflow-y-auto' : 'overflow-hidden'} no-scrollbar bg-white dark:bg-[#1B2136] ${menuOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
+            <div className={`px-5 md:px-10 pt-24 pb-12 transition-opacity duration-300 ease-out will-change-opacity ${isMobile ? 'overflow-y-auto' : 'overflow-hidden'} no-scrollbar bg-white/90 dark:bg-[#1B2136]/90 backdrop-blur-[24px] ${menuOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
                 }`} style={{ height: '100vh', position: 'fixed', top: 0, left: 0, right: 0, zIndex: 10001 }}>
 
                 {isMobile ? (
