@@ -662,7 +662,7 @@ const SolutionCard = ({ solution, idx, scrollYProgress }) => {
                                             >
                                                 <span className="text-[24px] lg:text-[32px] font-light tracking-tight text-[#222944] dark:text-white leading-[1.15]">
                                                     {idx === 0 ? (
-                                                        "La unificación de datos y los sistemas AI—Data facultan a las organizaciones con ventajas medibles y escalables"
+                                                        "La unificación de datos y sistemas AI—Data facultan a organizaciones con ventajas medibles y escalables"
                                                     ) : (
                                                         "Optimización garantizada en métricas de crecimiento"
                                                     )}

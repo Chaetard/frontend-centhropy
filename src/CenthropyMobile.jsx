@@ -842,7 +842,7 @@ const CenthropyMobile = () => {
                                                                         exit={{ y: '-110%', transition: { duration: 0.22, delay: 0, ease: [0.76, 0, 0.24, 1] } }}
                                                                     >
                                                                         <span className="text-[28px] font-light tracking-tight text-[#222944] dark:text-white leading-[1.15] block">
-                                                                            La unificación de datos y los sistemas AI—Data facultan a las organizaciones con ventajas medibles y escalables
+                                                                            La unificación de datos y sistemas AI—Data facultan a organizaciones con ventajas medibles y escalables
                                                                         </span>
                                                                     </motion.div>
                                                                 </div>
@@ -1129,8 +1129,10 @@ const CenthropyMobile = () => {
                                                                         exit={{ y: '-110%', transition: { duration: 0.22, delay: 0, ease: [0.76, 0, 0.24, 1] } }}
                                                                     >
                                                                         <span className="text-[28px] font-light tracking-tight text-[#222944] dark:text-white leading-[1.15] block">
-                                                                            Optimización garantizada en <br />
-                                                                            métricas de crecimiento
+                                                                            Optimización <br />
+                                                                            Garantizada en <br />
+                                                                            Métrica de <br />
+                                                                            Crecimiento
                                                                         </span>
                                                                     </motion.div>
                                                                 </div>
