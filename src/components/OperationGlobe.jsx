@@ -57,7 +57,7 @@ const OperationMap = () => {
     };
 
     const getXOffset = (city) => {
-        return getAnchor(city) === 'end' ? (isMobile ? -9 : -8) : (isMobile ? 9 : 8);
+        return getAnchor(city) === 'end' ? (isMobile ? -12 : -8) : (isMobile ? 12 : 8);
     };
 
     const mapContent = (
@@ -98,12 +98,12 @@ const OperationMap = () => {
                         y={isMobile ? 3 : 4}
                         className="fill-[#222944] dark:fill-white pointer-events-none"
                         style={{
-                            fontSize: isMobile ? 11 : 9,
+                            fontSize: isMobile ? 16 : 9,
                             fontWeight: 400,
                             letterSpacing: '0.06em',
                         }}
                         initial={{ opacity: 0 }}
-                        animate={isVisible ? { opacity: 0.8 } : {}}
+                        animate={isVisible ? { opacity: isMobile ? 1 : 0.8 } : {}}
                         transition={{ duration: 0.5, delay: 0.8 + i * 0.12 }}
                     >
                         {point.city}

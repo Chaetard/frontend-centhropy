@@ -626,11 +626,13 @@ const CenthropyMobile = () => {
             {/* MAIN CONTENT AREA */}
             <main className="relative z-20 bg-white dark:bg-[#1B2136] pt-20 pb-24 px-6 flex flex-col gap-8">
                 <div className="flex flex-col gap-6 text-center items-center w-full">
-                    <h2 className="text-[8vw] min-[380px]:text-[32px] font-medium tracking-tight leading-[1.2] text-[#222944] dark:text-[#BCC5DC] text-center flex flex-col gap-0 w-full">
+                    <h2 className="text-[8vw] min-[380px]:text-[32px] font-light tracking-tight leading-[1.2] text-[#222944] dark:text-[#BCC5DC] text-center flex flex-col gap-0 w-full">
                         {[
-                            "Soberanía analítica, dominio",
-                            "de datos y toma de decisiones",
-                            "potenciadas con AI—Driven"
+                            "Soberanía analítica,",
+                            "dominio de datos y",
+                            "toma de decisiones",
+                            "potenciadas con",
+                            "AI—Driven"
                         ].map((line, i) => (
                             <span
                                 key={i}
@@ -1049,10 +1051,10 @@ const CenthropyMobile = () => {
                                                 </motion.div>
                                                 <div className="flex-1 w-full relative flex flex-col min-h-0 mt-2">
                                                     <div className="flex-1 relative w-full h-full">
-                                                        <div className="absolute inset-0 flex gap-[3px] items-end w-full h-full pb-2">
-                                                            {[9, 9, 10, 10, 11, 11, 11, 10, 10, 10, 9, 9, 9, 9, 9, 10, 10, 10, 11, 11, 12, 12, 13, 13, 14, 14, 15, 15, 16, 16, 17, 17, 18, 19, 19, 20].map((activeDots, colIndex) => (
-                                                                <div key={colIndex} className="flex-1 flex flex-col-reverse justify-start gap-[2px] items-center">
-                                                                    {[...Array(20)].map((_, rowIndex) => {
+                                                        <div className="absolute inset-0 flex gap-[2px] items-end w-full h-full pb-2">
+                                                            {[13, 13, 14, 14, 15, 15, 15, 14, 14, 14, 13, 13, 13, 13, 13, 14, 14, 14, 15, 15, 17, 17, 19, 19, 21, 21, 23, 23, 25, 25, 27, 27, 29, 31, 31, 33].map((activeDots, colIndex) => (
+                                                                <div key={colIndex} className="flex-1 flex flex-col-reverse justify-start gap-[1.5px] items-center">
+                                                                    {[...Array(34)].map((_, rowIndex) => {
                                                                         const isActive = rowIndex < activeDots;
                                                                         const totalCols = 36;
                                                                         // Entry on first load: columns left→right, dots bottom→top
