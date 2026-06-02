@@ -66,14 +66,17 @@ const INITIAL_AUTHORS = [
 // ─────────────────────────────────────────────
 
 const migratePost = (post) => {
+    if (!post || typeof post !== 'object') return null;
+    
     // If it's a string, it's already migrated (HTML format)
     if (typeof post.content === 'string') return post;
 
-    const slug = generateSlug(post.title);
+    const slug = generateSlug(post.title || '');
     let htmlContent = '';
 
     if (Array.isArray(post.content)) {
         htmlContent = post.content.map(block => {
+            if (!block) return '';
             switch (block.type) {
                 case 'paragraph':
                     return block.text ? `<p>${block.text}</p>` : '';
@@ -90,7 +93,7 @@ const migratePost = (post) => {
                 case 'list':
                     if (!block.items || block.items.length === 0) return '';
                     const tag = block.ordered ? 'ol' : 'ul';
-                    const items = block.items.filter(item => item.trim()).map(item => `<li>${item}</li>`).join('');
+                    const items = block.items.filter(item => item && typeof item === 'string' && item.trim()).map(item => `<li>${item}</li>`).join('');
                     return items ? `<${tag}>${items}</${tag}>` : '';
                 case 'divider':
                     return '<hr />';
@@ -104,7 +107,7 @@ const migratePost = (post) => {
 
     return {
         ...post,
-        slug: slug || post.id,
+        slug: slug || post.id || generateId(),
         category: post.category || (post.type === 'news'
             ? 'Blog'
             : post.type === 'announcement'
@@ -357,30 +360,66 @@ export const useEditorial = () => {
 
     // ── POSTS ──────────────────────────────────
     const [posts, setPosts] = useState(() => {
-        const saved = localStorage.getItem('ces_posts_v11');
-        if (saved) {
-            const parsed = JSON.parse(saved);
-            return parsed.map(migratePost);
+        try {
+            const saved = localStorage.getItem('ces_posts_v11');
+            if (saved) {
+                const parsed = JSON.parse(saved);
+                if (Array.isArray(parsed)) {
+                    return parsed.map(migratePost).filter(Boolean);
+                }
+            }
+        } catch (e) {
+            console.error("Error parsing ces_posts_v11 from localStorage:", e);
         }
         return INITIAL_POSTS;
     });
 
     // ── SLOTS ──────────────────────────────────
     const [slots, setSlots] = useState(() => {
-        const saved = localStorage.getItem('ces_slots');
-        return saved ? JSON.parse(saved) : INITIAL_SLOTS;
+        try {
+            const saved = localStorage.getItem('ces_slots');
+            if (saved) {
+                const parsed = JSON.parse(saved);
+                if (parsed && typeof parsed === 'object') {
+                    return parsed;
+                }
+            }
+        } catch (e) {
+            console.error("Error parsing ces_slots from localStorage:", e);
+        }
+        return INITIAL_SLOTS;
     });
 
     // ── AUTHORS ────────────────────────────────
     const [authors, setAuthors] = useState(() => {
-        const saved = localStorage.getItem('ces_authors');
-        return saved ? JSON.parse(saved) : INITIAL_AUTHORS;
+        try {
+            const saved = localStorage.getItem('ces_authors');
+            if (saved) {
+                const parsed = JSON.parse(saved);
+                if (Array.isArray(parsed)) {
+                    return parsed;
+                }
+            }
+        } catch (e) {
+            console.error("Error parsing ces_authors from localStorage:", e);
+        }
+        return INITIAL_AUTHORS;
     });
 
     // ── DOCS ───────────────────────────────────
     const [docs, setDocs] = useState(() => {
-        const saved = localStorage.getItem('ces_docs');
-        return saved ? JSON.parse(saved) : INITIAL_DOCS;
+        try {
+            const saved = localStorage.getItem('ces_docs');
+            if (saved) {
+                const parsed = JSON.parse(saved);
+                if (Array.isArray(parsed)) {
+                    return parsed;
+                }
+            }
+        } catch (e) {
+            console.error("Error parsing ces_docs from localStorage:", e);
+        }
+        return INITIAL_DOCS;
     });
 
     // ── PERSISTENCE ────────────────────────────
