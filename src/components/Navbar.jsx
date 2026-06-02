@@ -7,7 +7,19 @@ import { useEditorial } from '../hooks/useEditorial';
 const Navbar = () => {
     const { posts, slots } = useEditorial();
     const [menuOpen, setMenuOpen] = useState(false);
+    const [bannerDismissed, setBannerDismissed] = useState(false);
     const isMobile = useIsMobile();
+
+    // Compute banner visibility from CMS slots
+    const showBanner = slots.banner_active === 'true' && !bannerDismissed && !!slots.banner_text;
+    const bannerPost = slots.banner_link ? posts.find(p => p.id === slots.banner_link) : null;
+    const bannerUrl = bannerPost ? `/blog/${bannerPost.slug || bannerPost.id}` : null;
+    const BANNER_H = 40; // px
+    const NAV_H_MOBILE = 72;
+    const NAV_H_DESKTOP = 84;
+    const totalH = showBanner
+        ? (isMobile ? NAV_H_MOBILE : NAV_H_DESKTOP) + BANNER_H
+        : (isMobile ? NAV_H_MOBILE : NAV_H_DESKTOP);
     const [isDarkMode, setIsDarkMode] = useState(() => {
         if (typeof document !== 'undefined') {
             return document.documentElement.classList.contains('dark');
@@ -46,22 +58,70 @@ const Navbar = () => {
 
 
     return (
-        <header className="fixed top-0 left-0 right-0 h-[72px] md:h-[84px]"
-            style={{ zIndex: 10000 }}>
+        <header
+            className="fixed top-0 left-0 right-0 transition-all duration-300"
+            style={{ zIndex: 10000, height: `${totalH}px` }}
+        >
+            {/* CAMPAIGN BANNER */}
+            {showBanner && (
+                <div
+                    className="relative w-full flex items-center justify-center text-center bg-black dark:bg-[#222944] text-white dark:text-[#BCC5DC] overflow-hidden"
+                    style={{ height: `${BANNER_H}px` }}
+                >
+                    {/* Animated shimmer line */}
+                    <div className="absolute inset-x-0 bottom-0 h-[1px] bg-gradient-to-r from-transparent via-white/20 dark:via-[#BCC5DC]/20 to-transparent" />
+
+                    {bannerUrl ? (
+                        <Link
+                            to={bannerUrl}
+                            className="flex items-center gap-2.5 text-[10px] font-funnel uppercase tracking-[0.25em] hover:opacity-70 transition-opacity px-12"
+                        >
+                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse shrink-0" />
+                            {slots.banner_text}
+                            <span className="text-white/40 dark:text-[#BCC5DC]/40 ml-1">→</span>
+                        </Link>
+                    ) : (
+                        <p className="flex items-center gap-2.5 text-[10px] font-funnel uppercase tracking-[0.25em] px-12">
+                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse shrink-0" />
+                            {slots.banner_text}
+                        </p>
+                    )}
+
+                    {/* Dismiss */}
+                    <button
+                        onClick={() => setBannerDismissed(true)}
+                        className="absolute right-4 top-1/2 -translate-y-1/2 p-1 text-white/40 dark:text-[#BCC5DC]/40 hover:text-white dark:text-[#BCC5DC] transition-colors"
+                        aria-label="Cerrar banner"
+                    >
+                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                            <path d="M1 1L11 11M11 1L1 11" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                        </svg>
+                    </button>
+                </div>
+            )}
 
             {/* STATIC GLASSMORPHISM LAYER WITH HARDWARE ACCELERATION - Prevents Chrome blur dropping */}
             <div
-                className="absolute inset-0 bg-white/80 dark:bg-[#1B2136]/80 backdrop-blur-[12px]"
-                style={{ 
+                className="absolute left-0 right-0 bg-white/80 dark:bg-[#1B2136]/80 backdrop-blur-[12px]"
+                style={{
                     zIndex: 10002,
                     transform: 'translate3d(0,0,0)',
                     backfaceVisibility: 'hidden',
-                    WebkitBackfaceVisibility: 'hidden'
+                    WebkitBackfaceVisibility: 'hidden',
+                    top: showBanner ? `${BANNER_H}px` : '0px',
+                    height: isMobile ? `${NAV_H_MOBILE}px` : `${NAV_H_DESKTOP}px`,
                 }}
             />
 
             {/* TOP BAR — always visible, never moves */}
-            <div className="flex justify-between items-center w-full max-w-[1800px] mx-auto px-5 md:px-10 h-[72px] md:h-[84px] shrink-0 relative" style={{ zIndex: 10003 }}>
+            <div
+                className="flex justify-between items-center w-full max-w-[1800px] mx-auto px-5 md:px-10 shrink-0 relative"
+                style={{
+                    zIndex: 10003,
+                    height: isMobile ? `${NAV_H_MOBILE}px` : `${NAV_H_DESKTOP}px`,
+                    marginTop: showBanner ? `${BANNER_H}px` : '0px',
+                }}
+            >
                 <Link to="/" className="flex items-center pointer-events-auto" onClick={() => setMenuOpen(false)}>
                     <Logo
                         menuOpen={menuOpen}

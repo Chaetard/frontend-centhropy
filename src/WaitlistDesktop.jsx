@@ -130,14 +130,14 @@ const WaitlistDesktop = () => {
                 {/* Tactical Info Card */}
                 <div className="absolute top-10 right-0 w-64 bg-white dark:bg-[#222944] border border-[#222944] dark:border-[#BCC5DC] p-5 opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 pointer-events-none transition-all duration-300 z-30">
                     <div className="mb-3 flex justify-between items-center border-b border-[#222944]/10 dark:border-[#BCC5DC]/10 pb-2">
-                        <span className="text-[9px] font-mono font-bold tracking-[0.2em] uppercase text-[#222944] dark:text-[#BCC5DC]">EXCLUSIVITY_PROTOCOL</span>
-                        <span className="text-[9px] font-mono text-[#222944]/30 dark:text-[#BCC5DC]/50">[01]</span>
+                        <span className="text-[9px] font-funnel font-bold tracking-[0.2em] uppercase text-[#222944] dark:text-[#BCC5DC]">EXCLUSIVITY_PROTOCOL</span>
+                        <span className="text-[9px] font-funnel text-[#222944]/30 dark:text-[#BCC5DC]/50">[01]</span>
                     </div>
-                    <p className="text-[10px] font-mono leading-relaxed text-gray-600 uppercase tracking-wider text-justify">
+                    <p className="text-[10px] font-funnel leading-relaxed text-gray-600 uppercase tracking-wider text-justify">
                         Nuestra lista de espera actúa como filtro de integridad y control de calidad para asegurar una respuesta operativa de alta precisión y personalizada para cada entidad admitida.
                     </p>
                     <div className="mt-4 pt-2 border-t border-[#222944]/15 dark:border-[#BCC5DC]/5">
-                        <span className="text-[8px] font-mono italic text-[#222944]/40 dark:text-[#BCC5DC]/60">Exclusividad funcional autogestionada.</span>
+                        <span className="text-[8px] font-funnel italic text-[#222944]/40 dark:text-[#BCC5DC]/60">Exclusividad funcional autogestionada.</span>
                     </div>
                 </div>
             </div>
@@ -148,7 +148,7 @@ const WaitlistDesktop = () => {
                     <div className="grid grid-cols-2 gap-8">
                         {/* Full Name */}
                         <div className="group relative">
-                            <label className="text-[11px] font-mono uppercase tracking-[0.2em] text-gray-400 group-focus-within:text-[#222944] dark:text-[#BCC5DC] transition-colors block mb-1">
+                            <label className="text-[11px] font-funnel uppercase tracking-[0.2em] text-gray-400 group-focus-within:text-[#222944] dark:text-[#BCC5DC] transition-colors block mb-1">
                                 Nombre y Apellido
                             </label>
                             <input type="text" placeholder="Ej. Alex Mercer" name="fullName" value={formData.fullName} onChange={handleInputChange}
@@ -157,7 +157,7 @@ const WaitlistDesktop = () => {
 
                         {/* Email */}
                         <div className="group relative">
-                            <label className="text-[11px] font-mono uppercase tracking-[0.2em] text-gray-400 group-focus-within:text-[#222944] dark:text-[#BCC5DC] transition-colors block mb-1">
+                            <label className="text-[11px] font-funnel uppercase tracking-[0.2em] text-gray-400 group-focus-within:text-[#222944] dark:text-[#BCC5DC] transition-colors block mb-1">
                                 Correo de Contacto
                             </label>
                             <input type="email" placeholder="contact@domain.com" name="email" value={formData.email} onChange={handleInputChange}
@@ -168,7 +168,7 @@ const WaitlistDesktop = () => {
                     <div className="grid grid-cols-2 gap-8">
                         {/* Organization */}
                         <div className="group relative">
-                            <label className="text-[11px] font-mono uppercase tracking-[0.2em] text-gray-400 group-focus-within:text-[#222944] dark:text-[#BCC5DC] transition-colors block mb-1">
+                            <label className="text-[11px] font-funnel uppercase tracking-[0.2em] text-gray-400 group-focus-within:text-[#222944] dark:text-[#BCC5DC] transition-colors block mb-1">
                                 Nombre de la Organización
                             </label>
                             <input type="text" placeholder="Centhropy Inc." name="orgName" value={formData.orgName} onChange={handleInputChange}
@@ -177,7 +177,7 @@ const WaitlistDesktop = () => {
 
                         {/* Country Custom Dropdown */}
                         <div className="group relative" ref={dropdownRef}>
-                            <label className="text-[11px] font-mono uppercase tracking-[0.2em] text-gray-400 group-focus-within:text-[#222944] dark:text-[#BCC5DC] transition-colors block mb-1">
+                            <label className="text-[11px] font-funnel uppercase tracking-[0.2em] text-gray-400 group-focus-within:text-[#222944] dark:text-[#BCC5DC] transition-colors block mb-1">
                                 País de Operación
                             </label>
                             <div
@@ -201,7 +201,7 @@ const WaitlistDesktop = () => {
                                                     setSelectedCountry(c);
                                                     setIsDropdownOpen(false);
                                                 }}
-                                                className="px-5 py-3 text-[10px] font-mono uppercase tracking-widest text-white/60 hover:text-white hover:bg-white/10 dark:bg-[#222944]/10 cursor-pointer transition-all border-b border-white/5 last:border-0"
+                                                className="px-5 py-3 text-[10px] font-funnel uppercase tracking-widest text-white/60 hover:text-white hover:bg-white/10 dark:bg-[#222944]/10 cursor-pointer transition-all border-b border-white/5 last:border-0"
                                             >
                                                 {c.name}
                                             </div>
@@ -215,7 +215,7 @@ const WaitlistDesktop = () => {
                     <div className="grid grid-cols-2 gap-8">
                         {/* Sector */}
                         <div className="group relative">
-                            <label className="text-[11px] font-mono uppercase tracking-[0.2em] text-gray-400 group-focus-within:text-[#222944] dark:text-[#BCC5DC] transition-colors block mb-1">
+                            <label className="text-[11px] font-funnel uppercase tracking-[0.2em] text-gray-400 group-focus-within:text-[#222944] dark:text-[#BCC5DC] transition-colors block mb-1">
                                 Sector Específico
                             </label>
                             <input type="text" placeholder="Fintech / AI" name="sector" value={formData.sector} onChange={handleInputChange}
@@ -224,7 +224,7 @@ const WaitlistDesktop = () => {
 
                         {/* Solution Custom Dropdown (Multi-select) */}
                         <div className="group relative" ref={solutionsRef}>
-                            <label className="text-[11px] font-mono uppercase tracking-[0.2em] text-gray-400 group-focus-within:text-[#222944] dark:text-[#BCC5DC] transition-colors block mb-1">
+                            <label className="text-[11px] font-funnel uppercase tracking-[0.2em] text-gray-400 group-focus-within:text-[#222944] dark:text-[#BCC5DC] transition-colors block mb-1">
                                 Solución
                             </label>
                             <div
@@ -245,7 +245,7 @@ const WaitlistDesktop = () => {
                                             <div
                                                 key={opt}
                                                 onClick={() => toggleSolution(opt)}
-                                                className="px-5 py-3 text-[10px] font-mono uppercase tracking-widest text-white/60 hover:text-white hover:bg-white/10 dark:bg-[#222944]/10 cursor-pointer transition-all border-b border-white/5 last:border-0 flex items-center justify-between"
+                                                className="px-5 py-3 text-[10px] font-funnel uppercase tracking-widest text-white/60 hover:text-white hover:bg-white/10 dark:bg-[#222944]/10 cursor-pointer transition-all border-b border-white/5 last:border-0 flex items-center justify-between"
                                             >
                                                 <span>{opt}</span>
                                                 {selectedSolutions.includes(opt) && (
@@ -261,7 +261,7 @@ const WaitlistDesktop = () => {
 
                     {/* Organization Context */}
                     <div className="group relative">
-                        <label className="text-[11px] font-mono uppercase tracking-[0.2em] text-gray-400 group-focus-within:text-[#222944] dark:text-[#BCC5DC] transition-colors block mb-3">
+                        <label className="text-[11px] font-funnel uppercase tracking-[0.2em] text-gray-400 group-focus-within:text-[#222944] dark:text-[#BCC5DC] transition-colors block mb-3">
                             Contexto de la Organización
                         </label>
                         <textarea
@@ -287,7 +287,7 @@ const WaitlistDesktop = () => {
                             <span>Ingresar</span>
                             <ChevronRight className={`w-4 h-4 transform transition-transform ${isFormValid ? "group-hover:translate-x-1" : ""}`} />
                         </button>
-                        <p className="shimmer-text text-[10px] mt-8 text-center font-mono uppercase tracking-widest leading-relaxed">
+                        <p className="shimmer-text text-[10px] mt-8 text-center font-funnel uppercase tracking-widest leading-relaxed">
                             Será evaluado y contactado por nuestro departamento de<br />integración estratégica.
                         </p>
                     </div>
@@ -296,7 +296,7 @@ const WaitlistDesktop = () => {
             </div>
 
             {/* Bottom Footer Section - Centered in column */}
-            <div className="absolute bottom-8 left-1/2 -translate-x-1/2 w-full max-w-lg flex justify-between items-center text-[8px] font-mono text-[#222944]/30 dark:text-[#BCC5DC]/50 tracking-[0.2em] uppercase animate-in fade-in duration-1000 delay-500 fill-mode-both">
+            <div className="absolute bottom-8 left-1/2 -translate-x-1/2 w-full max-w-lg flex justify-between items-center text-[8px] font-funnel text-[#222944]/30 dark:text-[#BCC5DC]/50 tracking-[0.2em] uppercase animate-in fade-in duration-1000 delay-500 fill-mode-both">
                 <span>Authenticity_Guaranteed</span>
                 <Link to="/" className="hover:text-[#222944] dark:text-[#BCC5DC] transition-colors border-b border-[#222944]/10 dark:border-[#BCC5DC]/10 pb-0.5">VOLVER A HOME</Link>
                 <span>Secure_Layer_v.04</span>

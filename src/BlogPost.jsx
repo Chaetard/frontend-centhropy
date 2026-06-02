@@ -288,7 +288,7 @@ const BlogPost = () => {
     if (!post) {
         return (
             <div className="bg-white dark:bg-[#222944] min-h-screen font-funnel flex flex-col items-center justify-center gap-6">
-                <span className="text-[10px] font-mono text-[#222944]/30 dark:text-[#BCC5DC]/50 uppercase tracking-[0.4em]">Error 404</span>
+                <span className="text-[10px] font-funnel text-[#222944]/30 dark:text-[#BCC5DC]/50 uppercase tracking-[0.4em]">Error 404</span>
                 <h1 className="text-5xl font-black uppercase tracking-tighter">Publicación no encontrada</h1>
                 <p className="text-[#222944]/50 dark:text-[#BCC5DC]/70 text-lg font-light">El artículo que buscas no existe o fue eliminado.</p>
                 <Link to="/newsroom"
@@ -300,7 +300,9 @@ const BlogPost = () => {
     }
 
     const jsonLd = buildJsonLd(post, author);
-    const hasContent = post.content && post.content.length > 0 && post.content.some(b => b.text || b.src);
+    const hasContent = typeof post.content === 'string'
+        ? (post.content.trim().length > 0 && post.content !== '<p></p>')
+        : (Array.isArray(post.content) && post.content.length > 0 && post.content.some(b => b.text || b.src));
     // Fallback: if no structured content but has legacy description
     const hasFallbackContent = !hasContent && (post.description || post.excerpt);
 
@@ -461,7 +463,14 @@ const BlogPost = () => {
                         {/* ── BODY CONTENT ── */}
                         <div className="mb-16">
                             {hasContent ? (
-                                <BlockRenderer blocks={post.content} />
+                                typeof post.content === 'string' ? (
+                                    <div 
+                                        className="blog-content-rich"
+                                        dangerouslySetInnerHTML={{ __html: post.content }} 
+                                    />
+                                ) : (
+                                    <BlockRenderer blocks={post.content} />
+                                )
                             ) : hasFallbackContent ? (
                                 /* Legacy fallback for posts without block content */
                                 <p className="font-unna text-xl md:text-[22px] leading-[1.65] text-[#222944]/85 dark:text-[#BCC5DC]/85">
@@ -505,7 +514,7 @@ const BlogPost = () => {
                                     )}
                                 </div>
                                 <div>
-                                    <span className="text-[9px] font-mono text-[#222944]/30 dark:text-[#BCC5DC]/50 uppercase tracking-widest block mb-1">Escrito por</span>
+                                    <span className="text-[9px] font-funnel text-[#222944]/30 dark:text-[#BCC5DC]/50 uppercase tracking-widest block mb-1">Escrito por</span>
                                     <h4 className="font-funnel font-bold text-lg uppercase tracking-tighter">{author.name}</h4>
                                     {author.role && (
                                         <p className="text-xs text-[#222944]/50 dark:text-[#BCC5DC]/70 uppercase tracking-widest mb-2">{author.role}</p>

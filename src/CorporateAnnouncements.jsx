@@ -159,7 +159,7 @@ const CorporateAnnouncements = () => {
                                 >
                                     {cat}
                                     {getCategoryCount(cat) > 0 && (
-                                        <span className={`ml-2 text-[9px] font-mono ${activeCategory === cat ? 'text-white/60' : 'text-[#222944]/20 dark:text-[#BCC5DC]/40'}`}>
+                                        <span className={`ml-2 text-[9px] font-funnel ${activeCategory === cat ? 'text-white/60' : 'text-[#222944]/20 dark:text-[#BCC5DC]/40'}`}>
                                             {getCategoryCount(cat)}
                                         </span>
                                     )}

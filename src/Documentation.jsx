@@ -2,247 +2,33 @@ import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { Search, ChevronRight, Menu, X, FileText, Layout, Cpu, PenTool, Layers, BookOpen, Terminal, Activity, Hash, Box, ChevronDown, Filter } from 'lucide-react';
 import Logo from './components/Logo';
+import { useEditorial } from './hooks/useEditorial';
 
-const docsContent = [
-    {
-        id: 'overview',
-        title: '01 — Project Overview',
-        icon: <BookOpen className="w-4 h-4" />,
-        content: `# 01 — Project Overview
-
-## What is Centhropy?
-
-**Centhropy** is a data-driven technology company positioned in the **eCommerce and Retail** sector. The company provides advanced data infrastructure, business intelligence, and growth systems under its proprietary ecosystem, **Unify**.
-
-The website functions as a **digital flagship** — a high-end, premium web experience that communicates Centhropy's brand identity, technical sophistication, and service offering to potential enterprise clients.
-
----
-
-## Brand Identity
-
-| Property | Value |
-|---|---|
-| **Brand Name** | Centhropy |
-| **Tagline** | Unified Data Engine |
-| **Core Message** | "Ecosistema que optimiza decisiones en tiempo real en organizaciones de alto valor, potenciadas con inteligencia de datos avanzada." |
-| **Target Market** | Enterprise eCommerce & Retail organizations |
-| **Tone** | Technical, precise, premium, minimalist |
-
----
-
-## Visual Philosophy
-
-The site employs a dual-aesthetic approach:
-
-1. **Tactical Dark (Main Site)**: Inspired by NASA control rooms and high-end military tactical interfaces. Monochromatic, ultra-bold typography, and data-heavy HUDs.
-2. **Editorial Clear (CMS & Blog)**: A modern, light-theme aesthetic inspired by Notion and Linear. Focuses on legibility, clean spacing, and professional content management.
-
----
-
-## Business Products (Unify Ecosystem)
-
-The site documents four core products:
-
-| ID | Name | Short | Description |
-|---|---|---|---|
-| SYS.01 | Unify Protocol | UP | Business ontology for precision data decoding |
-| SYS.02 | Unify Data Center | DC | Business decisions hub. Integrates AI agent and simplified interface. |
-| SYS.03 | Unify Agent | UA | AI copilot for data-driven decision making |
-| SYS.04 | Unify Team | UT | Elite Data-Driven-Growth specialist team |
-
----
-
-## Current Development State
-
-The project has transitioned from a single-page marketing site to a content-driven platform with a custom CMS.
-
-### Completed Features:
-- **Core UI**: 3D topographic sphere (Three.js), Tactical Sidebars, HUD overlays.
-- **Editorial System (CES v5.0)**:
-    - Stealth Admin Panel (\`/terminal-x92-core\`).
-    - Full Block-based Post Editor (8 block types).
-    - SEO Analysis engine (Meta title, desc, keyword, GEO).
-    - Author Management system.
-- **Dynamic Content Pages**:
-    - **Newsroom**, **Impact Studies**, **Announcements** (filtered directory views).
-    - **BlogPost Template**: High-legibility rendered blocks with schema.org JSON-LD.
-- **Navigation**: Modular menu with 4 dynamic slots controlled from the CMS.`
-    },
-    {
-        id: 'architecture',
-        title: '02 — Architecture & Structure',
-        icon: <Layers className="w-4 h-4" />,
-        content: `# 02 — Architecture & File Structure
-
-## Repository Root
-
-\`\`\`
-CENTHROPY WEBSITE/
-│
-├── DOCUMENTATION/              ← Tech docs suite
-├── PROYECTOS/                  ← Project logs and roadmaps
-├── public/                     ← Assets (images, fonts)
-│
-├── src/
-│   ├── main.jsx                ← Vite Entry point
-│   ├── App.jsx                 ← Router & Page transitions
-│   ├── CenthropyApp.jsx        ← Main Home Experience (Tactical HUD)
-│   │
-│   ├── editorial/              ← CMS Module
-│   │   ├── AdminLogin.jsx      ← Locked portal
-│   │   ├── EditorialPanel.jsx  ← Admin Dashboard
-│   │   └── PostEditor.jsx      ← Content Builder
-│   │
-│   ├── hooks/
-│   │   └── useEditorial.js     ← Central data engine (State/CRUD)
-│   │
-│   ├── components/             ← Reusable UI atoms
-│   │   └── Logo.jsx, etc.
-│   │
-│   ├── Newsroom.jsx            ← Directory Page
-│   │
-│   ├── ImpactStudies.jsx       ← Directory Page
-│   │
-│   ├── CorporateAnnouncements.jsx ← Directory Page
-│   │
-│   └── BlogPost.jsx            ← Article Renderer
-│
-└── tailwind.config.js, etc.
-\`\`\`
-
----
-
-## Technical Architecture
-
-The site uses a Hybrid Architecture:
-
-### 1. The Tactical Monolith (CenthropyApp.jsx)
-The main landing page is a high-density component that manages the Three.js state and scroll-physics for the hero and core brand sections.
-
-### 2. The Editorial Module
-A modular system decoupled from the homepage that handles the lifecycle of content. It relies on the useEditorial hook for centralized state management and localStorage persistence.
-
-### Rendering Layers (Main Site)
-
-- **Canvas (z-0)**: Three.js WebGL background
-- **HUDs (z-1000)**: Fixed side panels (Left/Right)
-- **Content (z-5000)**: Scrollable info slides
-
----
-
-## Routing & Page Transitions
-Handled in App.jsx using a PageTransitionWrapper.
-- Transition: 150ms cover/reveal effect.
-- Dynamic Paths: /blog/:id (renders structural blocks).
-- Secured Paths: /terminal-x92-core/dashboard (Auth required).`
-    },
-    {
-        id: 'stack',
-        title: '03 — Technology Stack',
-        icon: <Cpu className="w-4 h-4" />,
-        content: `# 03 — Technology Stack
-
-## Core Framework
-
-- **React (^19.2.0)**: UI framework
-- **Vite (^7.3.1)**: Build & Dev tool
-- **React Router (^7.13.0)**: Client-side routing
-
-## Styling & Typography
-- **TailwindCSS**: Utility-first CSS.
-- **Lucide React**: Vector icons.
-- **Funnel Display**: Primary UI font.
-- **Unna**: Serif font used for high-legibility blog body text.
-
----
-
-## 3D Graphics
-- **Three.js**: Custom topographic sphere with dynamic geometry manipulation via noise/sinewaves.
-
-## Content Management (Internal)
-- **useEditorial Hook**: Custom state engine for CRUD operations.
-- **localStorage (ces_posts_v5)**: Native browser persistence with format migration logic.
-- **React Helmet Async**: Dynamic SEO control (Title/Meta).
-
----
-
-## SEO & SEM
-- **Microdata/Schema.org**: JSON-LD generated on-the-fly for articles.
-- **GEO Parameters**: Support for AI direct-answer summaries.
-
-## Build Pipeline
-Generates /dist via Vite. Deployable to any static hosting (Vercel, Netlify, Cloudflare).`
-    },
-    {
-        id: 'editorial',
-        title: '04 — Editorial System',
-        icon: <PenTool className="w-4 h-4" />,
-        content: `# 04 — Editorial System (CES v5.0)
-
-## Overview
-The **Centhropy Editorial System (CES)** is a custom-built content management engine integrated into the project. It provides a professional-grade writing and publishing experience with a "Notion-like" aesthetic.
-
-## Architecture
-The system is built on three pillars:
-1. **Engine**: useEditorial.js (Centralizes all logic).
-2. **Dashboard**: EditorialPanel.jsx (Overview, Slot management, Authors).
-3. **Builder**: PostEditor.jsx (Three-column writing experience).
-
----
-
-## The Block Editor
-Articles are composed of discrete content blocks, allowing for flexible layouts.
-- **Paragraph**: Standard body text.
-- **Heading 2/3**: Section naming.
-- **Quote**: High-impact editorial callouts.
-- **Image**: Inline media (local or URL).
-- **Callout**: Insight boxes with amber highlighting.
-- **List**: Bulleted or numbered lists.
-- **Divider**: Visual separators.
-
----
-
-## SEO & Analysis Engine
-- **Real-time Word Counter**: Updates as you type.
-- **SEO Indicators**: Real-time feedback on title, desc, and keywords.
-- **GEO Summary**: Field for AI engines to pull direct answers.
-- **Advanced Tags**: Meta-robots, canonical URLs, and OG images.
-
----
-
-## Slot System
-Global navigation menu has **4 dynamic slots** controlled via the CMS. Editors can link any active post to any slot.`
-    },
-    {
-        id: 'pages',
-        title: '05 — Page Templates',
-        icon: <Layout className="w-4 h-4" />,
-        content: `# 05 — Page Templates
-
-## 1. Directory Pages
-Newsroom, Impact Studies, and Announcements act as content aggregators.
-- **Fetching**: Use useEditorial to filter posts by type.
-- **Filtering**: Support for searching by title and sub-category.
-- **Cards**: Display post metadata and direct links.
-
----
-
-## 2. BlogPost Template
-Core rendering engine for long-form content.
-- **Column-centric**: Strict 720px width.
-- **Legibility**: Uses Unna serif font.
-- **Reading Progress**: Indicators for scroll depth.
-
----
-
-## 3. Terminal Core (Dashboard)
-Specialized administrative view utilizing a full-width sidebar layout.
-- **Theme**: "Editorial Clear" (Light theme).
-- **Navigation**: Persistent left sidebar for Posts, Slots, and Authors.`
-    }
-];
+const ICON_MAP = {
+    BookOpen: <BookOpen className="w-4 h-4" />,
+    FileText: <FileText className="w-4 h-4" />,
+    Layers: <Layers className="w-4 h-4" />,
+    Cpu: <Cpu className="w-4 h-4" />,
+    PenTool: <PenTool className="w-4 h-4" />,
+    Layout: <Layout className="w-4 h-4" />,
+    Terminal: <Terminal className="w-4 h-4" />,
+    Activity: <Activity className="w-4 h-4" />,
+    Hash: <Hash className="w-4 h-4" />,
+    Box: <Box className="w-4 h-4" />,
+};
 
 const Documentation = () => {
+    const { getPublishedDocs } = useEditorial();
+
+    const docsContent = useMemo(() => {
+        const published = getPublishedDocs() || [];
+        return published.map(d => ({
+            id: d.slug || d.id,
+            title: d.title,
+            icon: ICON_MAP[d.icon] || <FileText className="w-4 h-4" />,
+            content: d.content || '',
+        }));
+    }, [getPublishedDocs]);
     const [activeSection, setActiveSection] = useState('overview');
     const [activeSubsection, setActiveSubsection] = useState(null);
     const [searchQuery, setSearchQuery] = useState('');
@@ -279,6 +65,11 @@ const Documentation = () => {
 
     // Get subsections for a specific content string
     const getSubsections = (content) => {
+        if (!content) return [];
+        if (content.includes('<h2>') || content.includes('<h2 ')) {
+            const matches = [...content.matchAll(/<h2[^>]*>(.*?)<\/h2>/gi)];
+            return matches.map(m => m[1].replace(/<\/?[^>]+(>|$)/g, "").trim());
+        }
         return content.split('\n')
             .filter(line => line.startsWith('## '))
             .map(line => line.replace('## ', '').trim());
@@ -295,7 +86,7 @@ const Documentation = () => {
             const subsectionMatches = subsections.some(sub => sub.toLowerCase().includes(q));
             return titleMatches || subsectionMatches;
         });
-    }, [sidebarSearch]);
+    }, [sidebarSearch, docsContent]);
 
     const filteredDocs = useMemo(() => {
         if (!searchQuery) return docsContent;
@@ -304,7 +95,7 @@ const Documentation = () => {
             doc.title.toLowerCase().includes(q) ||
             doc.content.toLowerCase().includes(q)
         );
-    }, [searchQuery]);
+    }, [searchQuery, docsContent]);
 
     const scrollToAnchor = (anchorId) => {
         const element = document.getElementById(anchorId);
@@ -316,7 +107,17 @@ const Documentation = () => {
 
     const generateId = (text) => text.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]/g, '');
 
+    const injectIdsIntoHtml = (html) => {
+        if (!html) return '';
+        return html.replace(/<h2[^>]*>(.*?)<\/h2>/gi, (match, title) => {
+            const text = title.replace(/<\/?[^>]+(>|$)/g, "").trim();
+            const id = generateId(text);
+            return `<h2 id="${id}">${title}</h2>`;
+        });
+    };
+
     const renderMarkdown = (text) => {
+        if (!text) return null;
         return text.split('\n').map((line, i) => {
             if (line.startsWith('# ')) return <h1 key={i} className="text-6xl font-black uppercase tracking-tighter mb-16 pb-8 border-b-2 border-[#222944]/10 dark:border-[#BCC5DC]/10 text-[#222944] dark:text-[#BCC5DC] text-left">{line.replace('# ', '')}</h1>;
             if (line.startsWith('## ')) {
@@ -353,7 +154,18 @@ const Documentation = () => {
         });
     };
 
-    const activeDoc = docsContent.find(d => d.id === activeSection) || docsContent[0];
+    const activeDoc = docsContent.find(d => d.id === activeSection) || docsContent[0] || {
+        id: 'empty',
+        title: 'Sin Documentación',
+        icon: <BookOpen className="w-4 h-4" />,
+        content: '<h1>Sin Documentación</h1><p>Por favor, ingresa al panel de administración para agregar nueva documentación.</p>'
+    };
+
+    useEffect(() => {
+        if (docsContent.length > 0 && !docsContent.some(d => d.id === activeSection)) {
+            setActiveSection(docsContent[0].id);
+        }
+    }, [docsContent, activeSection]);
 
     return (
         <div className="h-screen bg-white dark:bg-[#222944] text-[#222944] dark:text-[#BCC5DC] font-funnel flex flex-col selection:bg-black selection:text-white relative overflow-hidden">
@@ -535,8 +347,12 @@ const Documentation = () => {
                             </div>
                         ) : (
                             <article className="animate-in fade-in slide-in-from-bottom-12 duration-1000 fill-mode-both relative">
-                                <div className="docs-content text-[#222944] dark:text-[#BCC5DC]">
-                                    {renderMarkdown(activeDoc.content)}
+                                <div className="docs-content docs-content-rich text-[#222944] dark:text-[#BCC5DC]">
+                                    {activeDoc.content.trim().startsWith('<') ? (
+                                        <div dangerouslySetInnerHTML={{ __html: injectIdsIntoHtml(activeDoc.content) }} />
+                                    ) : (
+                                        renderMarkdown(activeDoc.content)
+                                    )}
                                 </div>
                             </article>
                         )}

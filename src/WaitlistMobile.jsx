@@ -144,14 +144,14 @@ const WaitlistMobile = () => {
                 {/* Tactical Info Card - Smaller for mobile */}
                 <div className={`absolute top-10 right-0 w-64 bg-white dark:bg-[#222944] border border-[#222944] dark:border-[#BCC5DC] p-5 transition-all duration-300 z-30 pointer-events-none ${isInfoOpen ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2 pointer-events-none'}`}>
                     <div className="mb-3 flex justify-between items-center border-b border-[#222944]/10 dark:border-[#BCC5DC]/10 pb-2">
-                        <span className="text-[9px] font-mono font-bold tracking-[0.2em] uppercase text-[#222944] dark:text-[#BCC5DC]">EXCLUSIVITY_PROTOCOL</span>
-                        <span className="text-[9px] font-mono text-[#222944]/30 dark:text-[#BCC5DC]/50">[01]</span>
+                        <span className="text-[9px] font-funnel font-bold tracking-[0.2em] uppercase text-[#222944] dark:text-[#BCC5DC]">EXCLUSIVITY_PROTOCOL</span>
+                        <span className="text-[9px] font-funnel text-[#222944]/30 dark:text-[#BCC5DC]/50">[01]</span>
                     </div>
-                    <p className="text-[10px] font-mono leading-relaxed text-gray-600 uppercase tracking-wider text-justify">
+                    <p className="text-[10px] font-funnel leading-relaxed text-gray-600 uppercase tracking-wider text-justify">
                         Nuestra lista de espera actúa como filtro de integridad y control de calidad para asegurar una respuesta operativa de alta precisión y personalizada para cada entidad admitida.
                     </p>
                     <div className="mt-4 pt-2 border-t border-[#222944]/15 dark:border-[#BCC5DC]/5">
-                        <span className="text-[8px] font-mono italic text-[#222944]/40 dark:text-[#BCC5DC]/60">Exclusividad funcional autogestionada.</span>
+                        <span className="text-[8px] font-funnel italic text-[#222944]/40 dark:text-[#BCC5DC]/60">Exclusividad funcional autogestionada.</span>
                     </div>
                 </div>
             </div>
@@ -161,7 +161,7 @@ const WaitlistMobile = () => {
                 <form className="space-y-10 bg-white dark:bg-[#222944]" autoComplete="off" onSubmit={(e) => e.preventDefault()}>
                     {/* Full Name */}
                     <div className="group relative">
-                        <label className="text-[10px] font-mono uppercase tracking-[0.2em] text-gray-400 block mb-1">
+                        <label className="text-[10px] font-funnel uppercase tracking-[0.2em] text-gray-400 block mb-1">
                             Nombre y Apellido
                         </label>
                         <input type="text" placeholder="Ej. Alex Mercer" name="fullName" value={formData.fullName} onChange={handleInputChange}
@@ -170,7 +170,7 @@ const WaitlistMobile = () => {
 
                     {/* Email */}
                     <div className="group relative">
-                        <label className="text-[10px] font-mono uppercase tracking-[0.2em] text-gray-400 block mb-1">
+                        <label className="text-[10px] font-funnel uppercase tracking-[0.2em] text-gray-400 block mb-1">
                             Correo de Contacto
                         </label>
                         <input type="email" placeholder="contact@domain.com" name="email" value={formData.email} onChange={handleInputChange}
@@ -179,7 +179,7 @@ const WaitlistMobile = () => {
 
                     {/* Organization */}
                     <div className="group relative">
-                        <label className="text-[10px] font-mono uppercase tracking-[0.2em] text-gray-400 block mb-1">
+                        <label className="text-[10px] font-funnel uppercase tracking-[0.2em] text-gray-400 block mb-1">
                             Organización
                         </label>
                         <input type="text" placeholder="Centhropy Inc." name="orgName" value={formData.orgName} onChange={handleInputChange}
@@ -188,7 +188,7 @@ const WaitlistMobile = () => {
 
                     {/* Country Custom Dropdown */}
                     <div className="group relative" ref={dropdownRef}>
-                        <label className="text-[10px] font-mono uppercase tracking-[0.2em] text-gray-400 block mb-1">
+                        <label className="text-[10px] font-funnel uppercase tracking-[0.2em] text-gray-400 block mb-1">
                             País de Operación
                         </label>
                         <div
@@ -212,7 +212,7 @@ const WaitlistMobile = () => {
                                                 setSelectedCountry(c);
                                                 setIsDropdownOpen(false);
                                             }}
-                                            className="px-5 py-3 text-[10px] font-mono uppercase tracking-widest text-white/60 active:text-white active:bg-white/10 dark:bg-[#222944]/10 cursor-pointer transition-all border-b border-white/5 last:border-0"
+                                            className="px-5 py-3 text-[10px] font-funnel uppercase tracking-widest text-white/60 active:text-white active:bg-white/10 dark:bg-[#222944]/10 cursor-pointer transition-all border-b border-white/5 last:border-0"
                                         >
                                             {c.name}
                                         </div>
@@ -224,7 +224,7 @@ const WaitlistMobile = () => {
 
                     {/* Sector */}
                     <div className="group relative">
-                        <label className="text-[10px] font-mono uppercase tracking-[0.2em] text-gray-400 block mb-1">
+                        <label className="text-[10px] font-funnel uppercase tracking-[0.2em] text-gray-400 block mb-1">
                             Sector Específico
                         </label>
                         <input type="text" placeholder="Fintech / AI" name="sector" value={formData.sector} onChange={handleInputChange}
@@ -233,7 +233,7 @@ const WaitlistMobile = () => {
 
                     {/* Solution Custom Dropdown (Multi-select) */}
                     <div className="group relative" ref={solutionsRef}>
-                        <label className="text-[10px] font-mono uppercase tracking-[0.2em] text-gray-400 block mb-1">
+                        <label className="text-[10px] font-funnel uppercase tracking-[0.2em] text-gray-400 block mb-1">
                             Solución
                         </label>
                         <div
@@ -254,7 +254,7 @@ const WaitlistMobile = () => {
                                         <div
                                             key={opt}
                                             onClick={() => toggleSolution(opt)}
-                                            className="px-5 py-3 text-[10px] font-mono uppercase tracking-widest text-white/60 active:text-white active:bg-white/10 dark:bg-[#222944]/10 cursor-pointer transition-all border-b border-white/5 last:border-0 flex items-center justify-between"
+                                            className="px-5 py-3 text-[10px] font-funnel uppercase tracking-widest text-white/60 active:text-white active:bg-white/10 dark:bg-[#222944]/10 cursor-pointer transition-all border-b border-white/5 last:border-0 flex items-center justify-between"
                                         >
                                             <span>{opt}</span>
                                             {selectedSolutions.includes(opt) && (
@@ -269,7 +269,7 @@ const WaitlistMobile = () => {
 
                     {/* Organization Context */}
                     <div className="group relative">
-                        <label className="text-[10px] font-mono uppercase tracking-[0.2em] text-gray-400 block mb-3">
+                        <label className="text-[10px] font-funnel uppercase tracking-[0.2em] text-gray-400 block mb-3">
                             Contexto de la Organización
                         </label>
                         <textarea
@@ -295,7 +295,7 @@ const WaitlistMobile = () => {
                             <span>Ingresar</span>
                             <ChevronRight className={`w-4 h-4 transition-transform ${isFormValid ? "translate-x-0" : ""}`} />
                         </button>
-                        <p className="shimmer-text text-[10px] mt-12 text-center font-mono uppercase tracking-widest leading-relaxed">
+                        <p className="shimmer-text text-[10px] mt-12 text-center font-funnel uppercase tracking-widest leading-relaxed">
                             Será evaluado y contactado por nuestro departamento de<br />integración estratégica.
                         </p>
                     </div>
@@ -303,7 +303,7 @@ const WaitlistMobile = () => {
             </div>
 
             {/* Bottom Footer Section - Mobile Version */}
-            <div className="mt-20 w-full flex flex-col items-center gap-8 text-[8px] font-mono text-[#222944]/20 dark:text-[#BCC5DC]/40 tracking-[0.2em] uppercase pb-8">
+            <div className="mt-20 w-full flex flex-col items-center gap-8 text-[8px] font-funnel text-[#222944]/20 dark:text-[#BCC5DC]/40 tracking-[0.2em] uppercase pb-8">
                 <Link to="/" className="text-[#222944] dark:text-[#BCC5DC] font-bold border-b border-[#222944]/20 dark:border-[#BCC5DC]/20 pb-0.5 mb-2">VOLVER A HOME</Link>
                 <div className="flex justify-between w-full px-4">
                     <span>Authenticity_Guaranteed</span>

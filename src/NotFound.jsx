@@ -36,12 +36,12 @@ const NotFound = () => {
                 <AlertTriangle className="w-16 h-16 text-[#222944] dark:text-[#BCC5DC] mb-8" />
 
                 <div className="mb-6 flex flex-col items-center border-b border-[#222944]/10 dark:border-[#BCC5DC]/10 w-full pb-6">
-                    <span className="text-[12px] font-mono font-bold tracking-[0.3em] uppercase text-[#222944] dark:text-[#BCC5DC] mb-2">ERROR_404</span>
+                    <span className="text-[12px] font-funnel font-bold tracking-[0.3em] uppercase text-[#222944] dark:text-[#BCC5DC] mb-2">ERROR_404</span>
                     <h1 className="text-4xl font-bold tracking-tighter mb-2">CONNECTION LOST</h1>
-                    <span className="text-[10px] font-mono text-[#222944]/50 dark:text-[#BCC5DC]/70 tracking-[0.2em]">[SYSTEM_FAILURE: SECTOR NOT FOUND]</span>
+                    <span className="text-[10px] font-funnel text-[#222944]/50 dark:text-[#BCC5DC]/70 tracking-[0.2em]">[SYSTEM_FAILURE: SECTOR NOT FOUND]</span>
                 </div>
 
-                <p className="text-[10px] font-mono leading-relaxed text-gray-600 uppercase tracking-wider text-center px-4 mb-12 flex-grow">
+                <p className="text-[10px] font-funnel leading-relaxed text-gray-600 uppercase tracking-wider text-center px-4 mb-12 flex-grow">
                     El sector de datos solicitado no existe en nuestros registros o el acceso ha sido revocado.
                     <br /><br />
                     Verifique el protocolo de enrutamiento asignado.
@@ -57,13 +57,13 @@ const NotFound = () => {
                     </Link>
                 </div>
 
-                <p className="shimmer-text text-[10px] mt-12 text-center font-mono uppercase tracking-widest leading-relaxed">
+                <p className="shimmer-text text-[10px] mt-12 text-center font-funnel uppercase tracking-widest leading-relaxed">
                     Operación de fallo registrada<br />por el sistema de seguridad.
                 </p>
             </div>
 
             {/* Bottom Footer Section */}
-            <div className="mt-auto w-full flex flex-col items-center gap-8 text-[8px] font-mono text-[#222944]/20 dark:text-[#BCC5DC]/40 tracking-[0.2em] uppercase pt-16">
+            <div className="mt-auto w-full flex flex-col items-center gap-8 text-[8px] font-funnel text-[#222944]/20 dark:text-[#BCC5DC]/40 tracking-[0.2em] uppercase pt-16">
                 <div className="flex justify-between w-full px-4">
                     <span>Protocol_Status: Disconnected</span>
                     <span>v.26</span>

@@ -17,15 +17,21 @@ export const generateSlug = (title) => {
 };
 
 export const calculateReadTime = (content) => {
-    if (!Array.isArray(content) || content.length === 0) return '1 min read';
-    let wordCount = 0;
-    content.forEach(block => {
-        if (block.text) wordCount += block.text.trim().split(/\s+/).filter(Boolean).length;
-        if (block.attribution) wordCount += block.attribution.trim().split(/\s+/).filter(Boolean).length;
-        if (block.items && Array.isArray(block.items)) {
-            wordCount += block.items.join(' ').trim().split(/\s+/).filter(Boolean).length;
-        }
-    });
+    if (!content) return '1 min read';
+    let text = '';
+    if (typeof content === 'string') {
+        // Strip HTML tags to get pure text word count
+        text = content.replace(/<\/?[^>]+(>|$)/g, ' ');
+    } else if (Array.isArray(content)) {
+        content.forEach(block => {
+            if (block.text) text += ' ' + block.text;
+            if (block.attribution) text += ' ' + block.attribution;
+            if (block.items && Array.isArray(block.items)) {
+                text += ' ' + block.items.join(' ');
+            }
+        });
+    }
+    const wordCount = text.trim().split(/\s+/).filter(Boolean).length;
     const minutes = Math.max(1, Math.ceil(wordCount / 200));
     return `${minutes} min read`;
 };
@@ -60,42 +66,70 @@ const INITIAL_AUTHORS = [
 // ─────────────────────────────────────────────
 
 const migratePost = (post) => {
-    // Already migrated if `content` array exists
-    if (Array.isArray(post.content)) return post;
+    // If it's a string, it's already migrated (HTML format)
+    if (typeof post.content === 'string') return post;
 
     const slug = generateSlug(post.title);
-    const descriptionBlock = post.description
-        ? [{ id: generateId(), type: 'paragraph', text: post.description }]
-        : [];
+    let htmlContent = '';
+
+    if (Array.isArray(post.content)) {
+        htmlContent = post.content.map(block => {
+            switch (block.type) {
+                case 'paragraph':
+                    return block.text ? `<p>${block.text}</p>` : '';
+                case 'heading2':
+                    return block.text ? `<h2>${block.text}</h2>` : '';
+                case 'heading3':
+                    return block.text ? `<h3>${block.text}</h3>` : '';
+                case 'quote':
+                    return block.text ? `<blockquote><p>${block.text}</p>${block.attribution ? `<cite>— ${block.attribution}</cite>` : ''}</blockquote>` : '';
+                case 'image':
+                    return block.src ? `<img src="${block.src}" alt="${block.caption || ''}" />` : '';
+                case 'callout':
+                    return block.text ? `<div class="callout" data-variant="${block.variant || 'insight'}"><p>${block.text}</p></div>` : '';
+                case 'list':
+                    if (!block.items || block.items.length === 0) return '';
+                    const tag = block.ordered ? 'ol' : 'ul';
+                    const items = block.items.filter(item => item.trim()).map(item => `<li>${item}</li>`).join('');
+                    return items ? `<${tag}>${items}</${tag}>` : '';
+                case 'divider':
+                    return '<hr />';
+                default:
+                    return '';
+            }
+        }).join('\n');
+    } else if (post.description || post.excerpt) {
+        htmlContent = `<p>${post.description || post.excerpt}</p>`;
+    }
 
     return {
         ...post,
         slug: slug || post.id,
-        category: post.type === 'news'
+        category: post.category || (post.type === 'news'
             ? 'Blog'
             : post.type === 'announcement'
                 ? 'Estructura Organizativa'
-                : 'Retail Intelligence',
-        tags: [],
-        authorId: 'author_ce_1',
-        readTime: '3 min read',
-        coverImage: post.image || '',
-        coverCaption: '',
-        excerpt: post.description || '',
-        content: descriptionBlock,
+                : 'Retail Intelligence'),
+        tags: post.tags || [],
+        authorId: post.authorId || 'author_ce_1',
+        readTime: calculateReadTime(htmlContent),
+        coverImage: post.coverImage || post.image || '',
+        coverCaption: post.coverCaption || '',
+        excerpt: post.excerpt || post.description || '',
+        content: htmlContent,
         seo: {
-            metaTitle: post.title || '',
-            metaDescription: post.description || '',
-            focusKeyword: '',
-            canonicalUrl: '',
-            ogImage: post.image || '',
-            noIndex: false,
-            geoSummary: '',
-            entityMentions: [],
+            metaTitle: post.seo?.metaTitle || post.title || '',
+            metaDescription: post.seo?.metaDescription || post.excerpt || post.description || '',
+            focusKeyword: post.seo?.focusKeyword || '',
+            canonicalUrl: post.seo?.canonicalUrl || '',
+            ogImage: post.seo?.ogImage || post.coverImage || post.image || '',
+            noIndex: post.seo?.noIndex || false,
+            geoSummary: post.seo?.geoSummary || '',
+            entityMentions: post.seo?.entityMentions || [],
         },
         // keep legacy fields for backward compat with existing public pages
-        image: post.image || '',
-        description: post.description || '',
+        image: post.image || post.coverImage || '',
+        description: post.excerpt || post.description || '',
     };
 };
 
@@ -311,6 +345,11 @@ const INITIAL_SLOTS = {
 };
 
 // ─────────────────────────────────────────────
+// INITIAL DATA: DOCS (empty — managed from admin)
+// ─────────────────────────────────────────────
+const INITIAL_DOCS = [];
+
+// ─────────────────────────────────────────────
 // HOOK: useEditorial
 // ─────────────────────────────────────────────
 
@@ -338,6 +377,12 @@ export const useEditorial = () => {
         return saved ? JSON.parse(saved) : INITIAL_AUTHORS;
     });
 
+    // ── DOCS ───────────────────────────────────
+    const [docs, setDocs] = useState(() => {
+        const saved = localStorage.getItem('ces_docs');
+        return saved ? JSON.parse(saved) : INITIAL_DOCS;
+    });
+
     // ── PERSISTENCE ────────────────────────────
     useEffect(() => {
         localStorage.setItem('ces_posts_v11', JSON.stringify(posts));
@@ -353,11 +398,15 @@ export const useEditorial = () => {
         localStorage.setItem('ces_authors', JSON.stringify(authors));
     }, [authors]);
 
+    useEffect(() => {
+        localStorage.setItem('ces_docs', JSON.stringify(docs));
+    }, [docs]);
+
     // ── POST OPERATIONS ───────────────────────
 
     const addPost = (postData) => {
         const slug = generateSlug(postData.title);
-        const safeContent = Array.isArray(postData.content) ? postData.content : [];
+        const safeContent = typeof postData.content === 'string' ? postData.content : '';
         const newPost = {
             ...postData,
             id: generateId(),
@@ -377,7 +426,7 @@ export const useEditorial = () => {
     const updatePost = (id, updates) => {
         setPosts(prev => prev.map(p => {
             if (p.id !== id) return p;
-            const safeContent = Array.isArray(updates.content) ? updates.content : p.content;
+            const safeContent = typeof updates.content === 'string' ? updates.content : p.content;
             const merged = {
                 ...p,
                 ...updates,
@@ -456,12 +505,51 @@ export const useEditorial = () => {
         }));
     };
 
+    // ── DOC OPERATIONS ────────────────────────
+
+    const addDoc = (docData) => {
+        const newDoc = {
+            ...docData,
+            id: `doc_${generateId()}`,
+            slug: generateSlug(docData.title) || generateId(),
+            order: docs.length,
+            status: docData.status || 'draft',
+            createdAt: new Date().toISOString(),
+            updatedAt: new Date().toISOString(),
+        };
+        setDocs(prev => [...prev, newDoc]);
+        return newDoc;
+    };
+
+    const updateDoc = (id, updates) => {
+        setDocs(prev => prev.map(d => {
+            if (d.id !== id) return d;
+            const merged = { ...d, ...updates, updatedAt: new Date().toISOString() };
+            if (updates.title && updates.title !== d.title) {
+                merged.slug = generateSlug(updates.title) || merged.slug;
+            }
+            return merged;
+        }));
+    };
+
+    const deleteDoc = (id) => {
+        setDocs(prev => prev.filter(d => d.id !== id).map((d, i) => ({ ...d, order: i })));
+    };
+
+    const reorderDocs = (orderedIds) => {
+        setDocs(prev => {
+            const map = Object.fromEntries(prev.map(d => [d.id, d]));
+            return orderedIds.map((id, i) => ({ ...map[id], order: i })).filter(Boolean);
+        });
+    };
+
     // ── QUERY HELPERS ─────────────────────────
 
     const getPostBySlug = (slug) => posts.find(p => p.slug === slug && p.status === 'active');
     const getPostById = (id) => posts.find(p => p.id === id);
     const getPostsByType = (type) => posts.filter(p => p.type === type && p.status === 'active');
     const getAuthorById = (id) => authors.find(a => a.id === id);
+    const getPublishedDocs = () => [...docs].filter(d => d.status === 'published').sort((a, b) => a.order - b.order);
 
     return {
         // Posts
@@ -478,10 +566,17 @@ export const useEditorial = () => {
         addAuthor,
         updateAuthor,
         deleteAuthor,
+        // Docs
+        docs,
+        addDoc,
+        updateDoc,
+        deleteDoc,
+        reorderDocs,
         // Queries
         getPostBySlug,
         getPostById,
         getPostsByType,
         getAuthorById,
+        getPublishedDocs,
     };
 };

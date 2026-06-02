@@ -51,7 +51,7 @@ const ImpactCard = ({ post, index, caseIndex }) => {
                             </>
                         )}
                     </div>
-                    <span className="text-[10px] font-mono text-[#222944]/20 dark:text-[#BCC5DC]/40">{caseId}</span>
+                    <span className="text-[10px] font-funnel text-[#222944]/20 dark:text-[#BCC5DC]/40">{caseId}</span>
                 </div>
                 <h2 className="font-medium tracking-tighter uppercase leading-[0.9] group-hover:text-[#222944]/50 dark:text-[#BCC5DC]/70 transition-colors text-3xl md:text-4xl">
                     {post.title}
@@ -184,7 +184,7 @@ const ImpactStudies = () => {
                                 >
                                     {cat}
                                     {getCategoryCount(cat) > 0 && (
-                                        <span className={`ml-2 text-[9px] font-mono ${activeCategory === cat ? 'text-white/60' : 'text-[#222944]/20 dark:text-[#BCC5DC]/40'}`}>
+                                        <span className={`ml-2 text-[9px] font-funnel ${activeCategory === cat ? 'text-white/60' : 'text-[#222944]/20 dark:text-[#BCC5DC]/40'}`}>
                                             {getCategoryCount(cat)}
                                         </span>
                                     )}

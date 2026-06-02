@@ -40,7 +40,7 @@ const AdminLogin = () => {
     };
 
     return (
-        <div className="min-h-screen bg-black text-white font-mono flex items-center justify-center p-6 selection:bg-white dark:bg-[#222944] selection:text-[#222944] dark:text-[#BCC5DC]">
+        <div className="min-h-screen bg-black text-white font-funnel flex items-center justify-center p-6 selection:bg-white dark:bg-[#222944] selection:text-[#222944] dark:text-[#BCC5DC]">
             <div className="w-full max-w-md">
                 {/* Tactical Header */}
                 <div className="flex items-center justify-between border-b border-white/10 pb-4 mb-8">
